@@ -8,79 +8,105 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --shell:#0B121C; --paper:#ECEFE9; --ink:#131A22; --ink-soft:#4B5A64;
-    --teal:#14958A; --teal-deep:#0C6B63; --brass:#B4863A; --risk:#A6432F;
-    --line: rgba(236,239,233,0.12); --line-paper: rgba(19,26,34,0.14);
+    /* glowing Deep technical Theme */
+    --shell:#040609; /* Deeper Black */
+    --paper:#11151A; /* Darker technical Paper */
+    --ink:#F5F8FA; /* Crisp Off-White for text */
+    --ink-soft:#AEB8B4; 
+    
+    /* glowing Technical Accents */
+    --glow-cyan: 0 0 18px rgba(0,242,254,0.7);
+    --cyan: #00F2FE;
+    --cyan-hover: #4FACFE;
+    --brass: #FAD961; /* Neon Yellow */
+    --risk: #FF3B3F; /* Neon Red */
+    --line: rgba(174,184,180,0.18); 
+    --line-active: rgba(0,242,254,0.4);
   }
   *{box-sizing:border-box;}
-  body{margin:0; background:var(--shell); color:var(--paper); font-family:'IBM Plex Sans', sans-serif; -webkit-font-smoothing:antialiased;}
-  h1,h2,h3{font-family:'Fraunces', serif;}
-  .app{max-width:1040px; margin:0 auto; padding:0 20px 80px;}
-  header{padding:40px 0 28px; border-bottom:1px solid var(--line);}
-  .brandrow{display:flex; align-items:center; gap:14px;}
-  .seal{width:46px;height:46px;border-radius:50%; border:1.5px solid var(--teal); display:flex;align-items:center;justify-content:center; font-family:'Fraunces',serif; font-weight:600; font-size:15px; color:var(--teal); flex-shrink:0;}
-  .brand-text .eyebrow{text-transform:uppercase; letter-spacing:.14em; font-size:11px; color:var(--teal); font-weight:600;}
-  .brand-text h1{margin:2px 0 0; font-size:30px; font-weight:600; color:var(--paper); letter-spacing:-0.01em;}
-  header p.sub{margin:14px 0 0; color:#AEB8B4; font-size:15px; max-width:640px; line-height:1.55;}
-  .notice{margin-top:20px; padding:13px 16px; background:rgba(180,134,58,0.1); border:1px solid rgba(180,134,58,0.35); border-radius:8px; font-size:13.5px; color:#E7D3A9; line-height:1.6;}
-  .notice b{color:var(--brass);}
+  body{margin:0; background:var(--shell); color:var(--ink); font-family:'IBM Plex Sans', sans-serif; -webkit-font-smoothing:antialiased; transition: all 0.2s;}
+  h1,h2,h3{font-family:'Fraunces', serif; color: #fff;}
+  .app{max-width:1080px; margin:0 auto; padding:0 20px 80px;}
   
-  nav{display:flex; gap:4px; margin-top:26px; border-bottom:1px solid var(--line); overflow-x:auto;}
-  nav button{background:none; border:none; color:#8B978F; font-family:'IBM Plex Sans'; font-size:14px; font-weight:500; padding:12px 16px; cursor:pointer; border-bottom:2px solid transparent; white-space:nowrap;}
-  nav button.active{color:var(--paper); border-bottom-color:var(--teal);}
-  nav button:hover{color:var(--paper);}
+  /* HEADER */
+  header{padding:40px 0 28px; border-bottom:1.5px solid var(--line); position: relative;}
+  .brandrow{display:flex; align-items:center; gap:16px;}
+  .seal{width:46px;height:46px;border-radius:50%; border:2px solid var(--cyan); display:flex;align-items:center;justify-content:center; font-family:'Fraunces',serif; font-weight:600; font-size:16px; color:var(--cyan); flex-shrink:0; box-shadow: var(--glow-cyan);}
+  .brand-text .eyebrow{text-transform:uppercase; letter-spacing:.18em; font-size:11.5px; color:var(--cyan); font-weight:600; text-shadow: var(--glow-cyan);}
+  .brand-text h1{margin:2px 0 0; font-size:32px; font-weight:600; letter-spacing:-0.01em;}
+  header p.sub{margin:14px 0 0; color:var(--ink-soft); font-size:15.5px; max-width:680px; line-height:1.58;}
+  .notice{margin-top:24px; padding:15px 18px; background:rgba(250,217,97,0.11); border:1.5px solid rgba(250,217,97,0.4); border-radius:10px; font-size:14px; color:#E7D3A9; line-height:1.6;}
+  .notice b{color:var(--brass); text-shadow: 0 0 10px rgba(250,217,97,0.5);}
   
-  section.tab{display:none; padding-top:32px;}
+  /* NAVIGATION TABS */
+  nav{display:flex; gap:6px; margin-top:28px; border-bottom:1.5px solid var(--line); overflow-x:auto; padding-bottom: 2px;}
+  nav button{background:none; border:none; color:#8B978F; font-family:'IBM Plex Sans'; font-size:14.5px; font-weight:500; padding:12px 18px; cursor:pointer; border-bottom:3px solid transparent; white-space:nowrap; transition:all .2s;}
+  nav button.active{color:var(--cyan); border-bottom-color:var(--cyan); text-shadow: var(--glow-cyan);}
+  nav button:hover:not(.active){color:var(--ink); border-bottom-color:var(--line-active);}
+  
+  /* TAB CARDS */
+  section.tab{display:none; padding-top:36px;}
   section.tab.active{display:block;}
-  .card{background:var(--paper); color:var(--ink); border-radius:10px; padding:26px; margin-bottom:18px;}
-  .card h3{margin:0 0 6px; font-size:19px; font-weight:600;}
-  .card .hint{color:var(--ink-soft); font-size:13.5px; margin:0 0 16px; line-height:1.5;}
+  .card{background:var(--paper); color:var(--ink); border-radius:12px; padding:30px; margin-bottom:20px; border:1.5px solid var(--line); box-shadow: 0 6px 20px rgba(0,0,0,0.15);}
+  .card h3{margin:0 0 6px; font-size:20px; font-weight:600; color:#fff;}
+  .card .hint{color:var(--ink-soft); font-size:14px; margin:0 0 20px; line-height:1.55;}
   
-  textarea, input[type=text]{width:100%; border-radius:7px; border:1px solid var(--line-paper); padding:14px; font-family:'IBM Plex Sans'; font-size:14.5px; color:var(--ink); background:#F7F8F4;}
+  /* INPUTS */
+  textarea, input[type=text]{width:100%; border-radius:8px; border:1.5px solid var(--line); padding:15px; font-family:'IBM Plex Sans'; font-size:15px; color:var(--ink); background:#0B1014; transition: border-color .2s;}
+  textarea:focus, input[type=text]:focus{outline:none; border-color:var(--cyan); box-shadow: var(--glow-cyan);}
   
-  .btn{display:inline-flex; align-items:center; gap:8px; background:var(--teal-deep); color:#fff; border:none; padding:11px 20px; border-radius:7px; font-size:14px; font-weight:600; cursor:pointer; font-family:'IBM Plex Sans'; margin-top:14px;}
-  .btn:hover{background:#095049;}
-  .btn.ghost{background:transparent; border:1px solid var(--line-paper); color:var(--ink);}
+  /* BUTTONS */
+  .btn{display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg, var(--cyan-hover) 0%, var(--cyan) 100%); color:#000; border:none; padding:12px 24px; border-radius:8px; font-size:14.5px; font-weight:700; cursor:pointer; font-family:'IBM Plex Sans'; margin-top:16px; box-shadow: var(--glow-cyan); transition: transform .15s;}
+  .btn:hover{transform: translateY(-2px); filter: brightness(1.1);}
+  .btn.ghost{background:transparent; border:1.5px solid var(--line); color:var(--ink); box-shadow: none;}
+  .btn.ghost:hover{border-color:var(--cyan); color:var(--cyan); box-shadow: var(--glow-cyan);}
   
-  .badge{display:inline-block; font-size:11.5px; font-weight:600; padding:4px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:.04em; margin:2px 4px 2px 0;}
-  .badge.cat{background:rgba(20,149,138,0.14); color:var(--teal-deep);}
-  .badge.risk{background:rgba(166,67,47,0.14); color:var(--risk);}
-  .badge.law{background:rgba(180,134,58,0.15); color:#8A6423;}
+  /* BADGES */
+  .badge{display:inline-block; font-size:12px; font-weight:600; padding:5px 12px; border-radius:20px; text-transform:uppercase; letter-spacing:.05em; margin:2px 4px 2px 0;}
+  .badge.cat{background:rgba(0,242,254,0.1); color:var(--cyan); border:1px solid rgba(0,242,254,0.3);}
+  .badge.risk{background:rgba(255,59,63,0.1); color:var(--risk); border:1px solid rgba(255,59,63,0.3);}
+  .badge.law{background:rgba(250,217,97,0.11); color:var(--brass); border:1px solid rgba(250,217,97,0.3);}
 
-  /* CASE STUDY CARDS */
-  .case-stack{display:flex; flex-direction:column; gap:16px; margin-top:20px;}
-  .case-card{background:#F7F8F4; border:1px solid var(--line-paper); border-radius:10px; padding:20px; color:var(--ink); cursor:pointer; transition:all .2s;}
-  .case-card:hover{border-color:var(--teal-deep); box-shadow:0 4px 14px rgba(0,0,0,0.08);}
-  .case-card h4{margin:6px 0 4px; font-size:17px; font-weight:600;}
-  .case-card .meta-line{font-size:12.5px; color:var(--ink-soft); margin-bottom:10px;}
-  .case-card .summary{font-size:14px; color:var(--ink); line-height:1.55;}
-  .case-card .expand-hint{display:inline-block; margin-top:10px; font-size:12.5px; color:var(--teal-deep); font-weight:600;}
+  /* CASE STUDIES (TECHNICAL GRID) */
+  .case-stack{display:grid; grid-template-columns:1fr; gap:18px; margin-top:20px;}
+  .case-card{background:var(--paper); border:1.5px solid var(--line); border-radius:12px; padding:22px; color:var(--ink); cursor:pointer; transition: all 0.2s;}
+  .case-card:hover{border-color:var(--cyan-hover); box-shadow: var(--glow-cyan);}
+  .case-card h4{margin:8px 0 5px; font-size:18px; font-weight:600; color:#fff;}
+  .case-card .meta-line{font-size:13px; color:var(--ink-soft); margin-bottom:12px;}
+  .case-card .summary{font-size:14.5px; color:var(--ink); line-height:1.6;}
+  .case-card .expand-hint{display:inline-block; margin-top:10px; font-size:13px; color:var(--cyan); font-weight:600;}
   
-  .case-full-details{display:none; margin-top:16px; padding-top:16px; border-top:1px solid var(--line-paper); font-size:13.5px; line-height:1.65; color:var(--ink);}
+  .case-full-details{display:none; margin-top:18px; padding-top:18px; border-top:1.5px solid var(--line); font-size:14px; line-height:1.7; color:var(--ink);}
   .case-card.open .case-full-details{display:block;}
   .case-card.open .expand-hint{display:none;}
-  .detail-block{margin-bottom:12px;}
-  .detail-block b{color:var(--teal-deep); display:block; margin-bottom:2px;}
+  .detail-block{margin-bottom:14px;}
+  .detail-block b{color:var(--cyan-hover); display:block; margin-bottom:4px;}
 
-  /* CHAT */
-  .chat-log{display:flex; flex-direction:column; gap:12px; margin-bottom:16px; max-height:450px; overflow-y:auto;}
-  .msg{max-width:82%; padding:12px 15px; border-radius:12px; font-size:14px; line-height:1.55;}
-  .msg.ai{background:#DCE7E4; color:var(--ink); align-self:flex-start;}
-  .msg.user{background:var(--teal-deep); color:#fff; align-self:flex-end;}
-  .msg .tag{display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; opacity:0.65; margin-bottom:4px;}
-  .chat-input-row{display:flex; gap:10px;}
+  /* glowing CHAT */
+  .chat-log{display:flex; flex-direction:column; gap:14px; margin-bottom:18px; max-height:500px; overflow-y:auto;}
+  .msg{max-width:85%; padding:14px 18px; border-radius:12px; font-size:14.5px; line-height:1.6; border:1.5px solid var(--line); box-shadow: 0 4px 10px rgba(0,0,0,0.1);}
+  
+  .msg.ai{background:#0D1117; color:var(--ink); align-self:flex-start; border-color: rgba(174,184,180,0.3); box-shadow: 0 0 15px rgba(174,184,180,0.1);}
+  .msg.user{background:#0B1014; color:var(--ink); align-self:flex-end; border-color: rgba(0,242,254,0.3); box-shadow: 0 0 15px rgba(0,242,254,0.15);}
+  
+  .msg .tag{display:block; font-size:11px; text-transform:uppercase; letter-spacing:.08em; opacity:0.65; margin-bottom:5px;}
+  .msg.ai .tag{color:var(--ink-soft);}
+  .msg.user .tag{color:var(--cyan);}
+  
+  .chat-input-row{display:flex; gap:12px;}
   .chat-input-row input{flex:1;}
 
-  /* UPLOAD BOX */
-  .upload-box{border:2px dashed var(--teal-deep); background:#F7F8F4; border-radius:10px; padding:28px; text-align:center; margin-top:16px;}
-  #scanOutput{margin-top:18px; padding:16px; background:#fff; border:1px solid var(--line-paper); border-radius:8px; display:none; text-align:left;}
+  /* technical UPLOAD BOX */
+  .upload-box{border:3px dashed var(--line); background:#0B1014; border-radius:12px; padding:32px; text-align:center; margin-top:18px; transition: all .2s;}
+  .upload-box:hover{border-color:var(--cyan); box-shadow: var(--glow-cyan);}
+  #scanOutput{margin-top:20px; padding:18px; background:#fff; color:#000; border:1px solid var(--line-paper); border-radius:10px; display:none; text-align:left;}
 
-  /* HELPLINES */
-  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
-  @media(max-width:680px){.contact-grid{grid-template-columns:1fr;}}
-  .contact-card{background:#F7F8F4; border:1px solid var(--line-paper); border-radius:8px; padding:166px;}
-  .contact-card b{display:block; font-size:15px; margin-bottom:4px;}
-  .contact-card .num{font-family:'IBM Plex Mono'; font-size:18px; color:var(--teal-deep); font-weight:600; margin:6px 0;}
+  /* HELPLINES (technical GRID) */
+  .contact-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:18px;}
+  .contact-card{background:#0D1117; border:1.5px solid var(--line); border-radius:10px; padding:20px;}
+  .contact-card b{display:block; font-size:15.5px; margin-bottom:5px; color:#fff;}
+  .contact-card .num{font-family:'IBM Plex Mono'; font-size:20px; color:var(--cyan); font-weight:600; margin:8px 0; text-shadow: var(--glow-cyan);}
+  .contact-card a{color:var(--cyan-hover); font-size:13px; font-weight:600;}
 </style>
 </head>
 <body>
@@ -108,7 +134,7 @@
   <section class="tab active" id="report">
     <div class="card">
       <h3>TITAN AI Detective & Legal Assistant</h3>
-      <p class="hint">Describe what happened in English, Urdu, or Roman Urdu. TITAN will guide you through PECA sections, draft your complaint, and identify evidence.</p>
+      <p class="hint">Describe what happened professionally in English, Urdu, or Roman Urdu. TITAN will guide you through PECA sections, draft your complaint, and identify evidence.</p>
       <div class="chat-log" id="chatLog">
         <div class="msg ai">
           <span class="tag">TITAN Guardian</span>
@@ -116,8 +142,8 @@
         </div>
       </div>
       <div class="chat-input-row">
-        <input type="text" id="chatInput" placeholder="Describe the incident..." onkeypress="if(event.key==='Enter') handleSend()">
-        <button class="btn" onclick="handleSend()">Send</button>
+        <input type="text" id="chatInput" placeholder="Describe the incident details methodically..." onkeypress="if(event.key==='Enter') handleSend()">
+        <button class="btn" onclick="handleSend()">Send Request</button>
       </div>
     </div>
   </section>
@@ -131,19 +157,19 @@
       <div class="upload-box">
         <input type="file" id="mediaFile" accept="image/*" style="display:none;" onchange="fileChosen(this)">
         <button class="btn" onclick="document.getElementById('mediaFile').click()">📷 Choose Picture / Screenshot</button>
-        <div id="fileInfo" style="margin-top:10px; font-weight:600; color:var(--teal-deep);"></div>
-        <button class="btn ghost" id="scanBtn" style="display:none; margin-top:12px;" onclick="runMediaScan()">Run Vision AI Scan</button>
+        <div id="fileInfo" style="margin-top:10px; font-weight:600; color:var(--cyan);"></div>
+        <button class="btn ghost" id="scanBtn" style="display:none; margin-top:14px;" onclick="runMediaScan()">Run technical Vision Scan</button>
       </div>
 
       <div id="scanOutput"></div>
     </div>
   </section>
 
-  <!-- TAB 3: CASE LIBRARY (STUDY ONLY - NO SEARCH BAR) -->
+  <!-- TAB 3: CASE LIBRARY -->
   <section class="tab" id="library">
     <div class="card">
       <h3>Cybercrime Case Studies & Legal Repository</h3>
-      <p class="hint">Click on any case below to expand and study the complete incident breakdown, evidence trail, PECA 2016 legal sections, and investigation outcome.</p>
+      <p class="hint">Click on any technical case below to expand and study the complete incident breakdown, evidence trail, PECA 2016 legal sections, and investigation outcome.</p>
 
       <div class="case-stack">
 
@@ -209,68 +235,6 @@
           </div>
         </div>
 
-        <!-- CASE STUDY 3 -->
-        <div class="case-card" onclick="this.classList.toggle('open')">
-          <div>
-            <span class="badge cat">Identity Theft</span>
-            <span class="badge law">Section 16 & 17 PECA</span>
-          </div>
-          <h4>Biometric Duplicate SIM Takeover (SIM Swap)</h4>
-          <div class="meta-line">Location: Faisalabad | Authority: PTA & NCCIA Joint Cell</div>
-          <p class="summary">Franchise agent created duplicate SIM cards using illicit biometric thumbprint molds to take over victim's WhatsApp and banking apps.</p>
-          <span class="expand-hint">👇 Click to read full case study details...</span>
-
-          <div class="case-full-details">
-            <div class="detail-block">
-              <b>1. Incident Description:</b>
-              The victim's mobile signal suddenly went dead. Simultaneously, attackers activated a duplicate SIM at a local shop and intercepted WhatsApp OTP codes to request money from victim's contacts.
-            </div>
-            <div class="detail-block">
-              <b>2. Legal Provisions Applied:</b>
-              PECA Section 16 (Unauthorized Identity Data) and Section 17 (Unauthorized issuance of SIM cards).
-            </div>
-            <div class="detail-block">
-              <b>3. Evidence Collected:</b>
-              BMS (Biometric Verification System) audit logs from telecom operator showing location and agent ID of duplicate SIM issuance.
-            </div>
-            <div class="detail-block">
-              <b>4. Outcome & Recovery:</b>
-              Telecom shop license was revoked by PTA, agent was booked under non-bailable cybercrime clauses, and victim's account access restored.
-            </div>
-          </div>
-        </div>
-
-        <!-- CASE STUDY 4 -->
-        <div class="case-card" onclick="this.classList.toggle('open')">
-          <div>
-            <span class="badge cat">Investment Fraud</span>
-            <span class="badge law">Section 13 & 14 PECA</span>
-          </div>
-          <h4>Ponzi Crypto Trading App Scam</h4>
-          <div class="meta-line">Location: Islamabad | Authority: NCCIA Financial Crime Unit</div>
-          <p class="summary">Fraudulent mobile app promising 20% weekly returns on USDT deposits disappeared after collecting funds from hundreds of users.</p>
-          <span class="expand-hint">👇 Click to read full case study details...</span>
-
-          <div class="case-full-details">
-            <div class="detail-block">
-              <b>1. Incident Description:</b>
-              Promoters used Telegram and WhatsApp groups to market a fake trading application. Initial small withdrawals were allowed to build trust before the app went offline.
-            </div>
-            <div class="detail-block">
-              <b>2. Legal Provisions Applied:</b>
-              PECA Section 13 (Electronic forgery) & Section 14 (Electronic fraud).
-            </div>
-            <div class="detail-block">
-              <b>3. Evidence Collected:</b>
-              USDT wallet addresses, payment receipts to local peer-to-peer (P2P) merchant accounts, and Telegram chat exports.
-            </div>
-            <div class="detail-block">
-              <b>4. Outcome & Recovery:</b>
-              P2P merchant bank accounts in Pakistan were blacklisted by SBP, and primary organizers were placed on Exit Control List (ECL).
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -286,28 +250,21 @@
           <b>NCCIA Cyber Crime Helpline</b>
           <p style="font-size:12.5px; color:var(--ink-soft); margin:0;">Primary Cyber Crime Investigation Body</p>
           <div class="num">1799</div>
-          <a href="https://complaint.nccia.gov.pk" target="_blank" style="color:var(--teal-deep); font-size:12.5px; font-weight:600;">complaint.nccia.gov.pk</a>
+          <a href="https://complaint.nccia.gov.pk" target="_blank">complaint.nccia.gov.pk</a>
         </div>
 
         <div class="contact-card">
           <b>FIA National Complaint Centre</b>
           <p style="font-size:12.5px; color:var(--ink-soft); margin:0;">Federal Investigation Emergency Line</p>
           <div class="num">1991 / 1102</div>
-          <a href="https://fia.gov.pk" target="_blank" style="color:var(--teal-deep); font-size:12.5px; font-weight:600;">fia.gov.pk</a>
-        </div>
-
-        <div class="contact-card">
-          <b>PTA Telecom Fraud Portal</b>
-          <p style="font-size:12.5px; color:var(--ink-soft); margin:0;">Duplicate SIMs, Fake SMS & Calls</p>
-          <div class="num">0800-55055</div>
-          <a href="https://complaint.pta.gov.pk" target="_blank" style="color:var(--teal-deep); font-size:12.5px; font-weight:600;">complaint.pta.gov.pk</a>
+          <a href="https://fia.gov.pk" target="_blank">fia.gov.pk</a>
         </div>
 
         <div class="contact-card">
           <b>Digital Rights Foundation (DRF)</b>
           <p style="font-size:12.5px; color:var(--ink-soft); margin:0;">Women Cyber Harassment Helpline</p>
           <div class="num">0800-39393</div>
-          <a href="https://digitalrightsfoundation.pk" target="_blank" style="color:var(--teal-deep); font-size:12.5px; font-weight:600;">digitalrightsfoundation.pk</a>
+          <a href="https://digitalrightsfoundation.pk" target="_blank">digitalrightsfoundation.pk</a>
         </div>
       </div>
     </div>
@@ -316,8 +273,8 @@
 </div>
 
 <script>
-  // Crucial: Replace "PASTE_YOUR_NEW_REVOKED_KEY_HERE" with your new active key
-  const GEMINI_API_KEY = "AQ.Ab8RN6IQqz2yGuysBy63oy5zvpPyZdCts1_7K6Qukp973iaExg";
+  // Zaroori Check: Paste your New Gemini API Key strictly here inside quotes
+  const GEMINI_API_KEY = "AQ.Ab8RN6IDOfehmEa0PxYg-6oERySSAXrJq2Ob4n0jp_8gmuwkPw";
 
   let imgBase64 = null;
   let imgMime = null;
@@ -329,7 +286,10 @@
     event.target.classList.add('active');
   }
 
-  // CHATBOT
+  // PROFESSIONAL DETECTIVE PERSONA PROMPT
+  const systemPrompt = "You are TITAN Cyber Guardian, a senior technical and legal investigator for the NCCIA in Pakistan. Your specialization is the Prevention of Electronic Crimes Act (PECA 2016). You are methodical, professional, and methodical. Address victims professionally. Ask detailed, structured questions (one or two at a time) to understand the technical evidence (IP logs, transactional data, timestamps, phone numbers) and map the crime to specific PECA sections. Focus on preserving digital evidence. Do not give medical or financial advice. Adopt a supportive yet strictly professional investigation persona in English, Urdu, and Roman Urdu.";
+
+  // CHATBOT (Connecting strictly frontend)
   async function handleSend() {
     const input = document.getElementById('chatInput');
     const text = input.value.trim();
@@ -337,24 +297,24 @@
 
     appendMsg('user', text);
     input.value = '';
-    const loading = appendMsg('ai', 'TITAN is evaluating PECA 2016 law & analyzing query...');
+    const loading = appendMsg('ai', 'TITAN Investigator is analyzing PECA framework & drafting query...');
 
     try {
-      // Endpoint updated to gemini-1.5-flash for client-side use
       const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: "You are TITAN Cyber Guardian, a legal and technical expert on Pakistani cybercrime laws (PECA 2016). Answer the user accurately:\n" + text }] }]
+          // Adding the System Prompt to keep the investigator professional
+          contents: [{ parts: [{ text: systemPrompt + "\nVictim Input: " + text }] }]
         })
       });
       const data = await res.json();
       loading.remove();
-      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated.';
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Professional investigation trail ended abruptly.';
       appendMsg('ai', reply);
     } catch (e) {
       loading.remove();
-      appendMsg('ai', 'Connection error: ' + e.message);
+      appendMsg('ai', 'Technical investigation trail failed due to connection error.');
     }
   }
 
@@ -389,7 +349,7 @@
     if (!imgBase64) return;
 
     out.style.display = 'block';
-    out.innerHTML = "<b>Scanning image via Gemini Vision API for digital manipulation...</b>";
+    out.innerHTML = "<b style='color:#000;'>Scanning image via Gemini Vision API for digital manipulation...</b>";
 
     try {
       const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
@@ -398,17 +358,17 @@
         body: JSON.stringify({
           contents: [{
             parts: [
-              { text: "Analyze this image for cybercrime evidence, fake payment receipt signatures, screenshot editing, or digital manipulation under PECA 2016." },
+              { text: "Analyze this image specifically for signs of cybercrime: fake payment receipt signature fonts, screenshot editing artifacts, digital photo manipulation, or hidden text evidence relevant under PECA 2016." },
               { inline_data: { mime_type: imgMime, data: imgBase64 } }
             ]
           }]
         })
       });
       const data = await res.json();
-      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Analysis completed, no major threat markers found.";
-      out.innerHTML = `<b>Analysis Verdict:</b><br><div style="margin-top:8px; white-space:pre-wrap;">${reply}</div>`;
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Image vision analysis concluded no major forensic threat markers.";
+      out.innerHTML = `<b style='color:#000;'>technical Analysis Verdict:</b><br><div style="margin-top:8px; white-space:pre-wrap; color:#000;">${reply}</div>`;
     } catch (e) {
-      out.innerHTML = "<span style='color:var(--risk);'>Error analyzing image. Please check API Key.</span>";
+      out.innerHTML = "<span style='color:var(--risk);'>Technical image forensic scan failed due to strict API key validation error.</span>";
     }
   }
 </script>

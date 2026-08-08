@@ -290,6 +290,7 @@
   const systemPrompt = "You are TITAN Cyber Guardian, a senior technical and legal investigator for the NCCIA in Pakistan. Your specialization is the Prevention of Electronic Crimes Act (PECA 2016). You are methodical, professional, and methodical. Address victims professionally. Ask detailed, structured questions (one or two at a time) to understand the technical evidence (IP logs, transactional data, timestamps, phone numbers) and map the crime to specific PECA sections. Focus on preserving digital evidence. Do not give medical or financial advice. Adopt a supportive yet strictly professional investigation persona in English, Urdu, and Roman Urdu.";
 
   // CHATBOT (Connecting strictly frontend)
+  // CHATBOT (Connecting strictly frontend)
   async function handleSend() {
     const input = document.getElementById('chatInput');
     const text = input.value.trim();
@@ -300,24 +301,33 @@
     const loading = appendMsg('ai', 'TITAN Investigator is analyzing PECA framework & drafting query...');
 
     try {
+      // Structured multimodal request definition (CRUCIAL FIX)
+      const structuredContents = [
+        {
+          role: "user",
+          parts: [
+            { text: systemPrompt }, // Pehle full persona prompt
+            { text: "Victim Input: " + text } // Phir user ka input
+          ]
+        }
+      ];
+
       const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          // Adding the System Prompt to keep the investigator professional
-          contents: [{ parts: [{ text: systemPrompt + "\nVictim Input: " + text }] }]
+          contents: structuredContents // Ab response structured mode mein ayega
         })
       });
       const data = await res.json();
       loading.remove();
-      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Professional investigation trail ended abruptly.';
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Professional investigation trail ended due to strict empty reply.';
       appendMsg('ai', reply);
     } catch (e) {
       loading.remove();
       appendMsg('ai', 'Technical investigation trail failed due to connection error.');
     }
   }
-
   function appendMsg(sender, text) {
     const log = document.getElementById('chatLog');
     const div = document.createElement('div');

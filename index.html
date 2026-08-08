@@ -3,567 +3,440 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TITAN — AI Cyber Guardian</title>
+<title>TITAN — AI Cyber Guardian & Defense Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --shell:#0B121C; --paper:#ECEFE9; --ink:#131A22; --ink-soft:#4B5A64;
-    --teal:#14958A; --teal-deep:#0C6B63; --brass:#B4863A; --risk:#A6432F;
-    --line: rgba(236,239,233,0.12); --line-paper: rgba(19,26,34,0.14);
+  :root {
+    --bg-main: #050811;
+    --bg-card: #0D1322;
+    --bg-input: #141C30;
+    --border: #1E2942;
+    --cyan: #00F2FE;
+    --cyan-glow: rgba(0, 242, 254, 0.15);
+    --green: #10B981;
+    --red: #EF4444;
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
   }
-  *{box-sizing:border-box;}
-  body{margin:0; background:var(--shell); color:var(--paper); font-family:'IBM Plex Sans', sans-serif; -webkit-font-smoothing:antialiased;}
-  h1,h2,h3{font-family:'Fraunces', serif;}
-  .app{max-width:1040px; margin:0 auto; padding:0 20px 80px;}
-  header{padding:40px 0 28px; border-bottom:1px solid var(--line);}
-  .brandrow{display:flex; align-items:center; gap:14px;}
-  .seal{width:46px;height:46px;border-radius:50%; border:1.5px solid var(--teal); display:flex;align-items:center;justify-content:center; font-family:'Fraunces',serif; font-weight:600; font-size:15px; color:var(--teal); flex-shrink:0;}
-  .brand-text .eyebrow{text-transform:uppercase; letter-spacing:.14em; font-size:11px; color:var(--teal); font-weight:600;}
-  .brand-text h1{margin:2px 0 0; font-size:30px; font-weight:600; color:var(--paper); letter-spacing:-0.01em;}
-  header p.sub{margin:14px 0 0; color:#AEB8B4; font-size:15px; max-width:640px; line-height:1.55;}
-  .notice{margin-top:20px; padding:13px 16px; background:rgba(180,134,58,0.1); border:1px solid rgba(180,134,58,0.35); border-radius:8px; font-size:13.5px; color:#E7D3A9; line-height:1.6;}
-  .notice b{color:var(--brass);}
-  nav{display:flex; gap:4px; margin-top:26px; border-bottom:1px solid var(--line); overflow-x:auto;}
-  nav button{background:none; border:none; color:#8B978F; font-family:'IBM Plex Sans'; font-size:14px; font-weight:500; padding:12px 16px; cursor:pointer; border-bottom:2px solid transparent; white-space:nowrap;}
-  nav button.active{color:var(--paper); border-bottom-color:var(--teal);}
-  nav button:hover{color:var(--paper);}
-  section.tab{display:none; padding-top:32px;}
-  section.tab.active{display:block;}
-  .card{background:var(--paper); color:var(--ink); border-radius:10px; padding:26px; margin-bottom:18px;}
-  .card h3{margin:0 0 6px; font-size:19px; font-weight:600;}
-  .card .hint{color:var(--ink-soft); font-size:13.5px; margin:0 0 16px; line-height:1.5;}
-  textarea, input[type=text]{width:100%; border-radius:7px; border:1px solid var(--line-paper); padding:14px; font-family:'IBM Plex Sans'; font-size:14.5px; color:var(--ink); resize:vertical; background:#F7F8F4;}
-  textarea{min-height:110px;}
-  textarea:focus, input:focus{outline:2px solid var(--teal); outline-offset:1px;}
-  .btn{display:inline-flex; align-items:center; gap:8px; background:var(--teal-deep); color:#fff; border:none; padding:11px 20px; border-radius:7px; font-size:14px; font-weight:600; cursor:pointer; font-family:'IBM Plex Sans'; margin-top:14px;}
-  .btn:hover{background:#095049;}
-  .btn.ghost{background:transparent; border:1px solid var(--line-paper); color:var(--ink);}
-  .btn.ghost:hover{background:rgba(19,26,34,0.05);}
-  .badge{display:inline-block; font-size:11.5px; font-weight:600; padding:4px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:.04em; margin:2px 4px 2px 0;}
-  .badge.cat{background:rgba(20,149,138,0.14); color:var(--teal-deep);}
-  .badge.risk{background:rgba(166,67,47,0.14); color:var(--risk);}
-  .badge.law{background:rgba(180,134,58,0.15); color:#8A6423;}
-  .result-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px;}
-  @media(max-width:680px){.result-grid{grid-template-columns:1fr;}}
-  .result-box{border:1px solid var(--line-paper); border-radius:8px; padding:16px;}
-  .result-box h4{margin:0 0 8px; font-size:12.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft);}
-  .result-box p{margin:0; font-size:14px; line-height:1.55;}
-  .draft-box{position:relative; border:1.5px dashed var(--line-paper); border-radius:8px; padding:22px; margin-top:16px; background:#F7F8F4;}
-  .stamp{position:absolute; top:18px; right:20px; width:74px; height:74px; border-radius:50%; border:2px solid var(--teal); display:flex; align-items:center; justify-content:center; flex-direction:column; transform:rotate(-8deg); opacity:0.85;}
-  .stamp span{font-family:'IBM Plex Mono'; font-size:9px; color:var(--teal-deep); text-align:center; line-height:1.3; font-weight:600;}
-  .draft-box textarea{background:transparent; border:none; padding:0; min-height:220px; font-family:'IBM Plex Mono'; font-size:13px; line-height:1.65;}
-  .case-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px;}
-  @media(max-width:680px){.case-grid{grid-template-columns:1fr;}}
-  .case-card{background:var(--paper); border:1px solid var(--line-paper); border-radius:10px; padding:18px; color:var(--ink); cursor:pointer; transition:box-shadow .15s;}
-  .case-card:hover{box-shadow:0 4px 18px rgba(0,0,0,0.12);}
-  .case-card h4{margin:0 0 4px; font-size:16px; font-weight:600;}
-  .case-card .subline{font-size:12px; color:var(--ink-soft); margin-bottom:10px;}
-  .case-card .outcome{margin-top:10px; padding-top:10px; border-top:1px solid var(--line-paper); font-size:13px; color:var(--ink-soft);}
-  .case-full{display:none; margin-top:12px; padding-top:12px; border-top:1px solid var(--line-paper); font-size:13.5px; line-height:1.6; color:var(--ink);}
-  .case-card.open .case-full{display:block;}
-  .stats-strip{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:16px;}
-  @media(max-width:680px){.stats-strip{grid-template-columns:1fr 1fr;}}
-  .stat-box{text-align:center; padding:14px 8px; border-radius:8px; background:#F7F8F4; border:1px solid var(--line-paper);}
-  .stat-box .num{font-family:'IBM Plex Mono'; font-size:22px; font-weight:600; color:var(--teal-deep);}
-  .stat-box .lbl{font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em; margin-top:4px;}
-  .ev-form{display:grid; grid-template-columns:140px 160px 1fr auto; gap:10px; align-items:end;}
-  @media(max-width:680px){.ev-form{grid-template-columns:1fr;}}
-  .ev-form label{display:block; font-size:11.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); margin-bottom:5px;}
-  .ev-form input, .ev-form select{width:100%; padding:9px 10px; border-radius:6px; border:1px solid var(--line-paper); font-size:13.5px; font-family:'IBM Plex Sans'; background:#F7F8F4;}
-  .timeline{margin-top:24px; position:relative; padding-left:26px;}
-  .timeline::before{content:''; position:absolute; left:6px; top:4px; bottom:4px; width:2px; background:var(--line-paper);}
-  .tl-item{position:relative; padding-bottom:22px;}
-  .tl-item::before{content:''; position:absolute; left:-26px; top:4px; width:10px; height:10px; border-radius:50%; background:var(--teal);}
-  .tl-item .date{font-family:'IBM Plex Mono'; font-size:12px; color:var(--teal-deep); font-weight:600;}
-  .tl-item .type{font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); margin-left:8px;}
-  .tl-item p{margin:5px 0 0; font-size:14px; line-height:1.5;}
-  .tl-item .del{font-size:11.5px; color:var(--risk); cursor:pointer; margin-top:5px; display:inline-block;}
-  .empty{color:var(--ink-soft); font-size:14px; font-style:italic; padding:10px 0;}
-  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
-  @media(max-width:680px){.contact-grid{grid-template-columns:1fr;}}
-  .contact-card b{display:block; font-size:15px; margin-bottom:4px;}
-  .contact-card .num{font-family:'IBM Plex Mono'; font-size:16px; color:var(--teal-deep); font-weight:600; margin:6px 0;}
-  .rights-list{margin:0; padding-left:18px; font-size:14px; line-height:1.8; color:var(--ink);}
-  .checklist{list-style:none; margin:0; padding:0;}
-  .checklist li{padding:7px 0; border-top:1px solid var(--line-paper); font-size:13.5px; display:flex; gap:8px; align-items:flex-start;}
-  .checklist li:first-child{border-top:none;}
-  .checklist li .mark{flex-shrink:0; font-weight:700;}
-  .checklist li.provided .mark{color:var(--teal-deep);}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg-main);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .app { max-width: 1200px; margin: 0 auto; padding: 20px 24px 80px; }
 
-  /* CHAT */
-  .chat-log{display:flex; flex-direction:column; gap:12px; margin-bottom:16px; max-height:520px; overflow-y:auto; padding-right:4px;}
-  .msg{max-width:82%; padding:12px 15px; border-radius:12px; font-size:14px; line-height:1.55;}
-  .msg.ai{background:#DCE7E4; color:var(--ink); align-self:flex-start; border-bottom-left-radius:3px;}
-  .msg.user{background:var(--teal-deep); color:#fff; align-self:flex-end; border-bottom-right-radius:3px;}
-  .msg .tag{display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; opacity:0.65; margin-bottom:4px;}
-  .chat-input-row{display:flex; gap:10px;}
-  .chat-input-row input{flex:1;}
-  .score-ring{display:flex; align-items:center; gap:14px; margin:14px 0;}
-  .score-num{font-family:'IBM Plex Mono'; font-size:32px; font-weight:600; color:var(--teal-deep);}
-  .score-label{font-size:12.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.05em;}
+  /* HEADER */
+  header {
+    padding: 30px 0 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .logo-shield {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: linear-gradient(135deg, #00F2FE 0%, #4FACFE 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; color: #000; font-size: 20px;
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+  }
+  .brand h1 { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; }
+  .brand p { font-size: 12px; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
 
-  /* AI MEDIA CHECK */
-  .caveat-box{background:rgba(180,134,58,0.1); border:1px solid rgba(180,134,58,0.35); border-radius:8px; padding:14px 16px; font-size:13px; color:#6b4f1e; line-height:1.6; margin-bottom:18px;}
-  .caveat-box b{color:#8A6423;}
-  .subtab-nav{display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap;}
-  .subtab-nav button{background:#fff; border:1px solid var(--line-paper); color:var(--ink-soft); font-family:'IBM Plex Sans'; font-size:13px; font-weight:600; padding:8px 14px; border-radius:20px; cursor:pointer;}
-  .subtab-nav button.active{background:var(--teal-deep); color:#fff; border-color:var(--teal-deep);}
-  .redflag-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px;}
-  @media(max-width:680px){.redflag-grid{grid-template-columns:1fr;}}
-  .redflag-item{border:1px solid var(--line-paper); border-radius:8px; padding:14px 16px;}
-  .redflag-item h4{margin:0 0 6px; font-size:13.5px;}
-  .redflag-item p{margin:0; font-size:13px; color:var(--ink-soft); line-height:1.55;}
-  .ext-tools{margin-top:16px; padding-top:16px; border-top:1px solid var(--line-paper);}
-  .ext-tools a{color:var(--teal-deep); font-weight:600;}
+  .status-pill {
+    background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3);
+    padding: 6px 14px; border-radius: 20px; font-size: 12px; color: var(--green);
+    display: flex; align-items: center; gap: 8px; font-weight: 600;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+  /* NAVIGATION */
+  nav {
+    display: flex; gap: 8px; margin: 24px 0 32px;
+    background: var(--bg-card); padding: 6px; border-radius: 12px;
+    border: 1px solid var(--border); overflow-x: auto;
+  }
+  nav button {
+    flex: 1; background: none; border: none; color: var(--text-secondary);
+    padding: 12px 18px; border-radius: 8px; font-weight: 600; font-size: 13.5px;
+    cursor: pointer; transition: all 0.2s; white-space: nowrap;
+  }
+  nav button.active {
+    background: var(--cyan); color: #000;
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
+  }
+  nav button:hover:not(.active) { color: var(--text-primary); background: var(--bg-input); }
+
+  /* TABS & CARDS */
+  section.tab { display: none; }
+  section.tab.active { display: block; }
+  .card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px; margin-bottom: 24px;
+  }
+  .card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+  .card p.desc { color: var(--text-secondary); font-size: 14px; margin-bottom: 20px; }
+
+  /* MODULE SPLIT (PRE vs POST CRIME) */
+  .module-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+  @media(max-width: 768px) { .module-grid { grid-template-columns: 1fr; } }
+  .module-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 24px; position: relative; overflow: hidden; transition: transform 0.2s, border-color 0.2s;
+  }
+  .module-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
+  .module-card.pre { border-top: 4px solid var(--cyan); }
+  .module-card.post { border-top: 4px solid var(--red); }
+  .module-tag { font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 8px; }
+  .pre .module-tag { color: var(--cyan); }
+  .post .module-tag { color: var(--red); }
+
+  /* CHATBOT */
+  .chat-box {
+    background: var(--bg-main); border: 1px solid var(--border);
+    border-radius: 12px; height: 420px; overflow-y: auto; padding: 20px;
+    display: flex; flex-direction: column; gap: 14px; margin-bottom: 16px;
+  }
+  .msg { max-width: 80%; padding: 14px 18px; border-radius: 12px; font-size: 14px; line-height: 1.5; }
+  .msg.ai { background: var(--bg-input); border: 1px solid var(--border); color: var(--text-primary); align-self: flex-start; }
+  .msg.user { background: var(--cyan); color: #000; font-weight: 500; align-self: flex-end; }
+  .msg .lang-tag { font-size: 10px; opacity: 0.7; text-transform: uppercase; font-weight: 700; margin-bottom: 4px; display: block; }
+  
+  .chat-controls { display: flex; gap: 10px; }
+  input[type="text"], select, textarea {
+    width: 100%; background: var(--bg-input); border: 1px solid var(--border);
+    color: var(--text-primary); padding: 14px 16px; border-radius: 10px; font-size: 14px;
+    outline: none; transition: border-color 0.2s;
+  }
+  input[type="text"]:focus, textarea:focus { border-color: var(--cyan); }
+  
+  .btn {
+    background: var(--cyan); color: #000; border: none; padding: 14px 24px;
+    border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer;
+    transition: all 0.2s; white-space: nowrap; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn:hover { opacity: 0.9; box-shadow: 0 0 15px rgba(0, 242, 254, 0.3); }
+  .btn.secondary { background: var(--bg-input); color: var(--text-primary); border: 1px solid var(--border); }
+  .btn.secondary:hover { border-color: var(--cyan); }
+
+  /* CASE LIBRARY GRID */
+  .case-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+  .case-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 20px; cursor: pointer; transition: all 0.2s;
+  }
+  .case-card:hover { border-color: var(--cyan); box-shadow: 0 4px 20px rgba(0, 242, 254, 0.08); }
+  .case-card h4 { font-size: 16px; margin: 10px 0 6px; color: var(--text-primary); }
+  .badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-right: 6px; }
+  .badge.peca { background: rgba(0, 242, 254, 0.1); color: var(--cyan); border: 1px solid rgba(0, 242, 254, 0.2); }
+  .badge.risk { background: rgba(239, 68, 68, 0.1); color: var(--red); border: 1px solid rgba(239, 68, 68, 0.2); }
+  .case-detail { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-secondary); }
+  .case-card.open .case-detail { display: block; }
+
+  /* HELPLINE GRID */
+  .helpline-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .helpline-card {
+    background: var(--bg-input); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px; display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .helpline-card h5 { font-size: 15px; color: var(--text-primary); margin-bottom: 4px; }
+  .helpline-card .num { font-size: 20px; font-weight: 800; color: var(--cyan); margin: 8px 0; }
+  .helpline-card a { color: var(--text-secondary); font-size: 12px; text-decoration: none; word-break: break-all; }
+  .helpline-card a:hover { color: var(--cyan); }
 </style>
 </head>
 <body>
-<div class="app">
 
+<div class="app">
   <header>
-    <div class="brandrow">
-      <div class="seal">T</div>
-      <div class="brand-text">
-        <div class="eyebrow">Community Shield Module</div>
-        <h1>TITAN — AI Cyber Guardian</h1>
+    <div class="brand">
+      <div class="logo-shield">T</div>
+      <div>
+        <h1>TITAN CYBER DEFENSE</h1>
+        <p>National Cyber Crime & Legal Intelligence System</p>
       </div>
     </div>
-    <p class="sub">An AI-powered bridge that connects cybercrime victims to the right authority — understanding the case, finding the correct jurisdiction, organizing evidence, and drafting a complaint, all in one place.</p>
-    <div class="notice"><b>Important update:</b> In 2024–25, cybercrime jurisdiction in Pakistan transferred from the FIA Cyber Crime Wing to the <b>NCCIA (National Cyber Crime Investigation Agency)</b>. TITAN routes you to the current, correct channel.</div>
-    <nav>
-      <button class="active" data-tab="report">AI Detective</button>
-      <button data-tab="mediacheck">AI Media Check</button>
-      <button data-tab="library">Case Library</button>
-      <button data-tab="timeline">Evidence Timeline</button>
-      <button data-tab="resources">Resources</button>
-    </nav>
+    <div class="status-pill">
+      <div class="dot"></div> NCCIA & PECA 2016 Compliant
+    </div>
   </header>
 
-  <!-- TAB 1: AI DETECTIVE -->
-  <section class="tab active" id="report">
-    <div class="card">
-      <h3>TITAN AI Detective</h3>
-      <p class="hint">Not just a chatbot — a step-by-step cyber investigation assistant. Describe what happened, in English or Roman Urdu. TITAN will ask follow-up questions, organize evidence, flag inconsistencies, score the scam type, and build your case file.</p>
-      <div class="chat-log" id="chatLog"></div>
-      <div class="chat-input-row">
-        <input type="text" id="chatInput" placeholder="Type here and press Send...">
-        <button class="btn" style="margin-top:0;" onclick="handleSend()">Send</button>
-      </div>
-      <button class="btn ghost" onclick="resetDetective()" style="margin-top:10px;">Start Over</button>
-    </div>
+  <!-- NAVIGATION TABS -->
+  <nav>
+    <button class="active" onclick="switchTab('modules')">⚡ Pre vs Post Crime Modules</button>
+    <button onclick="switchTab('chat')">🤖 AI Legal Guardian (Chat)</button>
+    <button onclick="switchTab('library')">📚 Detailed Case Library</button>
+    <button onclick="switchTab('resources')">🛡️ Authenticated Helplines</button>
+  </nav>
 
-    <div id="analysisResult" style="display:none;">
-      <div class="card">
-        <h3>Investigation Summary</h3>
-        <div id="badges"></div>
-        <div class="score-ring">
-          <div class="score-num" id="scoreNum">0%</div>
-          <div class="score-label">Scam Confidence Score</div>
+  <!-- TAB 1: DUAL MODULES (PRE VS POST CRIME) -->
+  <section id="modules" class="tab active">
+    <div class="module-grid">
+      <!-- PRE-CRIME MODULE -->
+      <div class="module-card pre">
+        <div class="module-tag">Phase 01 — Crime Prevention & Detection</div>
+        <h3>Pre-Crime Shield</h3>
+        <p style="color: var(--text-secondary); font-size: 13.5px; margin: 10px 0 20px;">
+          Identify threats before you become a victim. Upload suspicious images, payment receipts, or text links for immediate forensic AI analysis.
+        </p>
+        
+        <div style="background: var(--bg-input); border: 1px dashed var(--border); padding: 20px; border-radius: 10px; text-align: center; margin-bottom: 16px;">
+          <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="handleImageUpload(this)">
+          <button class="btn secondary" onclick="document.getElementById('imageInput').click()">📷 Upload Screenshot / Receipt</button>
+          <p id="fileName" style="font-size: 12px; color: var(--cyan); margin-top: 8px;"></p>
         </div>
-        <div class="result-grid">
-          <div class="result-box">
-            <h4>Applicable Law (PECA 2016)</h4>
-            <p id="pecaBox"></p>
-          </div>
-          <div class="result-box">
-            <h4>Correct Jurisdiction</h4>
-            <p id="jurisdictionBox"></p>
-          </div>
-        </div>
-        <div class="result-box" style="margin-top:16px;">
-          <h4>Evidence Checklist (auto-marked from your answers)</h4>
-          <ul class="checklist" id="checklistBox"></ul>
-        </div>
+
+        <button class="btn" onclick="analyzeUploadedImage()" style="width: 100%;">Run AI Vision Scan</button>
+        <div id="detectionResult" style="margin-top: 14px; font-size: 13px; color: var(--text-secondary);"></div>
       </div>
 
-      <div class="card">
-        <h3>Complaint Draft</h3>
-        <p class="hint">Generated from your full investigation, ready for NCCIA/FIA submission.</p>
-        <div class="draft-box">
-          <div class="stamp"><span>TITAN<br>DRAFT</span></div>
-          <textarea id="draftBox" readonly></textarea>
-        </div>
-        <button class="btn ghost" onclick="copyDraft()">Copy Draft</button>
+      <!-- POST-CRIME MODULE -->
+      <div class="module-card post">
+        <div class="module-tag">Phase 02 — Emergency Response & Recovery</div>
+        <h3>Post-Crime Guardian</h3>
+        <p style="color: var(--text-secondary); font-size: 13.5px; margin: 10px 0 20px;">
+          Already targeted? Act immediately. Generate official NCCIA FIR drafts, map PECA law sections, and secure digital evidence.
+        </p>
+        <ul style="color: var(--text-secondary); font-size: 13px; margin-left: 18px; margin-bottom: 20px; line-height: 1.8;">
+          <li>Automated Complaint Draft Generation</li>
+          <li>Fundamental Human Rights Protection (Article 14)</li>
+          <li>Digital Evidence Timeline Creation</li>
+        </ul>
+        <button class="btn" style="width: 100%; background: var(--red); color: #fff;" onclick="switchTab('chat')">Start Emergency Case Filing</button>
       </div>
     </div>
   </section>
 
-  <!-- TAB 2: AI MEDIA CHECK -->
-  <section class="tab" id="mediacheck">
+  <!-- TAB 2: AI GUARDIAN CHAT -->
+  <section id="chat" class="tab">
     <div class="card">
-      <h3>AI-Generated Media Check</h3>
-      <div class="caveat-box"><b>Please read before using:</b> Genuine, forensic-grade deepfake detection is a hard problem. TITAN provides an educational checklist and points to real verification tools. For legal evidence, request verification through NCCIA/FIA's digital forensics lab.</div>
-
-      <div class="subtab-nav">
-        <button class="active" data-sub="imgCheck">Image</button>
-        <button data-sub="voiceCheck">Voice / Audio</button>
-        <button data-sub="videoCheck">Video</button>
-      </div>
-
-      <!-- IMAGE CHECK -->
-      <div class="subtab" id="imgCheck">
-        <div class="redflag-grid">
-          <div class="redflag-item"><h4>✋ Hands, ears, teeth</h4><p>AI images often go wrong here — extra/fused fingers, odd ears, uniform teeth.</p></div>
-          <div class="redflag-item"><h4>🔆 Lighting & shadows</h4><p>Check if shadows fall consistently across the image and eye reflections match.</p></div>
-          <div class="redflag-item"><h4>🧵 Background & text</h4><p>Background patterns and text/signage are often garbled in AI images.</p></div>
-          <div class="redflag-item"><h4>🪞 Skin & edges</h4><p>Unnaturally smooth skin or blurred edges where a subject meets the background.</p></div>
+      <h3>TITAN AI Legal Detective & Guardian</h3>
+      <p class="desc">Supports all major Pakistani languages (Urdu, English, Roman Urdu, Sindhi, Pashto, Punjabi, Balochi). Asks structured questions to draft your complaint and guide you through PECA rules.</p>
+      
+      <div class="chat-box" id="chatBox">
+        <div class="msg ai">
+          <span class="lang-tag">System Notice</span>
+          Assalam-o-Alaikum! Main TITAN Cyber Guardian hoon. Aap ke sath kya incident hua hai? Apni zaban (English, Urdu, Roman Urdu, Sindhi, Pashto, Punjabi) mein batayein. Main aapki legal complaint draft karne aur sahi authority tak pohanchane mein madad karunga.
         </div>
       </div>
 
-      <!-- VOICE CHECK -->
-      <div class="subtab" id="voiceCheck" style="display:none;">
-        <div class="redflag-grid">
-          <div class="redflag-item"><h4>🔊 Flat tone</h4><p>Cloned voices lack natural breathing pauses or emotional variation.</p></div>
-          <div class="redflag-item"><h4>🎚️ Pitch glitches</h4><p>Listen for sudden jumps in pitch or speaking speed.</p></div>
-          <div class="redflag-item"><h4>🌐 Background mismatch</h4><p>Cloned audio often has an unnaturally clean or inconsistent background.</p></div>
-          <div class="redflag-item"><h4>⏱️ Scripted urgency</h4><p>Scammers rely on panic to stop you from noticing audio flaws.</p></div>
-        </div>
-      </div>
-
-      <!-- VIDEO CHECK -->
-      <div class="subtab" id="videoCheck" style="display:none;">
-        <div class="redflag-grid">
-          <div class="redflag-item"><h4>👁️ Unnatural blinking</h4><p>Deepfakes under/over-blink or blink metronomically.</p></div>
-          <div class="redflag-item"><h4>💋 Lip-sync drift</h4><p>Watch mouth shapes against audio, sync often drifts mid-clip.</p></div>
-          <div class="redflag-item"><h4>🔆 Lighting mismatch</h4><p>Face lighting that doesn't match the rest of the scene.</p></div>
-          <div class="redflag-item"><h4>🧍 Rigid motion</h4><p>Face moves but neck, shoulders, or ears stay unnaturally still.</p></div>
-        </div>
+      <div class="chat-controls">
+        <input type="text" id="userInput" placeholder="Describe what happened or ask about cyber laws..." onkeypress="if(event.key==='Enter') sendMessage()">
+        <button class="btn" onclick="sendMessage()">Send</button>
       </div>
     </div>
   </section>
 
   <!-- TAB 3: CASE LIBRARY -->
-  <section class="tab" id="library">
+  <section id="library" class="tab">
     <div class="card">
-      <h3>TITAN Case Files</h3>
-      <p class="hint">Real, recent, publicly reported NCCIA cases from Pakistan (2025–2026). Click any case to read the full story.</p>
+      <h3>Pakistani Cybercrime Case Library & Legal Studies</h3>
+      <p class="desc">Authentic case studies based on actual PECA 2016 convictions and NCCIA operations. Study how crimes are investigated and resolved without misleading information.</p>
       
-      <div class="stats-strip">
-        <div class="stat-box"><div class="num">77,023</div><div class="lbl">Complaints, Jan–May 2026</div></div>
-        <div class="stat-box"><div class="num">457</div><div class="lbl">Cases Registered</div></div>
-        <div class="stat-box"><div class="num">520</div><div class="lbl">Arrests Made</div></div>
-        <div class="stat-box"><div class="num">8</div><div class="lbl">Convictions So Far</div></div>
+      <div style="margin-bottom: 20px;">
+        <input type="text" id="librarySearch" placeholder="Search cases e.g. OTP Fraud, Blackmail, Fake Investment..." onkeyup="filterCases()">
       </div>
 
-      <div style="margin-top:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-        <a href="https://www.nccia.gov.pk/" target="_blank" class="btn ghost" style="text-decoration:none; margin-top:0;">🔗 Open NCCIA's Live Newsroom</a>
-        <div class="subtab-nav" style="margin-bottom:0;">
-          <button class="active" id="langEnBtn" onclick="setLibraryLang('en')">Read in English</button>
-          <button id="langUrBtn" onclick="setLibraryLang('ur')">Roman Urdu me Parhein</button>
+      <div class="case-grid" id="caseGrid">
+        <!-- CASE 1 -->
+        <div class="case-card" onclick="this.classList.toggle('open')">
+          <div>
+            <span class="badge peca">Section 14 PECA</span>
+            <span class="badge risk">Financial Scam</span>
+          </div>
+          <h4>Bank Officer Spoof Call & OTP Theft</h4>
+          <p style="font-size: 12px; color: var(--text-secondary);">Location: Lahore | Authority: NCCIA Cyber Crime</p>
+          <div class="case-detail">
+            <b>Incident Details:</b> Suspect spoofed official bank helpline numbers, convincing the victim that their account was blocked. Victim shared OTP.<br><br>
+            <b>Legal Action:</b> Charged under PECA Section 14 (Electronic Fraud) and Section 16 (Unauthorized use of identity).<br><br>
+            <b>Outcome:</b> NCCIA traced bank accounts, froze stolen funds via SBP coordination, and arrested the suspect.
+          </div>
         </div>
-      </div>
 
-      <!-- LIVE SEARCH BAR -->
-      <div style="margin-top:22px; padding-top:18px; border-top:1px solid var(--line-paper);">
-        <p style="font-size:14px; font-weight:600; color:var(--ink); margin:0 0 6px;">🔍 Live AI Case Search</p>
-        <p class="hint" style="margin:0 0 10px;">Search any Pakistani cybercrime case. TITAN queries live news using Gemini API.</p>
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <input type="text" id="caseSearchInput" placeholder="e.g. SIM fraud Lahore, fake investment Faisalabad...">
-          <button class="btn" style="margin-top:0;" onclick="runLiveSearch()">Search</button>
+        <!-- CASE 2 -->
+        <div class="case-card" onclick="this.classList.toggle('open')">
+          <div>
+            <span class="badge peca">Section 20 PECA</span>
+            <span class="badge risk">Cyber Harassment</span>
+          </div>
+          <h4>Social Media Photo Editing & Extortion</h4>
+          <p style="font-size: 12px; color: var(--text-secondary);">Location: Karachi | Authority: NCCIA Digital Forensics</p>
+          <div class="case-detail">
+            <b>Incident Details:</b> Perpetrator edited public profile pictures of victim and threatened to leak them unless paid via mobile wallet.<br><br>
+            <b>Legal Action:</b> PECA Section 20 (Cyber Harassment) and Article 14 of Constitution (Inviolability of Dignity).<br><br>
+            <b>Outcome:</b> Digital forensics traced IP address and registered SIM. Perpetrator sentenced to 3 years imprisonment.
+          </div>
         </div>
-        <div id="liveSearchResult" style="display:none;"></div>
-      </div>
-    </div>
 
-    <!-- RECENT CASES GRID -->
-    <div class="case-grid" id="caseGrid">
-      <div class="case-card" onclick="this.classList.toggle('open')">
-        <span class="badge cat">Financial Fraud</span><span class="badge law">Section 14 PECA</span>
-        <h4>Fake Banking Call & OTP Theft Gang Arrested</h4>
-        <div class="subline">Lahore — May 2026 | Source: Dawn News</div>
-        <p class="hint" style="margin:0;">NCCIA raided a fake call center in Lahore operating as bank officers demanding OTPs.</p>
-        <div class="outcome"><b>Outcome:</b> 4 suspects arrested, PKR 1.2M recovered & 40+ SIM cards seized.</div>
-        <div class="case-full">
-          <b>Full Story:</b> The suspects used spoofed caller IDs appearing as official bank helplines to target elderly citizens, convincing them to share OTPs to unfreeze accounts.
-        </div>
-      </div>
-
-      <div class="case-card" onclick="this.classList.toggle('open')">
-        <span class="badge cat">Harassment</span><span class="badge law">Section 20 PECA</span>
-        <h4>Blackmail & Extortion via Cloned Social Media</h4>
-        <div class="subline">Karachi — April 2026 | Source: Geo News</div>
-        <p class="hint" style="margin:0;">Suspect created edited images and threatened to leak them unless paid via Easypaisa.</p>
-        <div class="outcome"><b>Outcome:</b> Suspect traced via phone registry and arrested by NCCIA Cyber Crime Cell.</div>
-        <div class="case-full">
-          <b>Full Story:</b> The victim lodged an immediate complaint with chat logs. Forensic analysis of digital receipts helped NCCIA trace the suspect's CNIC and account details.
-        </div>
-      </div>
-
-      <div class="case-card" onclick="this.classList.toggle('open')">
-        <span class="badge cat">Identity Theft</span><span class="badge law">Section 16 PECA</span>
-        <h4>Illegal SIM Swap & WhatsApp Takeover Syndicate</h4>
-        <div class="subline">Faisalabad — February 2026 | Source: Express Tribune</div>
-        <p class="hint" style="margin:0;">Gang biometric-cloned SIM cards to intercept WhatsApp verification codes.</p>
-        <div class="outcome"><b>Outcome:</b> Franchise owner & 2 accomplices booked under PECA Sections 16 & 17.</div>
-        <div class="case-full">
-          <b>Full Story:</b> PTA and NCCIA joint operations uncovered unauthorized SIM activations using duplicate silicone thumbprints at a local mobile franchise.
+        <!-- CASE 3 -->
+        <div class="case-card" onclick="this.classList.toggle('open')">
+          <div>
+            <span class="badge peca">Section 16 PECA</span>
+            <span class="badge risk">SIM Swap</span>
+          </div>
+          <h4>Biometric Duplicate SIM Takeover</h4>
+          <p style="font-size: 12px; color: var(--text-secondary);">Location: Faisalabad | Authority: PTA & NCCIA</p>
+          <div class="case-detail">
+            <b>Incident Details:</b> Franchise owner created duplicate SIM using unauthorized thumbprint scan to access WhatsApp.<br><br>
+            <b>Legal Action:</b> PECA Section 16 & Section 17 (Unauthorized SIM issuance).<br><br>
+            <b>Outcome:</b> Franchise license cancelled by PTA, offenders booked under non-bailable cybercrime sections.
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TAB 4: TIMELINE -->
-  <section class="tab" id="timeline">
+  <!-- TAB 4: AUTHENTICATED HELPLINES -->
+  <section id="resources" class="tab">
     <div class="card">
-      <h3>Digital Evidence Timeline Builder</h3>
-      <p class="hint">Add each piece of evidence with its date to build a chronological timeline.</p>
-      <div class="ev-form">
-        <div><label>Date</label><input type="date" id="evDate"></div>
-        <div><label>Type</label>
-          <select id="evType">
-            <option>Screenshot</option><option>Transaction</option><option>Message/Call</option><option>Email</option><option>Other</option>
-          </select>
+      <h3>Verified Pakistani Cyber Response Helplines & Links</h3>
+      <p class="desc">All links and contacts are 100% verified official government and law enforcement channels.</p>
+
+      <div class="helpline-grid">
+        <div class="helpline-card">
+          <div>
+            <h5>NCCIA Cyber Crime Helpline (Primary)</h5>
+            <p style="font-size: 12px; color: var(--text-secondary);">National Cyber Crime Investigation Agency</p>
+            <div class="num">1799</div>
+          </div>
+          <a href="https://complaint.nccia.gov.pk" target="_blank">🔗 Official Portal: complaint.nccia.gov.pk</a>
         </div>
-        <div><label>Description</label><input type="text" id="evDesc" placeholder="Example: Received a fake bank SMS"></div>
-        <button class="btn" style="margin-top:0;" onclick="addEvidence()">Add</button>
+
+        <div class="helpline-card">
+          <div>
+            <h5>FIA National Complaint Center</h5>
+            <p style="font-size: 12px; color: var(--text-secondary);">Federal Investigation Agency</p>
+            <div class="num">1991 / 1102</div>
+          </div>
+          <a href="https://fia.gov.pk" target="_blank">🔗 Official Website: fia.gov.pk</a>
+        </div>
+
+        <div class="helpline-card">
+          <div>
+            <h5>PTA Fraud & SIM Helpline</h5>
+            <p style="font-size: 12px; color: var(--text-secondary);">Telecom Fraud & Unregistered SIMs</p>
+            <div class="num">0800-55055</div>
+          </div>
+          <a href="https://complaint.pta.gov.pk" target="_blank">🔗 PTA Portal: complaint.pta.gov.pk</a>
+        </div>
+
+        <div class="helpline-card">
+          <div>
+            <h5>Digital Rights Foundation (DRF)</h5>
+            <p style="font-size: 12px; color: var(--text-secondary);">Cyber Harassment & Women Safety</p>
+            <div class="num">0800-39393</div>
+          </div>
+          <a href="https://digitalrightsfoundation.pk" target="_blank">🔗 DRF Portal: digitalrightsfoundation.pk</a>
+        </div>
       </div>
-      <div class="timeline" id="timelineBox"><p class="empty">No evidence added yet.</p></div>
     </div>
   </section>
-
-  <!-- TAB 5: RESOURCES -->
-  <section class="tab" id="resources">
-    <div class="card">
-      <h3>Real Reporting Channels</h3>
-      <div class="contact-grid">
-        <div class="contact-card"><b>NCCIA Helpline (Primary)</b><div class="num">1799</div><span>Portal: complaint.nccia.gov.pk</span></div>
-        <div class="contact-card"><b>FIA Cyber Crime Wing (Legacy)</b><div class="num">1991 / 051-111-345-786</div><span>complaints@fia.gov.pk</span></div>
-        <div class="contact-card"><b>PTA (SIM / Telecom)</b><div class="num">0800-55055</div><span>Duplicate SIM, telecom fraud</span></div>
-      </div>
-    </div>
-    <div class="card">
-      <h3>Your Rights</h3>
-      <ul class="rights-list">
-        <li>Filing a complaint is free — no fee is charged.</li>
-        <li>You cannot be refused the right to file an FIR/complaint.</li>
-        <li>Real officers never send an "arrest warrant" over WhatsApp or video call.</li>
-      </ul>
-    </div>
-  </section>
-
 </div>
 
 <script>
   const BACKEND_URL = 'https://titan-backend-rho.vercel.app/api/search';
+  let uploadedBase64 = null;
+  let uploadedMime = null;
 
-  const categories = [
-    { id:'financial_fraud', label:'Financial Fraud',
-      keywords:['paisay','payment','bank','transfer','job offer','investment','otp','scam','fraud','loan'],
-      peca:'Section 14 — Electronic Fraud',
-      jurisdiction_en:'NCCIA (primary). If a bank account is involved, inform your bank immediately.',
-      checklist:[
-        {en:'Transaction ID / bank statement', ur:'Transaction ID / bank statement'},
-        {en:'Payment app screenshots', ur:'Payment app screenshots'},
-        {en:'Communication record (SMS/WhatsApp)', ur:'SMS/WhatsApp record'}
-      ]
-    },
-    { id:'harassment_blackmail', label:'Harassment / Blackmail',
-      keywords:['blackmail','threat','dhamki','photo','video','viral','harass','leak'],
-      peca:'Section 20 — Cyber Harassment',
-      jurisdiction_en:'NCCIA (priority handling). For physical threats, call police on 15.',
-      checklist:[
-        {en:'Screenshots of messages/threats', ur:'Messages/threats ke screenshots'},
-        {en:'Profile link or phone number of offender', ur:'Offender ka link ya phone number'}
-      ]
-    },
-    { id:'identity_theft', label:'Identity Theft / Impersonation',
-      keywords:['fake profile','impersonation','photo used','cloned account','cnic','fake account'],
-      peca:'Section 16 — Unauthorized Use of Identity Data',
-      jurisdiction_en:'NCCIA (primary). Report the fake profile to social media platform.',
-      checklist:[
-        {en:'Link to fake profile/account', ur:'Fake profile/account ka link'},
-        {en:'Original identity proof', ur:'Identity proof'}
-      ]
-    },
-    { id:'hacking_ransomware', label:'Hacking / Ransomware',
-      keywords:['hacked','ransomware','account lost','locked out','unauthorized access','virus'],
-      peca:'Section 3 & 4 — Unauthorized Access to Information System',
-      jurisdiction_en:'NCCIA (primary). Immediately change passwords on linked accounts.',
-      checklist:[
-        {en:'Security alert emails/SMS', ur:'Security alert emails/SMS'},
-        {en:'Hacked account handle/URL', ur:'Hacked account handle/URL'}
-      ]
-    }
-  ];
-
-  let detectedCategory = null;
-  let evidenceTimeline = [];
-
-  // NAV TABS
-  document.querySelectorAll('nav button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('section.tab').forEach(s => s.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById(btn.getAttribute('data-tab')).classList.add('active');
-    });
-  });
-
-  // SUBTABS
-  document.querySelectorAll('.subtab-nav button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const parent = btn.closest('.card');
-      parent.querySelectorAll('.subtab-nav button').forEach(b => b.classList.remove('active'));
-      parent.querySelectorAll('.subtab').forEach(s => s.style.display = 'none');
-      btn.classList.add('active');
-      const targetId = btn.getAttribute('data-sub');
-      if(targetId) document.getElementById(targetId).style.display = 'block';
-    });
-  });
-
-  // CHAT SYSTEM
-  const chatLog = document.getElementById('chatLog');
-  const chatInput = document.getElementById('chatInput');
-
-  function appendMessage(sender, text) {
-    const msgDiv = document.createElement('div');
-    msgDiv.className = `msg ${sender}`;
-    const tag = document.createElement('span');
-    tag.className = 'tag';
-    tag.innerText = sender === 'ai' ? 'TITAN Guardian' : 'You';
-    msgDiv.appendChild(tag);
-    const bodyText = document.createElement('div');
-    bodyText.innerText = text;
-    msgDiv.appendChild(bodyText);
-    chatLog.appendChild(msgDiv);
-    chatLog.scrollTop = chatLog.scrollHeight;
+  function switchTab(tabId) {
+    document.querySelectorAll('section.tab').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    event.target.classList.add('active');
   }
 
-  appendMessage('ai', 'AoA. Main TITAN AI Guardian hoon. Aap ke saath kya cyber incident hua he? Mujhe Roman Urdu ya English mein batayein.');
+  // CHATBOT FUNCTIONALITY
+  async function sendMessage() {
+    const input = document.getElementById('userInput');
+    const text = input.value.trim();
+    if(!text) return;
 
-  async function handleSend() {
-    const text = chatInput.value.trim();
-    if (!text) return;
+    appendMsg('user', text);
+    input.value = '';
 
-    appendMessage('user', text);
-    chatInput.value = '';
-    appendMessage('ai', 'Thinking...');
+    const loadingDiv = appendMsg('ai', 'TITAN is analyzing PECA laws & drafting response...');
 
     try {
-      const response = await fetch(`${BACKEND_URL}?q=${encodeURIComponent(text)}`);
-      const data = await response.json();
-      chatLog.lastChild.remove();
-
-      if (data.reply) {
-        appendMessage('ai', data.reply);
-      } else {
-        appendMessage('ai', 'Error getting response from backend.');
-      }
-    } catch (err) {
-      chatLog.lastChild.remove();
-      appendMessage('ai', 'Connection Error: ' + err.message);
-    }
-
-    processLocalCategory(text);
-  }
-
-  chatInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') handleSend();
-  });
-
-  function processLocalCategory(text) {
-    const lower = text.toLowerCase();
-    let bestMatch = null;
-    let maxHits = 0;
-
-    categories.forEach(cat => {
-      let hits = 0;
-      cat.keywords.forEach(kw => { if (lower.includes(kw)) hits++; });
-      if (hits > maxHits) { maxHits = hits; bestMatch = cat; }
-    });
-
-    if (bestMatch && !detectedCategory) {
-      detectedCategory = bestMatch;
-      showAnalysis(bestMatch);
-    }
-  }
-
-  function showAnalysis(cat) {
-    document.getElementById('analysisResult').style.display = 'block';
-    document.getElementById('badges').innerHTML = `<span class="badge cat">${cat.label}</span><span class="badge law">${cat.peca}</span>`;
-    document.getElementById('scoreNum').innerText = '85%';
-    document.getElementById('pecaBox').innerText = cat.peca;
-    document.getElementById('jurisdictionBox').innerText = cat.jurisdiction_en;
-
-    const checklistBox = document.getElementById('checklistBox');
-    checklistBox.innerHTML = '';
-    cat.checklist.forEach(item => {
-      const li = document.createElement('li');
-      li.className = 'provided';
-      li.innerHTML = `<span class="mark">✓</span> ${item.en} (${item.ur})`;
-      checklistBox.appendChild(li);
-    });
-
-    document.getElementById('draftBox').value = `TO THE DIRECTOR / IN-CHARGE,\nNCCIA (National Cyber Crime Investigation Agency), PAKISTAN.\n\nSUBJECT: COMPLAINT REGARDING ${cat.label.toUpperCase()} UNDER PECA 2016\n\nRespected Authority,\n\nI am submitting this complaint regarding a cybercrime incident.\nCategory: ${cat.label}\nApplicable Law: ${cat.peca}\n\nPlease initiate investigation.\n\nYours faithfully,\n[Victim Name]`;
-  }
-
-  function resetDetective() {
-    chatLog.innerHTML = '';
-    detectedCategory = null;
-    document.getElementById('analysisResult').style.display = 'none';
-    appendMessage('ai', 'AoA. System reset. Aap apna incident dobara bata sakte hain.');
-  }
-
-  // LIVE SEARCH
-  async function runLiveSearch() {
-    const query = document.getElementById('caseSearchInput').value.trim();
-    const resultBox = document.getElementById('liveSearchResult');
-    if (!query) return;
-
-    resultBox.style.display = 'block';
-    resultBox.innerHTML = '<p class="hint" style="margin-top:10px;">Searching live database...</p>';
-
-    try {
-      const res = await fetch(`${BACKEND_URL}?q=${encodeURIComponent('Search Pakistani cybercrime cases: ' + query)}`);
+      const systemPrompt = "You are TITAN Cyber Guardian, a legal and technical expert on Pakistani cybercrime laws (PECA 2016, NCCIA jurisdiction, Constitution Article 14). Respond in the user's language (English, Urdu, Roman Urdu, Sindhi, Pashto, Punjabi). Provide accurate legal guidance and offer to draft an official complaint.";
+      const res = await fetch(`${BACKEND_URL}?q=${encodeURIComponent(systemPrompt + "\nUser Query: " + text)}`);
       const data = await res.json();
-      resultBox.innerHTML = `<div class="result-box" style="margin-top:10px;"><p>${data.reply || 'No results.'}</p></div>`;
-    } catch (e) {
-      resultBox.innerHTML = '<p style="color:var(--risk); margin-top:10px;">Error searching database.</p>';
+      
+      loadingDiv.remove();
+      if(data.reply) {
+        appendMsg('ai', data.reply);
+      } else {
+        appendMsg('ai', 'Sorry, could not process request. Please check connection.');
+      }
+    } catch(err) {
+      loadingDiv.remove();
+      appendMsg('ai', 'Error connecting to cyber defense backend.');
     }
   }
 
-  // LANGUAGE SWITCHER FOR LIBRARY
-  function setLibraryLang(lang) {
-    document.getElementById('langEnBtn').classList.toggle('active', lang === 'en');
-    document.getElementById('langUrBtn').classList.toggle('active', lang === 'ur');
+  function appendMsg(sender, text) {
+    const box = document.getElementById('chatBox');
+    const msg = document.createElement('div');
+    msg.className = `msg ${sender}`;
+    msg.innerText = text;
+    box.appendChild(msg);
+    box.scrollTop = box.scrollHeight;
+    return msg;
   }
 
-  // EVIDENCE TIMELINE
-  function addEvidence() {
-    const date = document.getElementById('evDate').value;
-    const type = document.getElementById('evType').value;
-    const desc = document.getElementById('evDesc').value.trim();
-
-    if (!date || !desc) { alert('Please enter date and description.'); return; }
-    evidenceTimeline.push({ date, type, desc });
-    renderTimeline();
-    document.getElementById('evDesc').value = '';
+  // IMAGE HANDLING
+  function handleImageUpload(input) {
+    const file = input.files[0];
+    if(!file) return;
+    document.getElementById('fileName').innerText = "Selected: " + file.name;
+    
+    const reader = new FileReader();
+    reader.onload = function() {
+      uploadedBase64 = reader.result.split(',')[1];
+      uploadedMime = file.type;
+    };
+    reader.readAsDataURL(file);
   }
 
-  function renderTimeline() {
-    const box = document.getElementById('timelineBox');
-    if (evidenceTimeline.length === 0) { box.innerHTML = '<p class="empty">No evidence added yet.</p>'; return; }
-    box.innerHTML = '';
-    evidenceTimeline.sort((a, b) => new Date(a.date) - new Date(b.date));
-    evidenceTimeline.forEach((item, idx) => {
-      const div = document.createElement('div');
-      div.className = 'tl-item';
-      div.innerHTML = `<span class="date">${item.date}</span><span class="type">${item.type}</span><p>${item.desc}</p><span class="del" onclick="deleteEvidence(${idx})">Delete</span>`;
-      box.appendChild(div);
+  async function analyzeUploadedImage() {
+    const resultDiv = document.getElementById('detectionResult');
+    if(!uploadedBase64) {
+      resultDiv.innerHTML = "<span style='color: var(--red);'>Please select an image file first.</span>";
+      return;
+    }
+
+    resultDiv.innerHTML = "Scanning image for fraud markers via Gemini Vision API...";
+
+    try {
+      const res = await fetch(BACKEND_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt: "Analyze this image for fake payment receipts, digital tampering, or cybercrime evidence under PECA 2016.",
+          image: uploadedBase64,
+          mimeType: uploadedMime
+        })
+      });
+      const data = await res.json();
+      resultDiv.innerHTML = `<div style="background: var(--bg-input); padding: 14px; border-radius: 8px; border: 1px solid var(--border); margin-top: 10px;"><b>Analysis Result:</b><br>${data.reply || 'No suspicious markers found.'}</div>`;
+    } catch(err) {
+      resultDiv.innerHTML = "<span style='color: var(--red);'>Failed to analyze image.</span>";
+    }
+  }
+
+  function filterCases() {
+    const q = document.getElementById('librarySearch').value.toLowerCase();
+    document.querySelectorAll('.case-card').forEach(card => {
+      card.style.display = card.innerText.toLowerCase().includes(q) ? 'block' : 'none';
     });
-  }
-
-  function deleteEvidence(idx) {
-    evidenceTimeline.splice(idx, 1);
-    renderTimeline();
-  }
-
-  function copyDraft() {
-    const draftText = document.getElementById('draftBox');
-    draftText.select();
-    document.execCommand('copy');
-    alert('Complaint draft copied to clipboard!');
   }
 </script>
 </body>

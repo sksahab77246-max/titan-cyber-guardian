@@ -1,322 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TITAN — AI Cyber Guardian</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --shell:#0B121C; --paper:#ECEFE9; --ink:#131A22; --ink-soft:#4B5A64;
-    --teal:#14958A; --teal-deep:#0C6B63; --brass:#B4863A; --risk:#A6432F;
-    --line: rgba(236,239,233,0.12); --line-paper: rgba(19,26,34,0.14);
-  }
-  *{box-sizing:border-box;}
-  body{margin:0; background:var(--shell); color:var(--paper); font-family:'IBM Plex Sans', sans-serif; -webkit-font-smoothing:antialiased;}
-  h1,h2,h3{font-family:'Fraunces', serif;}
-  .app{max-width:1040px; margin:0 auto; padding:0 20px 80px;}
-  header{padding:40px 0 28px; border-bottom:1px solid var(--line);}
-  .brandrow{display:flex; align-items:center; gap:14px;}
-  .seal{width:46px;height:46px;border-radius:50%; border:1.5px solid var(--teal); display:flex;align-items:center;justify-content:center; font-family:'Fraunces',serif; font-weight:600; font-size:15px; color:var(--teal); flex-shrink:0;}
-  .brand-text .eyebrow{text-transform:uppercase; letter-spacing:.14em; font-size:11px; color:var(--teal); font-weight:600;}
-  .brand-text h1{margin:2px 0 0; font-size:30px; font-weight:600; color:var(--paper); letter-spacing:-0.01em;}
-  header p.sub{margin:14px 0 0; color:#AEB8B4; font-size:15px; max-width:640px; line-height:1.55;}
-  .notice{margin-top:20px; padding:13px 16px; background:rgba(180,134,58,0.1); border:1px solid rgba(180,134,58,0.35); border-radius:8px; font-size:13.5px; color:#E7D3A9; line-height:1.6;}
-  .notice b{color:var(--brass);}
-  
-  nav{display:flex; gap:4px; margin-top:26px; border-bottom:1px solid var(--line); overflow-x:auto;}
-  nav button{background:none; border:none; color:#8B978F; font-family:'IBM Plex Sans'; font-size:14px; font-weight:500; padding:12px 16px; cursor:pointer; border-bottom:2px solid transparent; white-space:nowrap;}
-  nav button.active{color:var(--paper); border-bottom-color:var(--teal);}
-  nav button:hover{color:var(--paper);}
-  
-  section.tab{display:none; padding-top:32px;}
-  section.tab.active{display:block;}
-  .card{background:var(--paper); color:var(--ink); border-radius:10px; padding:26px; margin-bottom:18px;}
-  .card h3{margin:0 0 6px; font-size:19px; font-weight:600;}
-  .card .hint{color:var(--ink-soft); font-size:13.5px; margin:0 0 16px; line-height:1.5;}
-  
-  textarea, input[type=text]{width:100%; border-radius:7px; border:1px solid var(--line-paper); padding:14px; font-family:'IBM Plex Sans'; font-size:14.5px; color:var(--ink); background:#F7F8F4;}
-  
-  .btn{display:inline-flex; align-items:center; gap:8px; background:var(--teal-deep); color:#fff; border:none; padding:11px 20px; border-radius:7px; font-size:14px; font-weight:600; cursor:pointer; font-family:'IBM Plex Sans'; margin-top:14px;}
-  .btn:hover{background:#095049;}
-  .btn.ghost{background:transparent; border:1px solid var(--line-paper); color:var(--ink);}
-  
-  .badge{display:inline-block; font-size:11.5px; font-weight:600; padding:4px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:.04em; margin:2px 4px 2px 0;}
-  .badge.cat{background:rgba(20,149,138,0.14); color:var(--teal-deep);}
-  .badge.risk{background:rgba(166,67,47,0.14); color:var(--risk);}
-  .badge.law{background:rgba(180,134,58,0.15); color:#8A6423;}
-
-  /* CASE STUDY CARDS */
-  .case-stack{display:flex; flex-direction:column; gap:16px; margin-top:20px;}
-  .case-card{background:#F7F8F4; border:1px solid var(--line-paper); border-radius:10px; padding:20px; color:var(--ink); cursor:pointer; transition:all .2s;}
-  .case-card:hover{border-color:var(--teal-deep); box-shadow:0 4px 14px rgba(0,0,0,0.08);}
-  .case-card h4{margin:6px 0 4px; font-size:17px; font-weight:600;}
-  .case-card .meta-line{font-size:12.5px; color:var(--ink-soft); margin-bottom:10px;}
-  .case-card .summary{font-size:14px; color:var(--ink); line-height:1.55;}
-  .case-card .expand-hint{display:inline-block; margin-top:10px; font-size:12.5px; color:var(--teal-deep); font-weight:600;}
-  
-  .case-full-details{display:none; margin-top:16px; padding-top:16px; border-top:1px solid var(--line-paper); font-size:13.5px; line-height:1.65; color:var(--ink);}
-  .case-card.open .case-full-details{display:block;}
-  .case-card.open .expand-hint{display:none;}
-  .detail-block{margin-bottom:12px;}
-  .detail-block b{color:var(--teal-deep); display:block; margin-bottom:2px;}
-
-  /* CHAT */
-  .chat-log{display:flex; flex-direction:column; gap:12px; margin-bottom:16px; max-height:450px; overflow-y:auto;}
-  .msg{max-width:82%; padding:12px 15px; border-radius:12px; font-size:14px; line-height:1.55;}
-  .msg.ai{background:#DCE7E4; color:var(--ink); align-self:flex-start;}
-  .msg.user{background:var(--teal-deep); color:#fff; align-self:flex-end;}
-  .msg .tag{display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; opacity:0.65; margin-bottom:4px;}
-  .chat-input-row{display:flex; gap:10px;}
-  .chat-input-row input{flex:1;}
-
-  /* UPLOAD BOX */
-  .upload-box{border:2px dashed var(--teal-deep); background:#F7F8F4; border-radius:10px; padding:28px; text-align:center; margin-top:16px;}
-  #scanOutput{margin-top:18px; padding:16px; background:#fff; border:1px solid var(--line-paper); border-radius:8px; display:none; text-align:left;}
-
-  /* HELPLINES */
-  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
-  @media(max-width:680px){.contact-grid{grid-template-columns:1fr;}}
-  .contact-card{background:#F7F8F4; border:1px solid var(--line-paper); border-radius:8px; padding:16px;}
-  .contact-card b{display:block; font-size:15px; margin-bottom:4px;}
-  .contact-card .num{font-family:'IBM Plex Mono'; font-size:18px; color:var(--teal-deep); font-weight:600; margin:6px 0;}
-</style>
-</head>
-<body>
-<div class="app">
-
-  <header>
-    <div class="brandrow">
-      <div class="seal">T</div>
-      <div class="brand-text">
-        <div class="eyebrow">Community Shield & Defense Portal</div>
-        <h1>TITAN — AI Cyber Guardian</h1>
-      </div>
-    </div>
-    <p class="sub">An AI-powered bridge connecting cybercrime victims in Pakistan to legal guidance, evidence preparation, deepfake analysis, and PECA 2016 framework.</p>
-    <div class="notice"><b>Jurisdiction Note:</b> Cybercrime jurisdiction in Pakistan is handled by the <b>NCCIA (National Cyber Crime Investigation Agency)</b>. TITAN routes you to official complaint channels.</div>
-    <nav>
-      <button class="active" onclick="showTab('report')">AI Detective Chat</button>
-      <button onclick="showTab('mediacheck')">AI Media Detection</button>
-      <button onclick="showTab('library')">Case Studies Library</button>
-      <button onclick="showTab('resources')">Official Helplines</button>
-    </nav>
-  </header>
-
-  <!-- TAB 1: AI DETECTIVE CHAT -->
-  <section class="tab active" id="report">
-    <div class="card">
-      <h3>TITAN AI Detective & Legal Assistant</h3>
-      <p class="hint">Describe what happened in English, Urdu, or Roman Urdu. TITAN will guide you through PECA sections, draft your complaint, and identify evidence.</p>
-      <div class="chat-log" id="chatLog">
-        <div class="msg ai">
-          <span class="tag">TITAN Guardian</span>
-          Assalam-o-Alaikum! Main TITAN AI Cyber Detective hoon. Aap ke sath kya cyber incident hua hai? Apni zaban mein tafseel batayein.
-        </div>
-      </div>
-      <div class="chat-input-row">
-        <input type="text" id="chatInput" placeholder="Describe the incident..." onkeypress="if(event.key==='Enter') handleSend()">
-        <button class="btn" onclick="handleSend()">Send</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- TAB 2: AI MEDIA DETECTION -->
-  <section class="tab" id="mediacheck">
-    <div class="card">
-      <h3>AI Picture & Media Analysis</h3>
-      <p class="hint">Upload any suspicious image, fake payment receipt, edited screenshot, or profile picture. Gemini Vision API will scan it for digital manipulation, fake fonts, or forgery evidence.</p>
-      
-      <div class="upload-box">
-        <input type="file" id="mediaFile" accept="image/*" style="display:none;" onchange="fileChosen(this)">
-        <button class="btn" onclick="document.getElementById('mediaFile').click()">📷 Choose Picture / Screenshot</button>
-        <div id="fileInfo" style="margin-top:10px; font-weight:600; color:var(--teal-deep);"></div>
-        <button class="btn ghost" id="scanBtn" style="display:none; margin-top:12px;" onclick="runMediaScan()">Run Vision AI Scan</button>
-      </div>
-
-      <div id="scanOutput"></div>
-    </div>
-  </section>
-
-  <!-- TAB 3: CASE LIBRARY (STUDY ONLY - NO SEARCH BAR) -->
-  <section class="tab" id="library">
-    <div class="card">
-      <h3>Cybercrime Case Studies & Legal Repository</h3>
-      <p class="hint">Click on any case below to expand and study the complete incident breakdown, evidence trail, PECA 2016 legal sections, and investigation outcome.</p>
-
-      <div class="case-stack">
-
-        <!-- CASE STUDY 1 -->
-        <div class="case-card" onclick="this.classList.toggle('open')">
-          <div>
-            <span class="badge cat">Financial Fraud</span>
-            <span class="badge law">Section 14 & 16 PECA</span>
-          </div>
-          <h4>Bank Officer Spoof Call & OTP Interception</h4>
-          <div class="meta-line">Location: Lahore | Authority: NCCIA Cyber Crime Wing</div>
-          <p class="summary">Scammers spoofed an official bank helpline number and coerced an elderly citizen into sharing their transaction OTP under the threat of account freezing.</p>
-          <span class="expand-hint">👇 Click to read full case study details...</span>
-          
-          <div class="case-full-details">
-            <div class="detail-block">
-              <b>1. Incident Description:</b>
-              The victim received a call displaying the bank's official 111-helpline number (using VoIP caller ID spoofing). The scammer claimed an unauthorized transfer was occurring and asked for the OTP to "block" the transaction, resulting in a Rs. 850,000 fraud.
-            </div>
-            <div class="detail-block">
-              <b>2. Legal Provisions Applied:</b>
-              PECA 2016 Section 14 (Electronic Fraud - 2 to 10 years imprisonment) and Section 16 (Unauthorized use of identity information).
-            </div>
-            <div class="detail-block">
-              <b>3. Evidence Collected:</b>
-              Call log duration, telecom operator CDR (Call Detail Records), bank transaction IDs, and destination wallet CNIC details.
-            </div>
-            <div class="detail-block">
-              <b>4. Outcome & Recovery:</b>
-              NCCIA issued a freeze order under Section 23 to State Bank of Pakistan. Intercepted destination accounts were frozen, Rs. 620,000 recovered, and 2 suspects arrested in a raid.
-            </div>
-          </div>
-        </div>
-
-        <!-- CASE STUDY 2 -->
-        <div class="case-card" onclick="this.classList.toggle('open')">
-          <div>
-            <span class="badge cat">Harassment / Extortion</span>
-            <span class="badge law">Section 20 PECA</span>
-          </div>
-          <h4>Social Media Photo Manipulation & Blackmail</h4>
-          <div class="meta-line">Location: Karachi | Authority: NCCIA Forensics Unit</div>
-          <p class="summary">Perpetrator modified public social media pictures using basic AI editing tools and demanded money under threat of public release.</p>
-          <span class="expand-hint">👇 Click to read full case study details...</span>
-
-          <div class="case-full-details">
-            <div class="detail-block">
-              <b>1. Incident Description:</b>
-              A fake profile downloaded public photos of the victim, digitally edited them, and sent extortion messages via WhatsApp demanding payment via mobile wallet.
-            </div>
-            <div class="detail-block">
-              <b>2. Legal Provisions Applied:</b>
-              PECA 2016 Section 20 (Offences against dignity of a natural person - up to 5 years imprisonment/fine) & Constitution Article 14 (Inviolability of Dignity).
-            </div>
-            <div class="detail-block">
-              <b>3. Evidence Collected:</b>
-              Unedited original photos, WhatsApp chat export with timestamps, IP login logs obtained via platform metadata requests.
-            </div>
-            <div class="detail-block">
-              <b>4. Outcome & Recovery:</b>
-              Digital forensics matched IP headers to a registered home broadband line. Suspect was arrested, digital devices seized, and fake accounts taken down via PTA portal.
-            </div>
-          </div>
-        </div>
-
-        <!-- CASE STUDY 3 -->
-        <div class="case-card" onclick="this.classList.toggle('open')">
-          <div>
-            <span class="badge cat">Identity Theft</span>
-            <span class="badge law">Section 16 & 17 PECA</span>
-          </div>
-          <h4>Biometric Duplicate SIM Takeover (SIM Swap)</h4>
-          <div class="meta-line">Location: Faisalabad | Authority: PTA & NCCIA Joint Cell</div>
-          <p class="summary">Franchise agent created duplicate SIM cards using illicit biometric thumbprint molds to take over victim's WhatsApp and banking apps.</p>
-          <span class="expand-hint">👇 Click to read full case study details...</span>
-
-          <div class="case-full-details">
-            <div class="detail-block">
-              <b>1. Incident Description:</b>
-              The victim's mobile signal suddenly went dead. Simultaneously, attackers activated a duplicate SIM at a local shop and intercepted WhatsApp OTP codes to request money from victim's contacts.
-            </div>
-            <div class="detail-block">
-              <b>2. Legal Provisions Applied:</b>
-              PECA Section 16 (Unauthorized Identity Data) and Section 17 (Unauthorized issuance of SIM cards).
-            </div>
-            <div class="detail-block">
-              <b>3. Evidence Collected:</b>
-              BMS (Biometric Verification System) audit logs from telecom operator showing location and agent ID of duplicate SIM issuance.
-            </div>
-            <div class="detail-block">
-              <b>4. Outcome & Recovery:</b>
-              Telecom shop license was revoked by PTA, agent was booked under non-bailable cybercrime clauses, and victim's account access restored.
-            </div>
-          </div>
-        </div>
-
-        <!-- CASE STUDY 4 -->
-        <div class="case-card" onclick="this.classList.toggle('open')">
-          <div>
-            <span class="badge cat">Investment Fraud</span>
-            <span class="badge law">Section 13 & 14 PECA</span>
-          </div>
-          <h4>Ponzi Crypto Trading App Scam</h4>
-          <div class="meta-line">Location: Islamabad | Authority: NCCIA Financial Crime Unit</div>
-          <p class="summary">Fraudulent mobile app promising 20% weekly returns on USDT deposits disappeared after collecting funds from hundreds of users.</p>
-          <span class="expand-hint">👇 Click to read full case study details...</span>
-
-          <div class="case-full-details">
-            <div class="detail-block">
-              <b>1. Incident Description:</b>
-              Promoters used Telegram and WhatsApp groups to market a fake trading application. Initial small withdrawals were allowed to build trust before the app went offline.
-            </div>
-            <div class="detail-block">
-              <b>2. Legal Provisions Applied:</b>
-              PECA Section 13 (Electronic forgery) & Section 14 (Electronic fraud).
-            </div>
-            <div class="detail-block">
-              <b>3. Evidence Collected:</b>
-              USDT wallet addresses, payment receipts to local peer-to-peer (P2P) merchant accounts, and Telegram chat exports.
-            </div>
-            <div class="detail-block">
-              <b>4. Outcome & Recovery:</b>
-              P2P merchant bank accounts in Pakistan were blacklisted by SBP, and primary organizers were placed on Exit Control List (ECL).
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- TAB 4: RESOURCES & HELPLINES -->
-  <section class="tab" id="resources">
-    <div class="card">
-      <h3>Verified Pakistani Helplines & Portals</h3>
-      <p class="hint">Official government contacts for reporting cybercrime, SIM issues, or financial fraud.</p>
-      
-      <div class="contact-grid">
-        <div class="contact-card">
-          <b>NCCIA Cyber Crime Helpline</b>
-          <p style="font-size:12.5px; color:var(--ink-soft); margin:0;">Primary Cyber Crime Investigation Body</p>
-          <div class="num">1799</div>
-          <a href="https://complaint.nccia.gov.pk" target="_blank" style="color:var(--teal-deep); font-size:12.5px; font-weight:600;">complaint.nccia.gov.pk</a>
-        </div>
-
-        <div class="contact-card">
-          <b>FIA National Complaint Centre</b>
-          <p style="font-size:12.5px; color:var(--ink-soft); margin:0;">Federal Investigation Emergency Line</p>
-          <div class="num">1991 / 1102</div>
-          <a href="https://fia.gov.pk" target="_blank" style="color:var(--teal-deep); font-size:12.5px; font-weight:600;">fia.gov.pk</a>
-        </div>
-
-        <div class="contact-card">
-          <b>PTA Telecom Fraud Portal</b>
-          <p style="font-size:12.5px; color:var(--ink-soft); margin:0;">Duplicate SIMs, Fake SMS & Calls</p>
-          <div class="num">0800-55055</div>
-          <a href="https://complaint.pta.gov.pk" target="_blank" style="color:var(--teal-deep); font-size:12.5px; font-weight:600;">complaint.pta.gov.pk</a>
-        </div>
-
-        <div class="contact-card">
-          <b>Digital Rights Foundation (DRF)</b>
-          <p style="font-size:12.5px; color:var(--ink-soft); margin:0;">Women Cyber Harassment Helpline</p>
-          <div class="num">0800-39393</div>
-          <a href="https://digitalrightsfoundation.pk" target="_blank" style="color:var(--teal-deep); font-size:12.5px; font-weight:600;">digitalrightsfoundation.pk</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</div>
-
 <script>
-  const BACKEND_URL = 'https://titan-backend-rho.vercel.app/api/search';
+  // Apni Google Gemini API Key yahan paste karein
+  const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE";
+
   let imgBase64 = null;
   let imgMime = null;
 
@@ -338,14 +23,17 @@
     const loading = appendMsg('ai', 'TITAN is evaluating PECA 2016 law & analyzing query...');
 
     try {
-      const res = await fetch(`${BACKEND_URL}?q=${encodeURIComponent(text)}`);
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: "You are TITAN Cyber Guardian, a legal and technical expert on Pakistani cybercrime laws (PECA 2016). Answer the user accurately:\n" + text }] }]
+        })
+      });
       const data = await res.json();
       loading.remove();
-      if (data.reply) {
-        appendMsg('ai', data.reply);
-      } else {
-        appendMsg('ai', 'Error receiving response from backend.');
-      }
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated.';
+      appendMsg('ai', reply);
     } catch (e) {
       loading.remove();
       appendMsg('ai', 'Connection error: ' + e.message);
@@ -386,21 +74,23 @@
     out.innerHTML = "<b>Scanning image via Gemini Vision API for digital manipulation...</b>";
 
     try {
-      const res = await fetch(BACKEND_URL, {
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          prompt: "Analyze this image for cybercrime evidence, fake payment receipt signatures, screenshot editing, or digital manipulation under PECA 2016.",
-          image: imgBase64,
-          mimeType: imgMime
+          contents: [{
+            parts: [
+              { text: "Analyze this image for cybercrime evidence, fake payment receipt signatures, screenshot editing, or digital manipulation under PECA 2016." },
+              { inline_data: { mime_type: imgMime, data: imgBase64 } }
+            ]
+          }]
         })
       });
       const data = await res.json();
-      out.innerHTML = `<b>Analysis Verdict:</b><br><div style="margin-top:8px; white-space:pre-wrap;">${data.reply || 'No analysis generated.'}</div>`;
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Analysis completed, no major threat markers found.";
+      out.innerHTML = `<b>Analysis Verdict:</b><br><div style="margin-top:8px; white-space:pre-wrap;">${reply}</div>`;
     } catch (e) {
-      out.innerHTML = "<span style='color:var(--risk);'>Error analyzing image with backend.</span>";
+      out.innerHTML = "<span style='color:var(--risk);'>Error analyzing image. Please check API Key.</span>";
     }
   }
 </script>
-</body>
-</html>

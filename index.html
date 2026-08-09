@@ -167,8 +167,25 @@
     </nav>
   </header>
 
+
+  <!-- HIDDEN ADMIN PANEL (users nahi dekh sakte) -->
+  <div id="adminPanel" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.92); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:#0D1117; border:2px solid rgba(250,217,97,0.5); border-radius:16px; padding:36px; max-width:480px; width:90%;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <h3 style="margin:0; color:var(--brass); font-size:18px;">🔐 TITAN Admin Panel</h3>
+        <button onclick="closeAdmin()" style="background:none; border:none; color:var(--ink-soft); font-size:22px; cursor:pointer;">✕</button>
+      </div>
+      <p style="font-size:13px; color:var(--ink-soft); margin:0 0 16px;">Paste your Gemini API key below. It will be saved permanently in this browser. Users will not see this panel.</p>
+      <input type="password" id="adminKeyField" placeholder="AIza..." style="width:100%; background:#040609; border:1.5px solid rgba(250,217,97,0.3); border-radius:8px; padding:13px 14px; color:var(--ink); font-family:'IBM Plex Mono'; font-size:13px; margin-bottom:14px;">
+      <div style="display:flex; gap:10px;">
+        <button onclick="saveAdminKey()" style="flex:1; background:linear-gradient(135deg,#FAD961,#F76B1C); color:#000; border:none; padding:13px; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer;">Save Key</button>
+        <button onclick="clearAdminKey()" style="background:rgba(255,59,63,0.1); border:1px solid rgba(255,59,63,0.3); color:var(--risk); padding:13px 16px; border-radius:8px; font-size:13px; cursor:pointer;">Clear</button>
+      </div>
+      <p id="adminStatus" style="margin:12px 0 0; font-size:13px; color:var(--ink-soft); text-align:center;"></p>
+    </div>
+  </div>
+
   <!-- TAB 1: AI DETECTIVE -->
-  <section class="tab active" id="report">
     <div class="card">
       <h3>TITAN AI Detective & Legal Assistant</h3>
       <p class="hint">Not just a chatbot — a step-by-step cyber investigation assistant. Describe what happened in English or Roman Urdu. TITAN will ask follow-up questions, map to PECA sections, score scam tactics, and build your complaint draft.</p>
@@ -334,24 +351,69 @@
 </div>
 
 <script>
-// ── GEMINI API KEY (stored in sessionStorage — never in code, never visible) ──
-function getGeminiKey(){
-  let key = sessionStorage.getItem('titan_gemini_key');
-  if(!key || !key.startsWith('AIza')){
-    key = prompt('TITAN needs your Gemini API key to run AI features.\n\nGet a free key from: aistudio.google.com\n\nPaste your key below (AIza...):');
-    if(key && key.startsWith('AIza')){
-      sessionStorage.setItem('titan_gemini_key', key.trim());
-    } else {
-      alert('Invalid key. Please reload and try again.');
-      return null;
-    }
+// ── ADMIN PANEL ───────────────────────────────────────────────────────────────
+// Secret shortcut: press Ctrl + Shift + A to open admin panel
+document.addEventListener('keydown', e => {
+  if(e.ctrlKey && e.shiftKey && e.key === 'A'){
+    openAdmin();
   }
-  return key.trim();
+});
+// Also open via URL hash: site-url/#admin
+if(window.location.hash === '#admin'){
+  window.addEventListener('load', openAdmin);
+}
+
+function openAdmin(){
+  const panel = document.getElementById('adminPanel');
+  panel.style.display = 'flex';
+  const saved = localStorage.getItem('titan_gemini_key');
+  if(saved && saved.startsWith('AIza')){
+    document.getElementById('adminStatus').textContent = '✓ Key is currently active';
+    document.getElementById('adminStatus').style.color = '#00FF88';
+    document.getElementById('adminKeyField').placeholder = 'Key already saved — paste new one to replace';
+  }
+}
+function closeAdmin(){
+  document.getElementById('adminPanel').style.display = 'none';
+  // Clear hash if present
+  if(window.location.hash === '#admin'){
+    history.replaceState(null, '', window.location.pathname);
+  }
+}
+function saveAdminKey(){
+  const key = document.getElementById('adminKeyField').value.trim();
+  if(!key || !key.startsWith('AIza')){
+    document.getElementById('adminStatus').textContent = '✗ Invalid key — must start with AIza';
+    document.getElementById('adminStatus').style.color = 'var(--risk)';
+    return;
+  }
+  localStorage.setItem('titan_gemini_key', key);
+  document.getElementById('adminKeyField').value = '';
+  document.getElementById('adminKeyField').placeholder = '✓ Key saved successfully';
+  document.getElementById('adminStatus').textContent = '✓ Key saved! AI features are now active for all users of this browser.';
+  document.getElementById('adminStatus').style.color = '#00FF88';
+  setTimeout(closeAdmin, 1500);
+}
+function clearAdminKey(){
+  localStorage.removeItem('titan_gemini_key');
+  document.getElementById('adminStatus').textContent = 'Key cleared.';
+  document.getElementById('adminStatus').style.color = 'var(--ink-soft)';
+  document.getElementById('adminKeyField').placeholder = 'AIza...';
+}
+
+// ── GEMINI API KEY ────────────────────────────────────────────────────────────
+function getGeminiKey(){
+  const key = localStorage.getItem('titan_gemini_key');
+  if(!key || !key.startsWith('AIza')){
+    alert('AI features are not configured yet.\n\nPress Ctrl + Shift + A to open the admin panel and set up your API key.');
+    return null;
+  }
+  return key;
 }
 
 async function gemini(contents){
   const key = getGeminiKey();
-  if(!key) throw new Error('No API key set.');
+  if(!key) throw new Error('No API key configured.');
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`;
   const res = await fetch(url, {
     method:'POST', headers:{'Content-Type':'application/json'},
@@ -360,8 +422,8 @@ async function gemini(contents){
   const data = await res.json();
   if(data.error){
     if(data.error.code===400||data.error.code===403){
-      sessionStorage.removeItem('titan_gemini_key');
-      throw new Error('Invalid API key. Please reload and enter a valid key.');
+      localStorage.removeItem('titan_gemini_key');
+      throw new Error('Invalid API key. Press Ctrl+Shift+A to re-enter your key.');
     }
     throw new Error(data.error.message);
   }

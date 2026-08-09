@@ -228,12 +228,111 @@
       </div>
       <div class="card">
         <h3>Complaint Draft</h3>
-        <p class="hint">Generated from your investigation — ready for NCCIA submission.</p>
+        <p class="hint">Ye draft English mein generate hoga — NCCIA officially English complaints accept karta hai. Neeche Roman Urdu mein step-by-step guide bhi hai ke ye report kahan aur kaise submit karni hai.</p>
         <div class="draft-box">
           <div class="stamp"><span>TITAN<br>DRAFT<br id="stampId"></span></div>
           <textarea id="draftBox" readonly></textarea>
         </div>
-        <button class="btn ghost" onclick="copyDraft()">Copy Draft</button>
+        <button class="btn ghost" onclick="copyDraft()" style="margin-right:8px;">📋 Copy Draft</button>
+
+        <!-- SUBMISSION GUIDE -->
+        <div id="submissionGuide" style="display:none; margin-top:24px; background:#0B1014; border:1.5px solid rgba(0,242,254,0.2); border-radius:12px; padding:24px;">
+          <div id="guideEnglish">
+          <h4 style="color:var(--cyan); margin:0 0 16px; font-size:16px;">📋 How to Submit Your Report — Step by Step</h4>
+          <div style="margin-bottom:20px; padding:16px; border:1px solid var(--line); border-radius:10px;">
+            <p style="color:var(--brass); font-weight:700; margin:0 0 10px; font-size:14px;">🌐 Option 1: Online Portal (Easiest — From Home)</p>
+            <ol style="margin:0; padding-left:18px; font-size:13.5px; line-height:2; color:var(--ink);">
+              <li>Open <b style="color:var(--cyan);">complaint.nccia.gov.pk</b></li>
+              <li>Click "File a Complaint"</li>
+              <li>Enter your name, CNIC number, and phone number</li>
+              <li>Copy the draft above and paste it in the complaint box</li>
+              <li>Upload any screenshots or evidence you have</li>
+              <li>Submit — you will receive an <b style="color:var(--cyan);">official case number</b> — keep it safe</li>
+            </ol>
+            <p style="margin:10px 0 0; font-size:13px; color:var(--ink-soft);">⏱️ Response time: Usually 24–48 hours</p>
+          </div>
+          <div style="margin-bottom:20px; padding:16px; border:1px solid var(--line); border-radius:10px;">
+            <p style="color:var(--brass); font-weight:700; margin:0 0 10px; font-size:14px;">📞 Option 2: Helpline Call (If No Internet)</p>
+            <ol style="margin:0; padding-left:18px; font-size:13.5px; line-height:2; color:var(--ink);">
+              <li>Call <b style="color:var(--cyan);">1799</b> (NCCIA helpline — free call)</li>
+              <li>Tell the operator: "I want to report a cybercrime"</li>
+              <li>They will take your details and register the case</li>
+              <li>Note down the complaint number they give you</li>
+            </ol>
+            <p style="margin:10px 0 0; font-size:13px; color:var(--ink-soft);">🕐 Available: Monday–Saturday, 9 AM – 5 PM</p>
+          </div>
+          <div style="margin-bottom:20px; padding:16px; border:1px solid var(--line); border-radius:10px;">
+            <p style="color:var(--brass); font-weight:700; margin:0 0 10px; font-size:14px;">🏢 Option 3: Physical Office Visit</p>
+            <ol style="margin:0; padding-left:18px; font-size:13.5px; line-height:2; color:var(--ink);">
+              <li>Visit your nearest <b style="color:var(--cyan);">NCCIA / FIA office</b></li>
+              <li>Print this draft and bring it with you</li>
+              <li>Bring original CNIC and a photocopy</li>
+              <li>Bring printed evidence (screenshots, transaction records)</li>
+              <li>Give the draft to the officer — they will register the FIR</li>
+            </ol>
+          </div>
+          <div style="padding:16px; background:rgba(255,59,63,0.07); border:1px solid rgba(255,59,63,0.25); border-radius:10px;">
+            <p style="color:var(--risk); font-weight:700; margin:0 0 10px; font-size:14px;">⚠️ Important — Please Read Carefully</p>
+            <ul style="margin:0; padding-left:18px; font-size:13.5px; line-height:2; color:var(--ink);">
+              <li>Filing a complaint is <b>completely free</b> — no fee required</li>
+              <li>No real officer will <b>ask for money on WhatsApp or call</b> — that is fraud</li>
+              <li>You <b>cannot be refused</b> the right to file an FIR — it is your legal right</li>
+              <li>Report as soon as possible — <b>do not delete any evidence</b></li>
+              <li>After getting the official case number, <b>take a screenshot or write it down</b></li>
+              <li>If any officer asks for money, <b>report it to 1799 immediately</b></li>
+            </ul>
+          </div>
+          </div>
+
+          <div id="guideUrdu" style="display:none;">
+          <h4 style="color:var(--cyan); margin:0 0 16px; font-size:16px;">📋 درخواست جمع کرانے کا طریقہ — مرحلہ وار رہنمائی</h4>
+          <div style="margin-bottom:20px; padding:16px; border:1px solid var(--line); border-radius:10px;">
+            <p style="color:var(--brass); font-weight:700; margin:0 0 10px; font-size:14px;">🌐 طریقہ اول: آن لائن پورٹل (آسان ترین)</p>
+            <ol style="margin:0; padding-left:18px; font-size:13.5px; line-height:2.2; color:var(--ink);">
+              <li>براہ کرم <b style="color:var(--cyan);">complaint.nccia.gov.pk</b> ویب سائٹ کھولیں</li>
+              <li>"File a Complaint" کے بٹن پر کلک کریں</li>
+              <li>اپنا نام، شناختی کارڈ نمبر اور فون نمبر درج کریں</li>
+              <li>اوپر دی گئی درخواست کاپی کر کے شکایت کے خانے میں پیسٹ کریں</li>
+              <li>اگر اسکرین شاٹ یا کوئی ثبوت موجود ہو تو اسے اپ لوڈ کریں</li>
+              <li>درخواست جمع کرائیں — آپ کو <b style="color:var(--cyan);">سرکاری کیس نمبر</b> ملے گا — اسے محفوظ رکھیں</li>
+            </ol>
+            <p style="margin:10px 0 0; font-size:13px; color:var(--ink-soft);">⏱️ جوابی وقت: عموماً 24 تا 48 گھنٹے</p>
+          </div>
+          <div style="margin-bottom:20px; padding:16px; border:1px solid var(--line); border-radius:10px;">
+            <p style="color:var(--brass); font-weight:700; margin:0 0 10px; font-size:14px;">📞 طریقہ دوم: ہیلپ لائن (انٹرنیٹ نہ ہونے کی صورت میں)</p>
+            <ol style="margin:0; padding-left:18px; font-size:13.5px; line-height:2.2; color:var(--ink);">
+              <li><b style="color:var(--cyan);">1799</b> پر کال کریں (NCCIA ہیلپ لائن — مفت)</li>
+              <li>آپریٹر کو بتائیں: "مجھے سائبر کرائم رپورٹ کرنا ہے"</li>
+              <li>وہ آپ کی تفصیلات لے کر کیس درج کریں گے</li>
+              <li>فراہم کردہ شکایت نمبر نوٹ کر لیں</li>
+            </ol>
+            <p style="margin:10px 0 0; font-size:13px; color:var(--ink-soft);">🕐 دستیاب اوقات: پیر تا ہفتہ، صبح 9 بجے تا شام 5 بجے</p>
+          </div>
+          <div style="margin-bottom:20px; padding:16px; border:1px solid var(--line); border-radius:10px;">
+            <p style="color:var(--brass); font-weight:700; margin:0 0 10px; font-size:14px;">🏢 طریقہ سوم: دفتر میں حاضری</p>
+            <ol style="margin:0; padding-left:18px; font-size:13.5px; line-height:2.2; color:var(--ink);">
+              <li>اپنے قریبی <b style="color:var(--cyan);">NCCIA / FIA دفتر</b> تشریف لے جائیں</li>
+              <li>یہ درخواست پرنٹ کر کے ساتھ لے جائیں</li>
+              <li>اصل شناختی کارڈ اور اس کی فوٹو کاپی ساتھ رکھیں</li>
+              <li>ثبوت (اسکرین شاٹس، لین دین کے ریکارڈ) پرنٹ کر کے لے جائیں</li>
+              <li>افسر کو درخواست دیں — وہ FIR درج کریں گے</li>
+            </ol>
+          </div>
+          <div style="padding:16px; background:rgba(255,59,63,0.07); border:1px solid rgba(255,59,63,0.25); border-radius:10px;">
+            <p style="color:var(--risk); font-weight:700; margin:0 0 10px; font-size:14px;">⚠️ اہم ہدایات — براہ کرم غور سے پڑھیں</p>
+            <ul style="margin:0; padding-left:18px; font-size:13.5px; line-height:2.2; color:var(--ink);">
+              <li>شکایت درج کرانا <b>بالکل مفت ہے</b> — کوئی فیس نہیں</li>
+              <li>کوئی بھی سرکاری افسر <b>واٹس ایپ یا فون پر رقم نہیں مانگتا</b> — یہ فراڈ ہے</li>
+              <li>آپ کو FIR سے <b>انکار نہیں کیا جا سکتا</b> — یہ آپ کا قانونی حق ہے</li>
+              <li>جتنی جلدی ممکن ہو رپورٹ کریں — <b>کوئی بھی ثبوت حذف نہ کریں</b></li>
+              <li>سرکاری کیس نمبر ملنے کے بعد <b>اسے محفوظ ضرور رکھیں</b></li>
+              <li>اگر کوئی افسر رقم مانگے تو <b>فوری طور پر 1799 پر شکایت کریں</b></li>
+            </ul>
+          </div>
+          </div>
+        </div>
+
+        <button class="btn ghost" onclick="toggleGuide()" id="guideBtn" style="margin-top:10px;">📖 Report Submit Karne ki Guide Dekhein</button>
       </div>
     </div>
   </section>
@@ -809,9 +908,39 @@ function finalizeReport(){
   const today = new Date().toLocaleDateString('en-GB');
   const qaBlock = detective.answers.map(a=>`Q: ${a.question}\nA: ${a.answer}`).join('\n');
 
-  const draft_en = `COMPLAINT DRAFT — FOR NCCIA / FIA SUBMISSION\nReference: ${refId}\nDate: ${today}\n\nCategory: ${best.label}\nScam Confidence Score: ${confidence}%\nDetected Tactics: ${detectedTactics.map(t=>t.label_en).join(', ')||'None flagged'}\nApplicable Law (indicative): ${best.peca}\n\nComplainant Statement:\n${detective.originalText}\n\nInvestigation Q&A:\n${qaBlock}\n${detective.inconsistency?'\nNote: A possible inconsistency was flagged — please clarify before submission.\n':''}\nRequested Action:\nKindly register this complaint under the appropriate section of PECA 2016 and initiate investigation.\n\nSubmit via: NCCIA Portal (complaint.nccia.gov.pk) or Helpline 1799\n---\nNote: AI-generated draft for guidance only. Review carefully before submission.`;
-  const draft_ur = `COMPLAINT DRAFT — NCCIA / FIA SUBMISSION ke liye\nReference: ${refId}\nDate: ${today}\n\nCategory: ${best.label}\nScam Confidence Score: ${confidence}%\nApplicable Law: ${best.peca}\n\nComplainant Statement:\n${detective.originalText}\n\nInvestigation Q&A:\n${qaBlock}\n${detective.inconsistency?'\nNote: Ek inconsistency flag hui — submission se pehle clarify karein.\n':''}\nRequested Action:\nIs complaint ko PECA 2016 ke tehat register kiya jaye.\n\nSubmit via: NCCIA Portal (complaint.nccia.gov.pk) ya Helpline 1799\n---\nNote: AI-generated draft — submit karne se pehle review karein.`;
-  document.getElementById('draftBox').value = lang==='ur'?draft_ur:draft_en;
+  // Update guide button text based on language
+  document.getElementById('guideBtn').textContent = lang === 'ur'
+    ? '📖 Report Submit Karne ki Guide Dekhein'
+    : '📖 How to Submit Your Report';
+  // Roman Urdu me baat karne wale victims ke liye explanation upar guide mein hai
+  const draft_en = `COMPLAINT DRAFT — FOR NCCIA / FIA SUBMISSION
+Reference: ${refId} (TITAN internal ref — not an official case number)
+Date: ${today}
+
+Category: ${best.label}
+Scam Confidence Score: ${confidence}%
+Detected Tactics: ${detectedTactics.map(t=>t.label_en).join(', ')||'None flagged'}
+Applicable Law (indicative): ${best.peca}
+
+Complainant Statement:
+${detective.originalText}
+
+Investigation Q&A:
+${qaBlock}
+${detective.inconsistency?'\nNote: A possible inconsistency was flagged — please clarify before submission.\n':''}
+Requested Action:
+Kindly register this complaint under the appropriate section of PECA 2016 and initiate investigation. The complainant is willing to provide supporting evidence upon request.
+
+Submit via:
+- Online: complaint.nccia.gov.pk
+- Helpline: 1799 (Free call, Mon-Sat 9AM-5PM)
+- In person: Nearest NCCIA/FIA office with CNIC and printed evidence
+---
+IMPORTANT: This is an AI-assisted draft for guidance only. Review carefully before submission.
+After submitting to NCCIA, you will receive an official case number for tracking purposes.
+TTN Reference is TITAN's internal number only — NCCIA will assign their own case number.`;
+
+  document.getElementById('draftBox').value = draft_en;
 }
 
 function resetDetective(){
@@ -823,10 +952,27 @@ function resetDetective(){
   addMsg('Hi, I\'m TITAN. Tell me what happened — I\'ll investigate it step by step with you. (English ya Roman Urdu, dono chalega.)','ai');
 }
 
+function toggleGuide(){
+  const guide = document.getElementById('submissionGuide');
+  const btn = document.getElementById('guideBtn');
+  const isUrdu = detective.lang === 'ur';
+
+  if(guide.style.display === 'none'){
+    guide.style.display = 'block';
+    // Show correct language guide
+    document.getElementById('guideEnglish').style.display = isUrdu ? 'none' : 'block';
+    document.getElementById('guideUrdu').style.display = isUrdu ? 'block' : 'none';
+    btn.textContent = isUrdu ? '📖 Guide Band Karein' : '📖 Close Guide';
+  } else {
+    guide.style.display = 'none';
+    btn.textContent = isUrdu ? '📖 Report Submit Karne ki Guide Dekhein' : '📖 How to Submit Your Report';
+  }
+}
+
 function copyDraft(){
   const box = document.getElementById('draftBox');
   box.removeAttribute('readonly'); box.select(); document.execCommand('copy'); box.setAttribute('readonly',true);
-  alert('Draft copied.');
+  alert('Draft copy ho gaya! Ab NCCIA portal pe paste karein.');
 }
 
 document.getElementById('chatInput').addEventListener('keydown', e=>{ if(e.key==='Enter') handleSend(); });

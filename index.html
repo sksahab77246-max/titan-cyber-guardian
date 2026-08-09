@@ -409,7 +409,7 @@ function clearAdminKey(){
 // ── GEMINI API KEY ────────────────────────────────────────────────────────────
 function getGeminiKey(){
   const key = localStorage.getItem('titan_gemini_key');
-  if(!key || !key.startsWith('AIza')){
+  if(!key || !key.startsWith('AQ')){
     alert('AI features are not configured yet.\n\nPress Ctrl + Shift + A to open the admin panel and set up your API key.');
     return null;
   }

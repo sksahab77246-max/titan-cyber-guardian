@@ -8,110 +8,146 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* glowing Deep technical Theme */
-    --shell:#040609; /* Deeper Black */
-    --paper:#11151A; /* Darker technical Paper */
-    --ink:#F5F8FA; /* Crisp Off-White for text */
-    --ink-soft:#AEB8B4; 
-    
-    /* glowing Technical Accents */
-    --glow-cyan: 0 0 18px rgba(0,242,254,0.7);
-    --cyan: #00F2FE;
-    --cyan-hover: #4FACFE;
-    --brass: #FAD961; /* Neon Yellow */
-    --risk: #FF3B3F; /* Neon Red */
-    --line: rgba(174,184,180,0.18); 
-    --line-active: rgba(0,242,254,0.4);
+    --shell:#040609; --paper:#11151A; --ink:#F5F8FA; --ink-soft:#AEB8B4;
+    --glow-cyan:0 0 18px rgba(0,242,254,0.7);
+    --cyan:#00F2FE; --cyan-hover:#4FACFE; --brass:#FAD961; --risk:#FF3B3F;
+    --line:rgba(174,184,180,0.18); --line-paper:rgba(19,26,34,0.14);
   }
   *{box-sizing:border-box;}
-  body{margin:0; background:var(--shell); color:var(--ink); font-family:'IBM Plex Sans', sans-serif; -webkit-font-smoothing:antialiased; transition: all 0.2s;}
-  h1,h2,h3{font-family:'Fraunces', serif; color: #fff;}
+  body{margin:0; background:var(--shell); color:var(--ink); font-family:'IBM Plex Sans',sans-serif; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Fraunces',serif; color:#fff;}
   .app{max-width:1080px; margin:0 auto; padding:0 20px 80px;}
-  
-  /* HEADER */
-  header{padding:40px 0 28px; border-bottom:1.5px solid var(--line); position: relative;}
+  header{padding:40px 0 28px; border-bottom:1.5px solid var(--line);}
   .brandrow{display:flex; align-items:center; gap:16px;}
-  .seal{width:46px;height:46px;border-radius:50%; border:2px solid var(--cyan); display:flex;align-items:center;justify-content:center; font-family:'Fraunces',serif; font-weight:600; font-size:16px; color:var(--cyan); flex-shrink:0; box-shadow: var(--glow-cyan);}
-  .brand-text .eyebrow{text-transform:uppercase; letter-spacing:.18em; font-size:11.5px; color:var(--cyan); font-weight:600; text-shadow: var(--glow-cyan);}
-  .brand-text h1{margin:2px 0 0; font-size:32px; font-weight:600; letter-spacing:-0.01em;}
-  header p.sub{margin:14px 0 0; color:var(--ink-soft); font-size:15.5px; max-width:680px; line-height:1.58;}
+  .seal{width:46px;height:46px;border-radius:50%; border:2px solid var(--cyan); display:flex;align-items:center;justify-content:center; font-family:'Fraunces',serif; font-weight:600; font-size:16px; color:var(--cyan); flex-shrink:0; box-shadow:var(--glow-cyan);}
+  .brand-text .eyebrow{text-transform:uppercase; letter-spacing:.18em; font-size:11.5px; color:var(--cyan); font-weight:600;}
+  .brand-text h1{margin:2px 0 0; font-size:32px; font-weight:600;}
+  header p.sub{margin:14px 0 0; color:var(--ink-soft); font-size:15px; max-width:680px; line-height:1.58;}
   .notice{margin-top:24px; padding:15px 18px; background:rgba(250,217,97,0.11); border:1.5px solid rgba(250,217,97,0.4); border-radius:10px; font-size:14px; color:#E7D3A9; line-height:1.6;}
-  .notice b{color:var(--brass); text-shadow: 0 0 10px rgba(250,217,97,0.5);}
-  
-  /* NAVIGATION TABS */
-  nav{display:flex; gap:6px; margin-top:28px; border-bottom:1.5px solid var(--line); overflow-x:auto; padding-bottom: 2px;}
-  nav button{background:none; border:none; color:#8B978F; font-family:'IBM Plex Sans'; font-size:14.5px; font-weight:500; padding:12px 18px; cursor:pointer; border-bottom:3px solid transparent; white-space:nowrap; transition:all .2s;}
-  nav button.active{color:var(--cyan); border-bottom-color:var(--cyan); text-shadow: var(--glow-cyan);}
-  nav button:hover:not(.active){color:var(--ink); border-bottom-color:var(--line-active);}
-  
-  /* TAB CARDS */
+  .notice b{color:var(--brass);}
+  nav{display:flex; gap:6px; margin-top:28px; border-bottom:1.5px solid var(--line); overflow-x:auto; padding-bottom:2px;}
+  nav button{background:none; border:none; color:#8B978F; font-family:'IBM Plex Sans'; font-size:14px; font-weight:500; padding:12px 18px; cursor:pointer; border-bottom:3px solid transparent; white-space:nowrap; transition:all .2s;}
+  nav button.active{color:var(--cyan); border-bottom-color:var(--cyan);}
+  nav button:hover:not(.active){color:var(--ink);}
   section.tab{display:none; padding-top:36px;}
   section.tab.active{display:block;}
-  .card{background:var(--paper); color:var(--ink); border-radius:12px; padding:30px; margin-bottom:20px; border:1.5px solid var(--line); box-shadow: 0 6px 20px rgba(0,0,0,0.15);}
-  .card h3{margin:0 0 6px; font-size:20px; font-weight:600; color:#fff;}
+  .card{background:var(--paper); color:var(--ink); border-radius:12px; padding:30px; margin-bottom:20px; border:1.5px solid var(--line);}
+  .card h3{margin:0 0 6px; font-size:20px; color:#fff;}
   .card .hint{color:var(--ink-soft); font-size:14px; margin:0 0 20px; line-height:1.55;}
-  
-  /* INPUTS */
-  textarea, input[type=text]{width:100%; border-radius:8px; border:1.5px solid var(--line); padding:15px; font-family:'IBM Plex Sans'; font-size:15px; color:var(--ink); background:#0B1014; transition: border-color .2s;}
-  textarea:focus, input[type=text]:focus{outline:none; border-color:var(--cyan); box-shadow: var(--glow-cyan);}
-  
-  /* BUTTONS */
-  .btn{display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg, var(--cyan-hover) 0%, var(--cyan) 100%); color:#000; border:none; padding:12px 24px; border-radius:8px; font-size:14.5px; font-weight:700; cursor:pointer; font-family:'IBM Plex Sans'; margin-top:16px; box-shadow: var(--glow-cyan); transition: transform .15s;}
-  .btn:hover{transform: translateY(-2px); filter: brightness(1.1);}
-  .btn.ghost{background:transparent; border:1.5px solid var(--line); color:var(--ink); box-shadow: none;}
-  .btn.ghost:hover{border-color:var(--cyan); color:var(--cyan); box-shadow: var(--glow-cyan);}
-  
-  /* BADGES */
-  .badge{display:inline-block; font-size:12px; font-weight:600; padding:5px 12px; border-radius:20px; text-transform:uppercase; letter-spacing:.05em; margin:2px 4px 2px 0;}
+  input[type=text],textarea{width:100%; border-radius:8px; border:1.5px solid var(--line); padding:14px; font-family:'IBM Plex Sans'; font-size:14.5px; color:var(--ink); background:#0B1014; transition:border-color .2s;}
+  input[type=text]:focus,textarea:focus{outline:none; border-color:var(--cyan); box-shadow:var(--glow-cyan);}
+  .btn{display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--cyan-hover),var(--cyan)); color:#000; border:none; padding:12px 24px; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer; font-family:'IBM Plex Sans'; margin-top:14px; box-shadow:var(--glow-cyan); transition:transform .15s;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn.ghost{background:transparent; border:1.5px solid var(--line); color:var(--ink); box-shadow:none; margin-top:10px;}
+  .btn.ghost:hover{border-color:var(--cyan); color:var(--cyan);}
+  .badge{display:inline-block; font-size:11.5px; font-weight:600; padding:4px 11px; border-radius:20px; text-transform:uppercase; letter-spacing:.05em; margin:2px 4px 2px 0;}
   .badge.cat{background:rgba(0,242,254,0.1); color:var(--cyan); border:1px solid rgba(0,242,254,0.3);}
   .badge.risk{background:rgba(255,59,63,0.1); color:var(--risk); border:1px solid rgba(255,59,63,0.3);}
   .badge.law{background:rgba(250,217,97,0.11); color:var(--brass); border:1px solid rgba(250,217,97,0.3);}
+  .badge.tactic{background:rgba(255,59,63,0.07); color:var(--risk); border:1px solid rgba(255,59,63,0.2);}
 
-  /* CASE STUDIES (TECHNICAL GRID) */
-  .case-stack{display:grid; grid-template-columns:1fr; gap:18px; margin-top:20px;}
-  .case-card{background:var(--paper); border:1.5px solid var(--line); border-radius:12px; padding:22px; color:var(--ink); cursor:pointer; transition: all 0.2s;}
-  .case-card:hover{border-color:var(--cyan-hover); box-shadow: var(--glow-cyan);}
-  .case-card h4{margin:8px 0 5px; font-size:18px; font-weight:600; color:#fff;}
-  .case-card .meta-line{font-size:13px; color:var(--ink-soft); margin-bottom:12px;}
-  .case-card .summary{font-size:14.5px; color:var(--ink); line-height:1.6;}
-  .case-card .expand-hint{display:inline-block; margin-top:10px; font-size:13px; color:var(--cyan); font-weight:600;}
-  
-  .case-full-details{display:none; margin-top:18px; padding-top:18px; border-top:1.5px solid var(--line); font-size:14px; line-height:1.7; color:var(--ink);}
-  .case-card.open .case-full-details{display:block;}
-  .case-card.open .expand-hint{display:none;}
-  .detail-block{margin-bottom:14px;}
-  .detail-block b{color:var(--cyan-hover); display:block; margin-bottom:4px;}
-
-  /* glowing CHAT */
-  .chat-log{display:flex; flex-direction:column; gap:14px; margin-bottom:18px; max-height:500px; overflow-y:auto;}
-  .msg{max-width:85%; padding:14px 18px; border-radius:12px; font-size:14.5px; line-height:1.6; border:1.5px solid var(--line); box-shadow: 0 4px 10px rgba(0,0,0,0.1);}
-  
-  .msg.ai{background:#0D1117; color:var(--ink); align-self:flex-start; border-color: rgba(174,184,180,0.3); box-shadow: 0 0 15px rgba(174,184,180,0.1);}
-  .msg.user{background:#0B1014; color:var(--ink); align-self:flex-end; border-color: rgba(0,242,254,0.3); box-shadow: 0 0 15px rgba(0,242,254,0.15);}
-  
-  .msg .tag{display:block; font-size:11px; text-transform:uppercase; letter-spacing:.08em; opacity:0.65; margin-bottom:5px;}
-  .msg.ai .tag{color:var(--ink-soft);}
+  /* CHAT */
+  .chat-log{display:flex; flex-direction:column; gap:14px; margin-bottom:18px; max-height:520px; overflow-y:auto; padding-right:4px;}
+  .msg{max-width:85%; padding:14px 18px; border-radius:12px; font-size:14px; line-height:1.6; border:1.5px solid var(--line);}
+  .msg.ai{background:#0D1117; align-self:flex-start; border-color:rgba(174,184,180,0.25);}
+  .msg.user{background:#0B1014; align-self:flex-end; border-color:rgba(0,242,254,0.25);}
+  .msg .tag{display:block; font-size:11px; text-transform:uppercase; letter-spacing:.08em; opacity:.65; margin-bottom:5px;}
   .msg.user .tag{color:var(--cyan);}
-  
   .chat-input-row{display:flex; gap:12px;}
   .chat-input-row input{flex:1;}
 
-  /* technical UPLOAD BOX */
-  .upload-box{border:3px dashed var(--line); background:#0B1014; border-radius:12px; padding:32px; text-align:center; margin-top:18px; transition: all .2s;}
-  .upload-box:hover{border-color:var(--cyan); box-shadow: var(--glow-cyan);}
-  #scanOutput{margin-top:20px; padding:18px; background:#fff; color:#000; border:1px solid var(--line-paper); border-radius:10px; display:none; text-align:left;}
+  /* CATEGORY CONFIRM */
+  .cat-confirm{display:none; margin-top:14px; padding:16px; background:#0B1014; border:1.5px solid rgba(250,217,97,0.35); border-radius:10px;}
+  .cat-confirm label{display:block; font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--brass); margin-bottom:8px;}
+  .cat-confirm select{width:100%; padding:10px; border-radius:7px; border:1.5px solid var(--line); background:#040609; color:var(--ink); font-family:'IBM Plex Sans'; font-size:14px; margin-bottom:10px;}
 
-  /* HELPLINES (technical GRID) */
-  .contact-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:18px;}
+  /* REPORT RESULTS */
+  .result-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:18px;}
+  @media(max-width:680px){.result-grid{grid-template-columns:1fr;}}
+  .result-box{border:1.5px solid var(--line); border-radius:10px; padding:16px;}
+  .result-box h4{margin:0 0 8px; font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft);}
+  .result-box p{margin:0; font-size:14px; line-height:1.55;}
+  .score-ring{display:flex; align-items:center; gap:14px; margin:16px 0;}
+  .score-num{font-family:'IBM Plex Mono'; font-size:34px; font-weight:600; color:var(--cyan); text-shadow:var(--glow-cyan);}
+  .score-label{font-size:12px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.05em;}
+  .checklist{list-style:none; margin:0; padding:0;}
+  .checklist li{padding:7px 0; border-top:1px solid var(--line); font-size:13.5px; display:flex; gap:8px; align-items:flex-start;}
+  .checklist li:first-child{border-top:none;}
+  .checklist li .mark{flex-shrink:0; font-weight:700;}
+  .checklist li.provided .mark{color:var(--cyan);}
+  .checklist li.missing .mark{color:var(--risk);}
+  .match-item{border-top:1px solid var(--line); padding:12px 0;}
+  .match-item:first-child{border-top:none;}
+  .match-item .row{display:flex; justify-content:space-between; align-items:baseline; gap:10px;}
+  .match-item .sim{font-family:'IBM Plex Mono'; font-size:13px; color:var(--cyan); font-weight:600;}
+  .match-item p{margin:4px 0 0; font-size:13.5px; color:var(--ink-soft); line-height:1.5;}
+  .draft-box{position:relative; border:1.5px dashed rgba(0,242,254,0.3); border-radius:10px; padding:22px; margin-top:16px; background:#0B1014;}
+  .draft-box textarea{background:transparent; border:none; padding:0; min-height:220px; font-family:'IBM Plex Mono'; font-size:13px; line-height:1.65; color:var(--ink);}
+  .stamp{position:absolute; top:18px; right:20px; width:74px; height:74px; border-radius:50%; border:2px solid var(--cyan); display:flex; align-items:center; justify-content:center; flex-direction:column; transform:rotate(-8deg); opacity:.8;}
+  .stamp span{font-family:'IBM Plex Mono'; font-size:9px; color:var(--cyan); text-align:center; line-height:1.3; font-weight:600;}
+  .inconsistency-box{background:rgba(255,59,63,0.07); border:1px solid rgba(255,59,63,0.3); border-radius:8px; padding:14px 16px; margin-top:14px; font-size:13.5px; color:var(--risk); line-height:1.55;}
+
+  /* MEDIA CHECK */
+  .upload-box{border:3px dashed var(--line); background:#0B1014; border-radius:12px; padding:32px; text-align:center; margin-top:18px; transition:all .2s;}
+  .upload-box:hover{border-color:var(--cyan); box-shadow:var(--glow-cyan);}
+  #scanOutput{margin-top:20px; padding:18px; background:#0D1117; border:1.5px solid var(--line); border-radius:10px; display:none; font-size:14px; line-height:1.65; white-space:pre-wrap;}
+  .redflag-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px;}
+  @media(max-width:680px){.redflag-grid{grid-template-columns:1fr;}}
+  .redflag-item{border:1.5px solid var(--line); border-radius:10px; padding:14px 16px;}
+  .redflag-item h4{margin:0 0 6px; font-size:14px; color:#fff;}
+  .redflag-item p{margin:0; font-size:13px; color:var(--ink-soft); line-height:1.55;}
+  .subtab-nav{display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap;}
+  .subtab-nav button{background:#0D1117; border:1.5px solid var(--line); color:var(--ink-soft); font-family:'IBM Plex Sans'; font-size:13px; font-weight:600; padding:8px 14px; border-radius:20px; cursor:pointer; transition:all .2s;}
+  .subtab-nav button.active{background:var(--cyan); color:#000; border-color:var(--cyan);}
+
+  /* CASE LIBRARY */
+  .case-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media(max-width:680px){.case-grid{grid-template-columns:1fr;}}
+  .case-card{background:var(--paper); border:1.5px solid var(--line); border-radius:12px; padding:22px; cursor:pointer; transition:all .2s;}
+  .case-card:hover{border-color:var(--cyan-hover); box-shadow:var(--glow-cyan);}
+  .case-card h4{margin:8px 0 4px; font-size:16px; color:#fff;}
+  .case-card .meta-line{font-size:12.5px; color:var(--ink-soft); margin-bottom:10px;}
+  .case-card .summary{font-size:13.5px; line-height:1.6; color:var(--ink);}
+  .case-card .expand-hint{display:flex; align-items:center; gap:5px; margin-top:12px; font-size:13px; color:var(--cyan); font-weight:600;}
+  .case-full-details{display:none; margin-top:16px; padding-top:16px; border-top:1.5px solid var(--line); font-size:13.5px; line-height:1.7; color:var(--ink);}
+  .case-card.open .case-full-details{display:block;}
+  .detail-block{margin-bottom:12px;}
+  .detail-block b{color:var(--cyan-hover); display:block; margin-bottom:4px;}
+  .stats-strip{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:16px;}
+  @media(max-width:680px){.stats-strip{grid-template-columns:1fr 1fr;}}
+  .stat-box{text-align:center; padding:14px 8px; border-radius:10px; border:1.5px solid var(--line); background:#0D1117;}
+  .stat-box .num{font-family:'IBM Plex Mono'; font-size:22px; font-weight:600; color:var(--cyan); text-shadow:var(--glow-cyan);}
+  .stat-box .lbl{font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em; margin-top:4px;}
+
+  /* TIMELINE */
+  .ev-form{display:grid; grid-template-columns:140px 160px 1fr auto; gap:10px; align-items:end;}
+  @media(max-width:680px){.ev-form{grid-template-columns:1fr;}}
+  .ev-form label{display:block; font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); margin-bottom:5px;}
+  .ev-form input,.ev-form select{padding:9px 10px; border-radius:6px; border:1.5px solid var(--line); font-size:13.5px; font-family:'IBM Plex Sans'; background:#0B1014; color:var(--ink);}
+  .timeline{margin-top:24px; position:relative; padding-left:26px;}
+  .timeline::before{content:''; position:absolute; left:6px; top:4px; bottom:4px; width:2px; background:var(--line);}
+  .tl-item{position:relative; padding-bottom:22px;}
+  .tl-item::before{content:''; position:absolute; left:-26px; top:4px; width:10px; height:10px; border-radius:50%; background:var(--cyan); box-shadow:var(--glow-cyan);}
+  .tl-item .date{font-family:'IBM Plex Mono'; font-size:12px; color:var(--cyan); font-weight:600;}
+  .tl-item .type{font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); margin-left:8px;}
+  .tl-item p{margin:5px 0 0; font-size:14px; line-height:1.5;}
+  .tl-item .del{font-size:11.5px; color:var(--risk); cursor:pointer; margin-top:5px; display:inline-block;}
+  .empty{color:var(--ink-soft); font-size:14px; font-style:italic; padding:10px 0;}
+
+  /* RESOURCES */
+  .contact-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px;}
   .contact-card{background:#0D1117; border:1.5px solid var(--line); border-radius:10px; padding:20px;}
-  .contact-card b{display:block; font-size:15.5px; margin-bottom:5px; color:#fff;}
-  .contact-card .num{font-family:'IBM Plex Mono'; font-size:20px; color:var(--cyan); font-weight:600; margin:8px 0; text-shadow: var(--glow-cyan);}
+  .contact-card b{display:block; font-size:15px; margin-bottom:4px; color:#fff;}
+  .contact-card .num{font-family:'IBM Plex Mono'; font-size:20px; color:var(--cyan); font-weight:600; margin:8px 0; text-shadow:var(--glow-cyan);}
   .contact-card a{color:var(--cyan-hover); font-size:13px; font-weight:600;}
+  .rights-list{margin:0; padding-left:18px; font-size:14px; line-height:1.9; color:var(--ink);}
+
+  /* SEARCH */
+  .search-box{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 6px;}
 </style>
 </head>
 <body>
 <div class="app">
-
   <header>
     <div class="brandrow">
       <div class="seal">T</div>
@@ -120,257 +156,703 @@
         <h1>TITAN — AI Cyber Guardian</h1>
       </div>
     </div>
-    <p class="sub">An AI-powered bridge connecting cybercrime victims in Pakistan to legal guidance, evidence preparation, deepfake analysis, and PECA 2016 framework.</p>
-    <div class="notice"><b>Jurisdiction Note:</b> Cybercrime jurisdiction in Pakistan is handled by the <b>NCCIA (National Cyber Crime Investigation Agency)</b>. TITAN routes you to official complaint channels.</div>
+    <p class="sub">An AI-powered bridge connecting cybercrime victims in Pakistan to legal guidance, evidence preparation, and PECA 2016 framework — in English or Roman Urdu.</p>
+    <div class="notice"><b>Jurisdiction Note:</b> Cybercrime in Pakistan is now handled by the <b>NCCIA (National Cyber Crime Investigation Agency)</b>. Helpline: <b>1799</b> | Portal: complaint.nccia.gov.pk</div>
     <nav>
-      <button class="active" onclick="showTab('report')">AI Detective Chat</button>
-      <button onclick="showTab('mediacheck')">AI Media Detection</button>
-      <button onclick="showTab('library')">Case Studies Library</button>
-      <button onclick="showTab('resources')">Official Helplines</button>
+      <button class="active" onclick="showTab('report',this)">AI Detective</button>
+      <button onclick="showTab('mediacheck',this)">AI Media Check</button>
+      <button onclick="showTab('library',this)">Case Library</button>
+      <button onclick="showTab('timeline',this)">Evidence Timeline</button>
+      <button onclick="showTab('resources',this)">Helplines</button>
     </nav>
   </header>
 
-  <!-- TAB 1: AI DETECTIVE CHAT -->
+  <!-- TAB 1: AI DETECTIVE -->
   <section class="tab active" id="report">
     <div class="card">
       <h3>TITAN AI Detective & Legal Assistant</h3>
-      <p class="hint">Describe what happened professionally in English, Urdu, or Roman Urdu. TITAN will guide you through PECA sections, draft your complaint, and identify evidence.</p>
-      <div class="chat-log" id="chatLog">
-        <div class="msg ai">
-          <span class="tag">TITAN Guardian</span>
-          Assalam-o-Alaikum! Main TITAN AI Cyber Detective hoon. Aap ke sath kya cyber incident hua hai? Apni zaban mein tafseel batayein.
+      <p class="hint">Not just a chatbot — a step-by-step cyber investigation assistant. Describe what happened in English or Roman Urdu. TITAN will ask follow-up questions, map to PECA sections, score scam tactics, and build your complaint draft.</p>
+      <div class="chat-log" id="chatLog"></div>
+      <div class="chat-input-row">
+        <input type="text" id="chatInput" placeholder="Type here and press Send...">
+        <button class="btn" style="margin-top:0;" onclick="handleSend()">Send</button>
+      </div>
+      <div class="cat-confirm" id="catConfirm">
+        <label>TITAN's guess may be wrong — please confirm or correct the category before continuing:</label>
+        <select id="categorySelect"></select>
+        <button class="btn" style="margin-top:0;" onclick="confirmCategory()">Confirm & Continue</button>
+      </div>
+      <button class="btn ghost" onclick="resetDetective()">Start Over</button>
+    </div>
+
+    <div id="analysisResult" style="display:none;">
+      <div class="card">
+        <h3>Investigation Summary</h3>
+        <div id="badges"></div>
+        <div class="score-ring">
+          <div class="score-num" id="scoreNum">0%</div>
+          <div><div class="score-label">Scam Confidence Score</div><div id="tacticsBox" style="margin-top:6px;"></div></div>
+        </div>
+        <div id="inconsistencyBox"></div>
+        <div class="result-grid">
+          <div class="result-box"><h4>Applicable Law (PECA 2016)</h4><p id="pecaBox"></p></div>
+          <div class="result-box"><h4>Correct Jurisdiction</h4><p id="jurisdictionBox"></p></div>
+        </div>
+        <div class="result-box" style="margin-top:14px;">
+          <h4>Evidence Checklist (auto-marked from your answers)</h4>
+          <ul class="checklist" id="checklistBox"></ul>
         </div>
       </div>
-      <div class="chat-input-row">
-        <input type="text" id="chatInput" placeholder="Describe the incident details methodically..." onkeypress="if(event.key==='Enter') handleSend()">
-        <button class="btn" onclick="handleSend()">Send Request</button>
+      <div class="card">
+        <h3>Matched Case Files</h3>
+        <p class="hint">Previously reported cases that match this pattern.</p>
+        <div id="matchesBox"></div>
+      </div>
+      <div class="card">
+        <h3>Complaint Draft</h3>
+        <p class="hint">Generated from your investigation — ready for NCCIA submission.</p>
+        <div class="draft-box">
+          <div class="stamp"><span>TITAN<br>DRAFT<br id="stampId"></span></div>
+          <textarea id="draftBox" readonly></textarea>
+        </div>
+        <button class="btn ghost" onclick="copyDraft()">Copy Draft</button>
       </div>
     </div>
   </section>
 
-  <!-- TAB 2: AI MEDIA DETECTION -->
+  <!-- TAB 2: AI MEDIA CHECK -->
   <section class="tab" id="mediacheck">
     <div class="card">
-      <h3>AI Picture & Media Analysis</h3>
-      <p class="hint">Upload any suspicious image, fake payment receipt, edited screenshot, or profile picture. Gemini Vision API will scan it for digital manipulation, fake fonts, or forgery evidence.</p>
-      
-      <div class="upload-box">
-        <input type="file" id="mediaFile" accept="image/*" style="display:none;" onchange="fileChosen(this)">
-        <button class="btn" onclick="document.getElementById('mediaFile').click()">📷 Choose Picture / Screenshot</button>
-        <div id="fileInfo" style="margin-top:10px; font-weight:600; color:var(--cyan);"></div>
-        <button class="btn ghost" id="scanBtn" style="display:none; margin-top:14px;" onclick="runMediaScan()">Run technical Vision Scan</button>
+      <h3>AI-Generated Media Check</h3>
+      <div style="background:rgba(255,59,63,0.07); border:1.5px solid rgba(255,59,63,0.25); border-radius:8px; padding:14px; font-size:13px; color:var(--risk); margin-bottom:18px; line-height:1.6;">
+        <b>Important:</b> This gives an indicative assessment only — not forensic-grade proof. For legal evidence, request verification through NCCIA's digital forensics lab.
       </div>
-
-      <div id="scanOutput"></div>
+      <div class="subtab-nav">
+        <button class="active" onclick="showSubtab('imgCheck',this)">Image</button>
+        <button onclick="showSubtab('voiceCheck',this)">Voice / Audio</button>
+        <button onclick="showSubtab('videoCheck',this)">Video</button>
+      </div>
+      <div id="imgCheck">
+        <p class="hint">Upload a suspicious image — TITAN's Gemini Vision will inspect it for signs of AI-generation or manipulation and explain its reasoning.</p>
+        <div class="upload-box" onclick="document.getElementById('imgInput').click()">
+          <p style="color:var(--ink-soft); margin:0;">📷 Click to upload an image (JPG/PNG)</p>
+        </div>
+        <input type="file" id="imgInput" accept="image/*" style="display:none;" onchange="handleImageUpload(event)">
+        <img id="imgPreview" style="max-width:100%; max-height:280px; border-radius:8px; margin-top:14px; display:none;">
+        <button class="btn" id="analyzeImgBtn" style="display:none;" onclick="analyzeImage()">Analyze Image with Gemini</button>
+        <div id="scanOutput"></div>
+      </div>
+      <div id="voiceCheck" style="display:none;">
+        <p class="hint">Reliable browser-based voice-clone detection needs specialized models TITAN doesn't carry. Use these red flags and real tools instead.</p>
+        <div class="redflag-grid">
+          <div class="redflag-item"><h4>🔊 Flat or robotic tone</h4><p>Cloned voices lack natural breathing pauses, micro-hesitations, or emotional variation.</p></div>
+          <div class="redflag-item"><h4>🎚️ Pitch/pacing glitches</h4><p>Sudden unnatural jumps in pitch or speed, especially at word boundaries.</p></div>
+          <div class="redflag-item"><h4>🌐 Background mismatch</h4><p>Cloned audio often has unnaturally clean or inconsistent background noise.</p></div>
+          <div class="redflag-item"><h4>⏱️ Scripted urgency</h4><p>Voice scams rely on panic to stop you noticing audio flaws — slow down before reacting.</p></div>
+        </div>
+        <p style="margin-top:14px; font-size:13px; color:var(--ink-soft);">Verified tools: <a href="https://www.resemble.ai/detect/" target="_blank" style="color:var(--cyan);">Resemble Detect</a>, <a href="https://www.pindrop.com" target="_blank" style="color:var(--cyan);">Pindrop</a></p>
+      </div>
+      <div id="videoCheck" style="display:none;">
+        <p class="hint">Real-time deepfake video detection needs frame-by-frame ML models. Use this checklist and escalate to NCCIA forensics for anything used as evidence.</p>
+        <div class="redflag-grid">
+          <div class="redflag-item"><h4>👁️ Unnatural blinking</h4><p>Metronomic blinking that looks too regular or too rare.</p></div>
+          <div class="redflag-item"><h4>💋 Lip-sync drift</h4><p>Watch mouth shapes against audio on consonants like "B," "M," "P."</p></div>
+          <div class="redflag-item"><h4>🔆 Lighting mismatch</h4><p>Soft "halo" edge around face/hairline, or shadows that don't match the scene.</p></div>
+          <div class="redflag-item"><h4>🧍 Rigid neck/body</h4><p>Face moves convincingly but neck, shoulders, or ears stay unnaturally still.</p></div>
+        </div>
+        <p style="margin-top:14px; font-size:13px; color:var(--ink-soft);">Verified tools: <a href="https://www.deepware.ai" target="_blank" style="color:var(--cyan);">Deepware Scanner</a>, <a href="https://hivemoderation.com/ai-generated-content-detection" target="_blank" style="color:var(--cyan);">Hive Moderation</a>, <a href="https://contentcredentials.org/verify" target="_blank" style="color:var(--cyan);">Content Credentials Verify</a></p>
+      </div>
     </div>
   </section>
 
   <!-- TAB 3: CASE LIBRARY -->
   <section class="tab" id="library">
     <div class="card">
-      <h3>Cybercrime Case Studies & Legal Repository</h3>
-      <p class="hint">Click on any technical case below to expand and study the complete incident breakdown, evidence trail, PECA 2016 legal sections, and investigation outcome.</p>
-
-      <div class="case-stack">
-
-        <!-- CASE STUDY 1 -->
-        <div class="case-card" onclick="this.classList.toggle('open')">
-          <div>
-            <span class="badge cat">Financial Fraud</span>
-            <span class="badge law">Section 14 & 16 PECA</span>
-          </div>
-          <h4>Bank Officer Spoof Call & OTP Interception</h4>
-          <div class="meta-line">Location: Lahore | Authority: NCCIA Cyber Crime Wing</div>
-          <p class="summary">Scammers spoofed an official bank helpline number and coerced an elderly citizen into sharing their transaction OTP under the threat of account freezing.</p>
-          <span class="expand-hint">👇 Click to read full case study details...</span>
-          
-          <div class="case-full-details">
-            <div class="detail-block">
-              <b>1. Incident Description:</b>
-              The victim received a call displaying the bank's official 111-helpline number (using VoIP caller ID spoofing). The scammer claimed an unauthorized transfer was occurring and asked for the OTP to "block" the transaction, resulting in a Rs. 850,000 fraud.
-            </div>
-            <div class="detail-block">
-              <b>2. Legal Provisions Applied:</b>
-              PECA 2016 Section 14 (Electronic Fraud - 2 to 10 years imprisonment) and Section 16 (Unauthorized use of identity information).
-            </div>
-            <div class="detail-block">
-              <b>3. Evidence Collected:</b>
-              Call log duration, telecom operator CDR (Call Detail Records), bank transaction IDs, and destination wallet CNIC details.
-            </div>
-            <div class="detail-block">
-              <b>4. Outcome & Recovery:</b>
-              NCCIA issued a freeze order under Section 23 to State Bank of Pakistan. Intercepted destination accounts were frozen, Rs. 620,000 recovered, and 2 suspects arrested in a raid.
-            </div>
-          </div>
-        </div>
-
-        <!-- CASE STUDY 2 -->
-        <div class="case-card" onclick="this.classList.toggle('open')">
-          <div>
-            <span class="badge cat">Harassment / Extortion</span>
-            <span class="badge law">Section 20 PECA</span>
-          </div>
-          <h4>Social Media Photo Manipulation & Blackmail</h4>
-          <div class="meta-line">Location: Karachi | Authority: NCCIA Forensics Unit</div>
-          <p class="summary">Perpetrator modified public social media pictures using basic AI editing tools and demanded money under threat of public release.</p>
-          <span class="expand-hint">👇 Click to read full case study details...</span>
-
-          <div class="case-full-details">
-            <div class="detail-block">
-              <b>1. Incident Description:</b>
-              A fake profile downloaded public photos of the victim, digitally edited them, and sent extortion messages via WhatsApp demanding payment via mobile wallet.
-            </div>
-            <div class="detail-block">
-              <b>2. Legal Provisions Applied:</b>
-              PECA 2016 Section 20 (Offences against dignity of a natural person - up to 5 years imprisonment/fine) & Constitution Article 14 (Inviolability of Dignity).
-            </div>
-            <div class="detail-block">
-              <b>3. Evidence Collected:</b>
-              Unedited original photos, WhatsApp chat export with timestamps, IP login logs obtained via platform metadata requests.
-            </div>
-            <div class="detail-block">
-              <b>4. Outcome & Recovery:</b>
-              Digital forensics matched IP headers to a registered home broadband line. Suspect was arrested, digital devices seized, and fake accounts taken down via PTA portal.
-            </div>
-          </div>
-        </div>
-
+      <h3>TITAN Case Files</h3>
+      <p class="hint">Real, recent, publicly reported NCCIA cases from Pakistan (2025–2026). Click any case to read the full story and original source.</p>
+      <div class="stats-strip">
+        <div class="stat-box"><div class="num">77,023</div><div class="lbl">Complaints Jan–May 2026</div></div>
+        <div class="stat-box"><div class="num">457</div><div class="lbl">Cases Registered</div></div>
+        <div class="stat-box"><div class="num">520</div><div class="lbl">Arrests Made</div></div>
+        <div class="stat-box"><div class="num">8</div><div class="lbl">Convictions So Far</div></div>
       </div>
+      <div style="margin-top:18px; padding-top:18px; border-top:1px solid var(--line);">
+        <p style="font-size:13px; font-weight:600; color:#fff; margin:0 0 6px;">🔍 Search Any Case</p>
+        <div class="search-box">
+          <input type="text" id="caseSearchInput" placeholder="e.g. SIM fraud Lahore 2026...">
+          <button class="btn" style="margin-top:0;" onclick="searchCase()">Search</button>
+        </div>
+        <p class="hint" style="margin:0;">Opens a real Google search scoped to NCCIA/PECA cybercrime news — always current, no fake database.</p>
+      </div>
+      <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+        <button class="btn ghost" style="margin-top:0;" onclick="setLibLang('en')" id="langEnBtn">Read in English</button>
+        <button class="btn ghost" style="margin-top:0;" onclick="setLibLang('ur')" id="langUrBtn">Roman Urdu me Parhein</button>
+        <a href="https://www.nccia.gov.pk/" target="_blank" class="btn ghost" style="text-decoration:none; margin-top:0;">🔗 NCCIA Live Newsroom</a>
+      </div>
+    </div>
+    <div class="case-grid" id="caseGrid"></div>
+  </section>
+
+  <!-- TAB 4: EVIDENCE TIMELINE -->
+  <section class="tab" id="timeline">
+    <div class="card">
+      <h3>Digital Evidence Timeline Builder</h3>
+      <p class="hint">Add each piece of evidence with its date — TITAN builds a chronological timeline organized for investigation or court use.</p>
+      <div class="ev-form">
+        <div><label>Date</label><input type="date" id="evDate"></div>
+        <div><label>Type</label><select id="evType"><option>Screenshot</option><option>Transaction</option><option>Message/Call</option><option>Email</option><option>Other</option></select></div>
+        <div><label>Description</label><input type="text" id="evDesc" placeholder="e.g. Received fake bank SMS"></div>
+        <button class="btn" style="margin-top:0;" onclick="addEvidence()">Add</button>
+      </div>
+      <div class="timeline" id="timelineBox"><p class="empty">No evidence added yet.</p></div>
     </div>
   </section>
 
-  <!-- TAB 4: RESOURCES & HELPLINES -->
+  <!-- TAB 5: RESOURCES -->
   <section class="tab" id="resources">
     <div class="card">
-      <h3>Verified Pakistani Helplines & Portals</h3>
-      <p class="hint">Official government contacts for reporting cybercrime, SIM issues, or financial fraud.</p>
-      
+      <h3>Official Reporting Channels</h3>
+      <p class="hint">Verified Pakistani government contacts. NCCIA is now the primary cybercrime authority.</p>
       <div class="contact-grid">
-        <div class="contact-card">
-          <b>NCCIA Cyber Crime Helpline</b>
-          <p style="font-size:12.5px; color:var(--ink-soft); margin:0;">Primary Cyber Crime Investigation Body</p>
-          <div class="num">1799</div>
-          <a href="https://complaint.nccia.gov.pk" target="_blank">complaint.nccia.gov.pk</a>
-        </div>
-
-        <div class="contact-card">
-          <b>FIA National Complaint Centre</b>
-          <p style="font-size:12.5px; color:var(--ink-soft); margin:0;">Federal Investigation Emergency Line</p>
-          <div class="num">1991 / 1102</div>
-          <a href="https://fia.gov.pk" target="_blank">fia.gov.pk</a>
-        </div>
-
-        <div class="contact-card">
-          <b>Digital Rights Foundation (DRF)</b>
-          <p style="font-size:12.5px; color:var(--ink-soft); margin:0;">Women Cyber Harassment Helpline</p>
-          <div class="num">0800-39393</div>
-          <a href="https://digitalrightsfoundation.pk" target="_blank">digitalrightsfoundation.pk</a>
-        </div>
+        <div class="contact-card"><b>NCCIA Helpline (Primary)</b><p style="font-size:12px; color:var(--ink-soft); margin:0;">Primary Cyber Crime Investigation Body</p><div class="num">1799</div><a href="https://complaint.nccia.gov.pk" target="_blank">complaint.nccia.gov.pk</a></div>
+        <div class="contact-card"><b>FIA Cyber Crime Wing</b><p style="font-size:12px; color:var(--ink-soft); margin:0;">Legacy channel — still active</p><div class="num">1991 / 1102</div><a href="https://fia.gov.pk" target="_blank">fia.gov.pk</a></div>
+        <div class="contact-card"><b>PTA (SIM / Telecom)</b><p style="font-size:12px; color:var(--ink-soft); margin:0;">Duplicate SIM, telecom fraud</p><div class="num">0800-55055</div><a href="https://pta.gov.pk" target="_blank">pta.gov.pk</a></div>
+        <div class="contact-card"><b>Digital Rights Foundation</b><p style="font-size:12px; color:var(--ink-soft); margin:0;">Women Cyber Harassment Helpline</p><div class="num">0800-39393</div><a href="https://digitalrightsfoundation.pk" target="_blank">digitalrightsfoundation.pk</a></div>
       </div>
     </div>
+    <div class="card">
+      <h3>Your Rights</h3>
+      <ul class="rights-list">
+        <li>Filing a complaint is free — no fee is charged.</li>
+        <li>You cannot be refused the right to file an FIR/complaint.</li>
+        <li>Real officers never send an "arrest warrant" over WhatsApp/call or demand money on a video call.</li>
+        <li>You can ask for your complaint's reference number and follow up on its status.</li>
+        <li>Providing evidence isn't mandatory but speeds up the investigation.</li>
+      </ul>
+    </div>
   </section>
-
 </div>
 
 <script>
-  // Crucial Check: Paste your New Gemini API Key strictly here inside quotes
-  const GEMINI_API_KEY = "AQ.Ab8RN6Kyp6EGoHw4dCQ07GYhWfBi8058_rhy2sfH4v_mh2gQQQ";
-
-  let imgBase64 = null;
-  let imgMime = null;
-
-  function showTab(tabId) {
-    document.querySelectorAll('section.tab').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-    document.getElementById(tabId).classList.add('active');
-    event.target.classList.add('active');
-  }
-
-  // PROFESSIONAL DETECTIVE PERSONA PROMPT
-  const systemPrompt = "You are TITAN Cyber Guardian, a senior technical and legal investigator for the NCCIA in Pakistan. Your specialization is the Prevention of Electronic Crimes Act (PECA 2016). You are methodical, professional, and methodical. Address victims professionally. Ask detailed, structured questions (one or two at a time) to understand the technical evidence (IP logs, transactional data, timestamps, phone numbers) and map the crime to specific PECA sections. Focus on preserving digital evidence. Do not give medical or financial advice. Adopt a supportive yet strictly professional investigation persona in English, Urdu, and Roman Urdu.";
-
-  // CHATBOT (Connecting strictly frontend)
-  async function handleSend() {
-    const input = document.getElementById('chatInput');
-    const text = input.value.trim();
-    if (!text) return;
-
-    appendMsg('user', text);
-    input.value = '';
-    const loading = appendMsg('ai', 'TITAN Investigator is analyzing PECA framework & drafting query...');
-
-    try {
-      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          // Adding the System Prompt to keep the investigator professional
-          contents: [{ parts: [{ text: systemPrompt + "\nVictim Input: " + text }] }]
-        })
-      });
-      const data = await res.json();
-      loading.remove();
-      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Professional investigation trail ended abruptly.';
-      appendMsg('ai', reply);
-    } catch (e) {
-      loading.remove();
-      appendMsg('ai', 'Technical investigation trail failed due to connection error.');
+// ── GEMINI API KEY (stored in sessionStorage — never in code, never visible) ──
+function getGeminiKey(){
+  let key = sessionStorage.getItem('titan_gemini_key');
+  if(!key || !key.startsWith('AIza')){
+    key = prompt('TITAN needs your Gemini API key to run AI features.\n\nGet a free key from: aistudio.google.com\n\nPaste your key below (AIza...):');
+    if(key && key.startsWith('AIza')){
+      sessionStorage.setItem('titan_gemini_key', key.trim());
+    } else {
+      alert('Invalid key. Please reload and try again.');
+      return null;
     }
   }
+  return key.trim();
+}
 
-  function appendMsg(sender, text) {
-    const log = document.getElementById('chatLog');
-    const div = document.createElement('div');
-    div.className = `msg ${sender}`;
-    div.innerHTML = `<span class="tag">${sender === 'ai' ? 'TITAN Guardian' : 'You'}</span>${text}`;
-    log.appendChild(div);
-    log.scrollTop = log.scrollHeight;
-    return div;
+async function gemini(contents){
+  const key = getGeminiKey();
+  if(!key) throw new Error('No API key set.');
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`;
+  const res = await fetch(url, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ contents, generationConfig:{ temperature:0.3, maxOutputTokens:1200 } })
+  });
+  const data = await res.json();
+  if(data.error){
+    if(data.error.code===400||data.error.code===403){
+      sessionStorage.removeItem('titan_gemini_key');
+      throw new Error('Invalid API key. Please reload and enter a valid key.');
+    }
+    throw new Error(data.error.message);
   }
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+}
 
-  // MEDIA VISION DETECTION
-  function fileChosen(input) {
-    const file = input.files[0];
-    if (!file) return;
+// ── LANGUAGE DETECTION ────────────────────────────────────────────────────────
+const romanUrduWords = ['mujhe','mera','meri','mere','aapko','aapka','usne','kya','hua','tha','thi','the','paisay','paisa','dhamki','turant','abhi','warna','nahi','nai','hai','he','ho','hun','aur','ya','phir','se','ne','ko','ki','ka','ke','pe','par'];
+function detectLang(text){
+  const words = text.toLowerCase().split(/[\s,.\!\?]+/).filter(Boolean);
+  if(!words.length) return 'en';
+  const hits = words.filter(w => romanUrduWords.includes(w)).length;
+  return (hits/words.length) > 0.12 ? 'ur' : 'en';
+}
 
-    document.getElementById('fileInfo').innerText = "Selected: " + file.name;
-    document.getElementById('scanBtn').style.display = 'inline-block';
-
-    const reader = new FileReader();
-    reader.onload = function () {
-      imgBase64 = reader.result.split(',')[1];
-      imgMime = file.type;
-    };
-    reader.readAsDataURL(file);
+// ── CATEGORY DATA ─────────────────────────────────────────────────────────────
+const categories = [
+  { id:'financial_fraud', label:'Financial Fraud',
+    keywords:['paisay','payment','bank','transfer','job offer','naukri','investment','otp','account number','withdraw','scam','fraud','lottery','prize','refund','loan'],
+    peca:'Section 14 — Electronic Fraud',
+    jurisdiction_en:'NCCIA (primary). If a bank account is involved, also inform your bank\'s fraud helpline immediately.',
+    jurisdiction_ur:'NCCIA (primary). Agar bank account involved he, apni bank ki fraud helpline ko bhi turant inform karein.',
+    questions:[
+      {id:'otp_shared', en:'Did you share any OTP, PIN, CVV or password with them?', ur:'Kya aapne unko koi OTP, PIN, CVV ya password diya tha?'},
+      {id:'amount', en:'Roughly how much money was involved?', ur:'Taqreeban kitne paisay involved the?'},
+      {id:'txn_id', en:'Do you have the transaction ID or bank reference number?', ur:'Kya aapke paas transaction ID ya bank reference number he?'}
+    ],
+    checklist:[
+      {en:'Transaction ID / bank statement', ur:'Transaction ID / bank statement', kw:['transaction','statement']},
+      {en:'Payment app screenshots', ur:'Payment app screenshots', kw:['screenshot']},
+      {en:'Sender\'s account/number', ur:'Sender ka account/number', kw:['account','sender']},
+      {en:'Communication record (SMS/WhatsApp)', ur:'Communication ka record (SMS/WhatsApp)', kw:['sms','whatsapp','message']}
+    ]
+  },
+  { id:'harassment_blackmail', label:'Harassment / Blackmail',
+    keywords:['blackmail','threat','dhamki','photo','video','viral','harass','stalking','peecha','private','leak','izzat'],
+    peca:'Section 20 — Cyber Harassment',
+    jurisdiction_en:'NCCIA (priority handling). If there is an immediate physical threat, also contact local police on 15.',
+    jurisdiction_ur:'NCCIA (priority handling). Agar immediate physical threat he, local police 15 ko bhi contact karein.',
+    questions:[
+      {id:'ongoing', en:'Is the threat still ongoing, or was it a one-time message?', ur:'Kya dhamki abhi bhi jari he, ya sirf ek dafa hui?'},
+      {id:'known', en:'Do you know the person, or is the account unknown/fake?', ur:'Kya aap us insaan ko jaante hain, ya account unknown/fake he?'},
+      {id:'leaked', en:'Has anything been shared or leaked publicly yet?', ur:'Kya kuch publicly share ya leak ho chuka he?'}
+    ],
+    checklist:[
+      {en:'Screenshots of threatening messages', ur:'Threatening messages screenshots', kw:['screenshot']},
+      {en:'URL/username of the harassing account', ur:'Harassing account ka URL ya username', kw:['url','username']},
+      {en:'Timestamped conversation history', ur:'Timestamps ke sath conversation', kw:['timestamp','date']},
+      {en:'Proof of shared/leaked content', ur:'Shared/leaked content ka proof', kw:['leak','shared','viral']}
+    ]
+  },
+  { id:'hacking_account', label:'Account Hacking',
+    keywords:['hack','password','unauthorized','account access','login','email hack','whatsapp hack','account chala gaya'],
+    peca:'Section 3 — Unauthorized Access to Information System',
+    jurisdiction_en:'NCCIA. Also start the official recovery process on the platform right away.',
+    jurisdiction_ur:'NCCIA. Sath hi platform ki official recovery process bhi turant shuru karein.',
+    questions:[
+      {id:'which_account', en:'Which account was hacked (WhatsApp, Email, Facebook, etc.)?', ur:'Kaunsa account hack hua?'},
+      {id:'link_code', en:'Did you click any link or share a verification code before losing access?', ur:'Kya koi link click kiya ya verification code share kiya?'},
+      {id:'still_active', en:'Is the account still being misused right now?', ur:'Kya account abhi bhi misuse ho raha he?'}
+    ],
+    checklist:[
+      {en:'Login alert emails', ur:'Login alert emails', kw:['login','email']},
+      {en:'Password change notifications', ur:'Password change notifications', kw:['password']},
+      {en:'Account activity log', ur:'Account activity log', kw:['activity','log']},
+      {en:'Screenshots of recovery attempts', ur:'Recovery attempt screenshots', kw:['recovery','screenshot']}
+    ]
+  },
+  { id:'sim_fraud', label:'SIM Fraud',
+    keywords:['sim','duplicate sim','sim card','number issue','sim swap','cnic sim','number band'],
+    peca:'Section 17 — Unauthorized Issuance of SIM Cards',
+    jurisdiction_en:'Report to both NCCIA and PTA in parallel.',
+    jurisdiction_ur:'NCCIA aur PTA dono ko parallel report karein.',
+    questions:[
+      {id:'sim_stopped', en:'Did your original SIM stop working suddenly?', ur:'Kya aapki asal SIM achanak band ho gayi?'},
+      {id:'unauthorized_txn', en:'Have you noticed any unauthorized transactions since?', ur:'Kya koi unauthorized transaction hui?'},
+      {id:'franchise_visit', en:'Have you visited your telecom operator\'s franchise?', ur:'Kya aap telecom operator ki franchise gaye?'}
+    ],
+    checklist:[
+      {en:'CNIC copy', ur:'CNIC copy', kw:['cnic']},
+      {en:'Telecom operator complaint reference', ur:'Telecom operator complaint reference', kw:['complaint','franchise']},
+      {en:'Date/time the number went dead', ur:'Number band hone ka waqt', kw:['date','time']},
+      {en:'Transaction records if any', ur:'Transaction records agar hon', kw:['transaction']}
+    ]
+  },
+  { id:'impersonation_arrest', label:'Fake Officer / "Digital Arrest" Call',
+    keywords:['officer','police call','fia call','arrest','customs','parcel','warrant','case against you','digital arrest','court case'],
+    peca:'Section 14 + Section 16 — Fraud + Identity Information misuse',
+    jurisdiction_en:'NCCIA (primary). Hang up immediately, never share bank details or OTP, then verify by calling NCCIA helpline 1799 yourself.',
+    jurisdiction_ur:'NCCIA (primary). Call turant kaat dein, koi bhi bank detail ya OTP na dein, phir khud NCCIA 1799 pe verify karein.',
+    questions:[
+      {id:'stay_on_call', en:'Did they ask you to stay on the call and not hang up?', ur:'Kya unhone kaha call na kaato?'},
+      {id:'shared_details', en:'Did you share any personal/bank details during the call?', ur:'Kya call ke doran koi personal/bank detail share ki?'},
+      {id:'caller_number', en:'Do you have the caller\'s number or any screenshot?', ur:'Kya caller ka number ya koi screenshot he?'}
+    ],
+    checklist:[
+      {en:'Call recording (if available)', ur:'Call recording agar ho', kw:['recording']},
+      {en:'Caller\'s number', ur:'Caller ka number', kw:['number']},
+      {en:'Time and duration of the call', ur:'Call ka waqt aur duration', kw:['duration','time']},
+      {en:'Any document that was sent', ur:'Koi document jo bheja gaya', kw:['document']}
+    ]
+  },
+  { id:'fake_profile', label:'Fake / Cloned Profile',
+    keywords:['fake account','fake profile','impersonat','fake id','clone account','copy account'],
+    peca:'Section 16 — Unauthorized Use of Identity Information',
+    jurisdiction_en:'NCCIA. Also file an impersonation report directly with the platform.',
+    jurisdiction_ur:'NCCIA. Sath platform ko bhi impersonation report file karein.',
+    questions:[
+      {id:'real_photos', en:'Is the fake profile using your real photos/name?', ur:'Kya fake profile aapki real photos/naam use kar rahi he?'},
+      {id:'contacted_others', en:'Has it contacted your friends/family?', ur:'Kya usne aapke friends/family ko contact kiya?'},
+      {id:'platform_reported', en:'Have you reported it to the platform already?', ur:'Kya aap platform ko already report kar chuke hain?'}
+    ],
+    checklist:[
+      {en:'URL/username of the fake profile', ur:'Fake profile ka URL/username', kw:['url','username']},
+      {en:'Screenshots of the fake content', ur:'Fake content ke screenshots', kw:['screenshot']},
+      {en:'Comparison with original profile', ur:'Original profile se comparison', kw:['comparison','original']},
+      {en:'Platform report confirmation', ur:'Platform report confirmation', kw:['reported','confirmation']}
+    ]
   }
+];
 
-  async function runMediaScan() {
-    const out = document.getElementById('scanOutput');
-    if (!imgBase64) return;
+const tacticDefs = [
+  {id:'fake_authority', label_en:'Fake Authority', label_ur:'Fake Authority', kw:['officer','police','fia','nccia','customs','court','warrant','arrest']},
+  {id:'urgency', label_en:'Urgency Pressure', label_ur:'Urgency Pressure', kw:['abhi','turant','immediately','right now','urgent','warna']},
+  {id:'otp_request', label_en:'OTP / PIN Request', label_ur:'OTP / PIN Request', kw:['otp','pin','password','cvv','verification code']},
+  {id:'emotional_pressure', label_en:'Emotional Pressure', label_ur:'Emotional Pressure', kw:['dhamki','threat','izzat','family','shame','embarrass','viral','blackmail']}
+];
 
-    out.style.display = 'block';
-    out.innerHTML = "<b style='color:#000;'>Scanning image via Gemini Vision API for digital manipulation...</b>";
+const caseLibrary = [
+  { id:'faisalabad_ponzi', title:'The Faisalabad "Ponzi Factory" Raid', cat:'financial_fraud', peca:'Sec 13, 14, 16',
+    date:'July 2025', location:'Faisalabad, Punjab', status:'149 arrested; 7 FIRs registered', status_ur:'149 giraftar; 7 FIRs register hue',
+    summary:'A fake investment ring recruited victims through WhatsApp and Telegram, promising returns for simple tasks like subscribing to YouTube channels.',
+    summary_ur:'Ek fake investment ring ne WhatsApp aur Telegram ke zariye victims ko recruit kiya, YouTube channels subscribe karne jaise simple tasks ke liye returns ka wada kar ke.',
+    fullStory:'NCCIA raided a factory in Faisalabad\'s Shahkot area after a tip-off and arrested 149 people — 78 Pakistanis and 71 foreign nationals. The network ran WhatsApp groups luring people with small paid tasks before moving them to Telegram for bigger "investments." One victim lost over Rs 3.1 million. Police seized computers, servers, crypto exchange access, and foreign SIM cards.',
+    fullStory_ur:'NCCIA ne Faisalabad ke Shahkot area mein ek factory pe raid ki aur 149 log giraftar kiye — 78 Pakistani aur 71 foreign nationals. Network ne WhatsApp groups chalaye jahan log chhote paid tasks se shuru hote the, phir Telegram pe bade "investments" ke liye bheja jata. Ek victim ne Rs 3.1 million se zyada khoya. Police ne computers, servers, crypto access aur foreign SIM cards seize kiye.',
+    outcome:'149 arrested, 7 FIRs registered; financial trail investigation ongoing.',
+    outcome_ur:'149 giraftar, 7 FIRs register; financial trail ki investigation jari he.',
+    sourceName:'BBC News Urdu', sourceUrl:'https://www.bbc.com/urdu',
+    keywords:['investment','trading','returns','app','profit','whatsapp','telegram','task']
+  },
+  { id:'tycoon2fa', title:'Tycoon2FA Phishing-as-a-Service Ring', cat:'hacking_account', peca:'PECA 2016 Multiple Sections',
+    date:'June–July 2026', location:'Pakistan (international operation)', status:'2 suspects arrested', status_ur:'2 suspects giraftar',
+    summary:'Two Pakistani developers ran a subscription phishing kit linked to over 96,000 victims worldwide, bypassing 2FA authentication.',
+    summary_ur:'Do Pakistani developers ne ek subscription phishing platform chalaya jo 96,000 se zyada victims se linked tha aur 2FA bypass karta tha.',
+    fullStory:'Working with Singapore Police and INTERPOL, NCCIA arrested two Pakistani nationals behind "Tycoon2FA" — a phishing-as-a-service platform sold to cybercriminals monthly. Subscribers built fake login pages that harvested credentials and bypassed multi-factor authentication. The platform is linked to 96,000+ victims globally; Singapore reported at least 3 business email compromise cases traced to it.',
+    fullStory_ur:'Singapore Police aur INTERPOL ke sath milke NCCIA ne "Tycoon2FA" ke peeche do Pakistani nationals giraftar kiye — ek phishing-as-a-service platform jo monthly fee pe cybercriminals ko becha jata tha. Subscribers fake login pages banate the jo credentials churaate the aur MFA bypass karte the. Platform 96,000+ victims se globally linked he.',
+    outcome:'Two arrested and charged under PECA 2016; global case tied to 96,000-victim phishing network.',
+    outcome_ur:'Do giraftar aur PECA 2016 ke tehat charge; global case 96,000-victim phishing network se linked.',
+    sourceName:'Singapore Police Force', sourceUrl:'https://www.police.gov.sg',
+    keywords:['hack','phishing','login','password','2fa','otp','account']
+  },
+  { id:'overseas_gang', title:'Fake "Overseas Pakistani" Investment Gang', cat:'financial_fraud', peca:'Sec 14 — Electronic Fraud',
+    date:'July 2026', location:'Pakistan', status:'10-member gang arrested', status_ur:'10-member gang giraftar',
+    summary:'A ten-member gang impersonated overseas Pakistanis to gain victims\' trust, then defrauded at least one victim of over Rs 1 million.',
+    summary_ur:'Das-member gang ne overseas Pakistanis ban ke victims ka trust haasil kiya, phir ek victim se Rs 1 million se zyada fraud kiya.',
+    fullStory:'NCCIA arrested a ten-member gang accused of impersonating overseas Pakistanis to gain victims\' trust before running investment-style fraud. A preliminary investigation found the gang defrauded at least one victim of Rs 1.02 million, with investigators suspecting more undiscovered victims from the same scheme. FIR No. 92/2026 was registered.',
+    fullStory_ur:'NCCIA ne das-member gang giraftar ki jis pe ilzam he ke unhone overseas Pakistanis ban ke victims ka trust haasil kiya aur phir investment-style fraud kiya. Initial investigation mein ek victim ko Rs 1.02 million ka nuksan hua, investigators ko aur bhi victims hone ka shak he. FIR No. 92/2026 register hui.',
+    outcome:'Ten arrested, FIR No. 92/2026 registered; financial trail still being traced.',
+    outcome_ur:'Das giraftar, FIR No. 92/2026 register; financial trail abhi trace ho raha he.',
+    sourceName:'The Nation Pakistan', sourceUrl:'https://www.nation.com.pk',
+    keywords:['overseas','investment','fraud','naukri','job offer']
+  },
+  { id:'punjab_blackmail', title:'Punjab Cyber Blackmail Network', cat:'harassment_blackmail', peca:'Sec 20 — Cyber Harassment',
+    date:'July 2026', location:'Lahore, Faisalabad, Multan', status:'4 suspects arrested', status_ur:'4 suspects giraftar',
+    summary:'Four suspects across three Punjab cities were arrested for running an online blackmail and harassment operation.',
+    summary_ur:'Teen shehron mein 4 suspects ko online blackmail aur harassment operation chalane ke ilzam mein giraftar kiya gaya.',
+    fullStory:'NCCIA arrested four suspects in a coordinated crackdown on cyber blackmail across Punjab, from Lahore, Faisalabad, and Multan. Officials urged citizens to report online blackmail as soon as it happens — early reporting makes it easier to collect evidence and take timely legal action. Preserve screenshots and messages before filing a complaint.',
+    fullStory_ur:'NCCIA ne Punjab mein cyber blackmail ke khilaf coordinated crackdown mein Lahore, Faisalabad aur Multan se 4 suspects giraftar kiye. Officials ne citizens se kaha ke online blackmail hote hi report karein — jaldi report karne se evidence collect karna aur legal action lena aasaan hota he.',
+    outcome:'Four arrested across three cities; highlights the importance of reporting blackmail early.',
+    outcome_ur:'Teen shehron se chaar giraftar; ye case jaldi report karne ki importance dikhata he.',
+    sourceName:'PhoneWorld Pakistan', sourceUrl:'https://www.phoneworld.com.pk',
+    keywords:['blackmail','threat','dhamki','harass','photo','viral']
+  },
+  { id:'multan_trading', title:'Rs 20 Billion Fake Trading Scheme', cat:'financial_fraud', peca:'Sec 14 — Electronic Fraud',
+    date:'June 2025', location:'Multan, South Punjab', status:'2 arrested, 1 still sought', status_ur:'2 giraftar, 1 abhi farar',
+    summary:'A fake trading platform promising guaranteed returns allegedly took around Rs 20 billion from South Punjab residents.',
+    summary_ur:'Ek fake trading platform ne guaranteed returns ka wada kar ke South Punjab residents se taqreeban Rs 20 billion liye.',
+    fullStory:'NCCIA arrested two suspects running a fake trading scheme that persuaded South Punjab citizens to invest for promised high returns. Investigators say the scheme defrauded residents of roughly Rs 20 billion before collapsing, with a third suspect still being pursued. This is one of the largest fraud figures NCCIA has publicly disclosed.',
+    fullStory_ur:'NCCIA ne do suspects giraftar kiye jo ek fake trading scheme chala rahe the jo South Punjab citizens ko high returns ka wada kar ke invest karwata tha. Investigators ka kehna he ke scheme ne Rs 20 billion ka fraud kiya, aur teesra suspect abhi bhi farar he. Ye NCCIA ka sab se bada disclosed fraud figure he.',
+    outcome:'Two arrested, third suspect pursued; one of NCCIA\'s largest disclosed fraud cases.',
+    outcome_ur:'Do giraftar, teesra suspect pursue ho raha he; NCCIA ka sabse bada disclosed fraud case.',
+    sourceName:'NCCIA (public record)', sourceUrl:'https://www.nccia.gov.pk',
+    keywords:['investment','trading','returns','profit','guaranteed']
+  },
+  { id:'dgk_prize', title:'Fake Government Prize Scheme Calls', cat:'impersonation_arrest', peca:'Sec 14 + 16',
+    date:'May 2026', location:'Dera Ghazi Khan, Punjab', status:'2 arrested; 120 SIMs seized', status_ur:'2 giraftar; 120 SIMs seize',
+    summary:'Two men posed as government prize/welfare scheme representatives, telling victims they had won cash prizes, then demanding fees before release.',
+    summary_ur:'Do aadmiyon ne government prize/welfare scheme representatives ban ke victims ko kaha ke unhone cash prize jeeta he, phir fees maangi.',
+    fullStory:'NCCIA arrested two suspects in Dera Ghazi Khan who used multiple SIM cards to pose as official government prize and welfare programme representatives. Victims were told they had won cash prizes and pressured to send money under different pretexts — registration fees, taxes, release charges. During the raid, investigators seized 120 SIM cards and more than 100 ATM cards.',
+    fullStory_ur:'NCCIA ne Dera Ghazi Khan mein do suspects giraftar kiye jo multiple SIMs use kar ke government prize/welfare programmes ke representatives ban rahe the. Victims ko kaha jata ke unhone prize jeeta he phir registration fees, taxes aur release charges ke bahane paisay bhijwaate. Raid mein 120 SIM cards aur 100 se zyada ATM cards seize hue.',
+    outcome:'Two arrested; 120 SIMs and 100+ ATM cards seized for forensic analysis.',
+    outcome_ur:'Do giraftar; 120 SIMs aur 100+ ATM cards forensic analysis ke liye seize hue.',
+    sourceName:'Pakistan Today', sourceUrl:'https://www.pakistantoday.com.pk',
+    keywords:['prize','lottery','government','welfare','registration','call','win','officer']
+  },
+  { id:'islamabad_fake_company', title:'Fake Company Job & Crypto Scam', cat:'fake_profile', peca:'Sec 13 + 14',
+    date:'July 2025', location:'Islamabad (G-10 Markaz)', status:'5 arrested including foreign nationals', status_ur:'5 giraftar, foreign nationals samet',
+    summary:'A fake, non-existent company impersonated a legitimate business to lure victims with fake job offers, investment schemes, and crypto trading opportunities.',
+    summary_ur:'Ek fake, non-existent company ne ek legitimate business ban ke victims ko fake job offers, investment schemes aur crypto trading ka lalach diya.',
+    fullStory:'Investigation began after Islamabad resident Aamir Azeem Abbasi filed a complaint over major financial losses from an online job scam. NCCIA traced the operation to a setup in Islamabad\'s G-10 Markaz, where suspects posed as representatives of a company that didn\'t exist. They targeted victims with fake job offers, investment schemes, and cryptocurrency opportunities. Five people including foreign nationals were arrested.',
+    fullStory_ur:'Investigation Islamabad resident Aamir Azeem Abbasi ki complaint ke baad shuri hui. NCCIA ne operation ko G-10 Markaz tak trace kiya jahan suspects ek non-existent company ke representatives ban rahe the. Unhone fake job offers, investment schemes aur crypto ke zariye fraud kiya. 5 log giraftar hue jisme foreign nationals bhi shamil.',
+    outcome:'Five arrested including foreign nationals; charged under PECA Sections 13 and 14.',
+    outcome_ur:'Paanch giraftar including foreign nationals; PECA Sections 13 aur 14 ke tehat charge.',
+    sourceName:'Profit by Pakistan Today', sourceUrl:'https://profit.pakistantoday.com.pk',
+    keywords:['fake company','job offer','investment','crypto','impersonat','overseas']
+  },
+  { id:'sim_gujranwala', title:'Cloned Phone / IMEI Fraud Crackdown', cat:'sim_fraud', peca:'PTA + NCCIA Joint Enforcement',
+    date:'June 2025', location:'Gujranwala', status:'2 operations conducted', status_ur:'2 operations conduct hue',
+    summary:'Joint NCCIA-PTA operations targeted the sale of cloned and IMEI-tampered mobile devices used to facilitate SIM fraud.',
+    summary_ur:'NCCIA-PTA joint operations ne cloned aur IMEI-tampered mobile devices ki sale ko target kiya jo SIM fraud mein use hote the.',
+    fullStory:'NCCIA, working with the Pakistan Telecommunication Authority (PTA), carried out two enforcement operations in Gujranwala targeting illegal IMEI tampering and cloned mobile devices. Cloned/tampered IMEIs are used to make stolen phones usable again or to evade tracking — directly connected to SIM fraud and device theft reported by victims.',
+    fullStory_ur:'NCCIA ne PTA ke sath milke Gujranwala mein do enforcement operations kiye jo illegal IMEI tampering aur cloned devices ko target karte the. Cloned IMEIs chori hue phones ko dobara use karne ya tracking se bachne ke liye use kiye jaate hain — ye seedha SIM fraud aur device theft se connected he.',
+    outcome:'Two operations conducted; part of broader NCCIA-PTA crackdown on device-cloning networks.',
+    outcome_ur:'Do operations complete; NCCIA-PTA ke device-cloning networks ke khilaf broader crackdown ka hissa.',
+    sourceName:'NCCIA (public record)', sourceUrl:'https://www.nccia.gov.pk',
+    keywords:['sim','imei','cloned','duplicate','device','phone','number']
+  }
+];
 
-    try {
-      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{
-            parts: [
-              { text: "Analyze this image specifically for signs of cybercrime: fake payment receipt signature fonts, screenshot editing artifacts, digital photo manipulation, or hidden text evidence relevant under PECA 2016." },
-              { inline_data: { mime_type: imgMime, data: imgBase64 } }
-            ]
-          }]
-        })
-      });
-      const data = await res.json();
-      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Image vision analysis concluded no major forensic threat markers.";
-      out.innerHTML = `<b style='color:#000;'>technical Analysis Verdict:</b><br><div style="margin-top:8px; white-space:pre-wrap; color:#000;">${reply}</div>`;
-    } catch (e) {
-      out.innerHTML = "<span style='color:var(--risk);'>Technical image forensic scan failed due to strict API key validation error.</span>";
+// ── TAB NAVIGATION ────────────────────────────────────────────────────────────
+function showTab(tabId, btn){
+  document.querySelectorAll('section.tab').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  if(btn) btn.classList.add('active');
+}
+function showSubtab(id, btn){
+  ['imgCheck','voiceCheck','videoCheck'].forEach(s => document.getElementById(s).style.display = s===id ? 'block' : 'none');
+  document.querySelectorAll('.subtab-nav button').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+}
+
+// ── DETECTIVE STATE MACHINE ───────────────────────────────────────────────────
+let detective = { stage:'idle', lang:'en', originalText:'', combinedText:'', category:null, tacticHits:{}, answers:[], qIndex:0, inconsistency:null };
+const conversationHistory = [];
+
+function addMsg(text, who){
+  const log = document.getElementById('chatLog');
+  const div = document.createElement('div');
+  div.className = 'msg ' + who;
+  div.innerHTML = `<span class="tag">${who==='ai'?'TITAN Guardian':'You'}</span>${text.replace(/\n/g,'<br>')}`;
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+  return div;
+}
+
+function scoreCategory(text, keywords){
+  const t = text.toLowerCase(); let hits=0;
+  keywords.forEach(k=>{ if(t.includes(k)) hits++; });
+  return hits;
+}
+function computeTactics(text){
+  const t = text.toLowerCase();
+  tacticDefs.forEach(td=>{
+    let hits=0; td.kw.forEach(k=>{ if(t.includes(k)) hits++; });
+    detective.tacticHits[td.id] = (detective.tacticHits[td.id]||0) + hits;
+  });
+}
+
+async function handleSend(){
+  const input = document.getElementById('chatInput');
+  const val = input.value.trim();
+  if(!val) return;
+  input.value = '';
+  addMsg(val, 'user');
+
+  if(detective.stage==='idle') await startInvestigation(val);
+  else if(detective.stage==='confirming') addMsg(detective.lang==='ur'?'Meherbani kar ke upar dropdown se category confirm karein.':'Please confirm the category using the dropdown above.','ai');
+  else if(detective.stage==='asking') await continueInvestigation(val);
+  else if(detective.stage==='done') addMsg(detective.lang==='ur'?'Investigation mukammal ho chuki he. Neeche summary dekh lein, ya "Start Over" dabayein.':'Investigation complete. See the summary below, or press "Start Over" for a new case.','ai');
+}
+
+async function startInvestigation(text){
+  detective.originalText = text;
+  detective.combinedText = text;
+  detective.lang = detectLang(text);
+  computeTactics(text);
+
+  let best=null, bestScore=0;
+  categories.forEach(c=>{ const s=scoreCategory(text,c.keywords); if(s>bestScore){bestScore=s;best=c;} });
+  if(!best) best=categories[0];
+  detective.category = best;
+  detective.catScore = bestScore;
+
+  const ackEn = `Thanks for sharing that. Based on keywords in what you described, my best guess is a possible **${best.label}** case — but this can be wrong, so please confirm or correct it below before I ask follow-up questions.`;
+  const ackUr = `Shukriya batane ke liye. Jo aapne bataya uske keywords ke hisaab se mera guess **${best.label}** case he — lekin ye galat bhi ho sakta he, isliye neeche confirm ya correct karein pehle.`;
+  addMsg(detective.lang==='ur'?ackUr:ackEn,'ai');
+
+  const select = document.getElementById('categorySelect');
+  select.innerHTML = categories.map(c=>`<option value="${c.id}"${c.id===best.id?' selected':''}>${c.label}</option>`).join('');
+  document.getElementById('catConfirm').style.display='block';
+  detective.stage='confirming';
+}
+
+async function confirmCategory(){
+  const selectedId = document.getElementById('categorySelect').value;
+  detective.category = categories.find(c=>c.id===selectedId);
+  document.getElementById('catConfirm').style.display='none';
+  addMsg(detective.category.label,'user');
+
+  const msgEn = `Got it — proceeding as **${detective.category.label}**. I'll ask a few follow-up questions to build your investigation file.`;
+  const msgUr = `Theek he — **${detective.category.label}** ke hisaab se aage badhte hain. Kuch follow-up sawal puchta hoon.`;
+  addMsg(detective.lang==='ur'?msgUr:msgEn,'ai');
+
+  detective.qIndex=0; detective.stage='asking';
+  askNextQuestion();
+}
+
+function askNextQuestion(){
+  const qs = detective.category.questions;
+  if(detective.qIndex >= qs.length){ finalizeReport(); return; }
+  const q = qs[detective.qIndex];
+  setTimeout(()=>{ addMsg(detective.lang==='ur'?q.ur:q.en,'ai'); },250);
+}
+
+async function continueInvestigation(answer){
+  const qs = detective.category.questions;
+  const q = qs[detective.qIndex];
+  detective.answers.push({id:q.id, question:detective.lang==='ur'?q.ur:q.en, answer});
+  detective.combinedText += ' ' + answer;
+  computeTactics(answer);
+
+  if((q.id==='otp_shared'||q.id==='shared_details')){
+    const saidNo = /\b(no|nahi|nai|never)\b/.test(answer.toLowerCase());
+    const impliedShared = /(otp|pin|password|cvv|code|detail)/.test(detective.originalText.toLowerCase()) && /(gave|shared|diya|di|send|bhej)/.test(detective.originalText.toLowerCase());
+    if(saidNo && impliedShared){
+      detective.inconsistency = detective.lang==='ur'?'Aapki original story mein OTP/detail share hone ka zikar tha, lekin ab "nahi" kaha — kya aap clarify kar sakte hain?':'Your original story mentioned sharing an OTP/detail, but you just said "no" — could you clarify this?';
+      addMsg(detective.inconsistency,'ai');
     }
   }
+  detective.qIndex++;
+  askNextQuestion();
+}
+
+function finalizeReport(){
+  detective.stage='done';
+  const lang = detective.lang;
+  addMsg(lang==='ur'?'Shukriya — ab investigation summary generate ho rahi he. Neeche scroll karein.':'Got it — generating your investigation summary below.','ai');
+
+  const best = detective.category;
+  document.getElementById('analysisResult').style.display='block';
+
+  const detectedTactics = tacticDefs.filter(td=>detective.tacticHits[td.id]>0);
+  const confidence = Math.min(95, 20 + detectedTactics.length*15 + Math.min(detective.catScore,5)*6);
+
+  document.getElementById('badges').innerHTML = `<span class="badge cat">${best.label}</span><span class="badge law">PECA 2016</span><span class="badge">${lang==='ur'?'Roman Urdu':'English'}</span>`;
+  document.getElementById('scoreNum').textContent = confidence+'%';
+  document.getElementById('tacticsBox').innerHTML = detectedTactics.length
+    ? detectedTactics.map(td=>`<span class="badge tactic">${lang==='ur'?td.label_ur:td.label_en}</span>`).join('')
+    : `<p style="font-size:13px; color:var(--ink-soft); margin:0;">${lang==='ur'?'Koi strong scam tactic detect nahi hua.':'No strong scam-tactic pattern detected.'}</p>`;
+  document.getElementById('inconsistencyBox').innerHTML = detective.inconsistency
+    ? `<div class="inconsistency-box"><b>Inconsistency Flagged:</b> ${detective.inconsistency}</div>` : '';
+  document.getElementById('pecaBox').textContent = best.peca + (lang==='ur'?' — (legal advisor se confirm karein)':' — (confirm the exact section with a legal advisor)');
+  document.getElementById('jurisdictionBox').textContent = lang==='ur'?best.jurisdiction_ur:best.jurisdiction_en;
+
+  const combined = detective.combinedText.toLowerCase();
+  document.getElementById('checklistBox').innerHTML = best.checklist.map(item=>{
+    const provided = item.kw.some(k=>combined.includes(k));
+    return `<li class="${provided?'provided':'missing'}"><span class="mark">${provided?'✓':'!'}</span><span>${lang==='ur'?item.ur:item.en} — <i>${provided?(lang==='ur'?'covered':'covered'):(lang==='ur'?'still needed':'still needed')}</i></span></li>`;
+  }).join('');
+
+  const matches = caseLibrary.map(c=>{
+    const sim = scoreCategory(detective.combinedText,c.keywords);
+    return {...c, sim: sim + (c.cat===best.id?2:0)};
+  }).sort((a,b)=>b.sim-a.sim).slice(0,3);
+  document.getElementById('matchesBox').innerHTML = matches.map(m=>{
+    const pct = Math.min(96,40+m.sim*12);
+    return `<div class="match-item"><div class="row"><b>${m.title}</b><span class="sim">${pct}% match</span></div><p>${m.summary}</p><p><b style="color:var(--ink)">Outcome:</b> ${m.outcome}</p></div>`;
+  }).join('');
+
+  const refId = 'TTN-'+Math.floor(100000+Math.random()*899999);
+  document.getElementById('stampId').textContent = refId;
+  const today = new Date().toLocaleDateString('en-GB');
+  const qaBlock = detective.answers.map(a=>`Q: ${a.question}\nA: ${a.answer}`).join('\n');
+
+  const draft_en = `COMPLAINT DRAFT — FOR NCCIA / FIA SUBMISSION\nReference: ${refId}\nDate: ${today}\n\nCategory: ${best.label}\nScam Confidence Score: ${confidence}%\nDetected Tactics: ${detectedTactics.map(t=>t.label_en).join(', ')||'None flagged'}\nApplicable Law (indicative): ${best.peca}\n\nComplainant Statement:\n${detective.originalText}\n\nInvestigation Q&A:\n${qaBlock}\n${detective.inconsistency?'\nNote: A possible inconsistency was flagged — please clarify before submission.\n':''}\nRequested Action:\nKindly register this complaint under the appropriate section of PECA 2016 and initiate investigation.\n\nSubmit via: NCCIA Portal (complaint.nccia.gov.pk) or Helpline 1799\n---\nNote: AI-generated draft for guidance only. Review carefully before submission.`;
+  const draft_ur = `COMPLAINT DRAFT — NCCIA / FIA SUBMISSION ke liye\nReference: ${refId}\nDate: ${today}\n\nCategory: ${best.label}\nScam Confidence Score: ${confidence}%\nApplicable Law: ${best.peca}\n\nComplainant Statement:\n${detective.originalText}\n\nInvestigation Q&A:\n${qaBlock}\n${detective.inconsistency?'\nNote: Ek inconsistency flag hui — submission se pehle clarify karein.\n':''}\nRequested Action:\nIs complaint ko PECA 2016 ke tehat register kiya jaye.\n\nSubmit via: NCCIA Portal (complaint.nccia.gov.pk) ya Helpline 1799\n---\nNote: AI-generated draft — submit karne se pehle review karein.`;
+  document.getElementById('draftBox').value = lang==='ur'?draft_ur:draft_en;
+}
+
+function resetDetective(){
+  detective = { stage:'idle', lang:'en', originalText:'', combinedText:'', category:null, tacticHits:{}, answers:[], qIndex:0, inconsistency:null };
+  conversationHistory.length = 0;
+  document.getElementById('chatLog').innerHTML='';
+  document.getElementById('analysisResult').style.display='none';
+  document.getElementById('catConfirm').style.display='none';
+  addMsg('Hi, I\'m TITAN. Tell me what happened — I\'ll investigate it step by step with you. (English ya Roman Urdu, dono chalega.)','ai');
+}
+
+function copyDraft(){
+  const box = document.getElementById('draftBox');
+  box.removeAttribute('readonly'); box.select(); document.execCommand('copy'); box.setAttribute('readonly',true);
+  alert('Draft copied.');
+}
+
+document.getElementById('chatInput').addEventListener('keydown', e=>{ if(e.key==='Enter') handleSend(); });
+
+// ── IMAGE ANALYSIS WITH GEMINI ────────────────────────────────────────────────
+let uploadedImageBase64=null, uploadedImageMime=null;
+
+function handleImageUpload(event){
+  const file = event.target.files[0];
+  if(!file) return;
+  uploadedImageMime = file.type;
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    uploadedImageBase64 = reader.result.split(',')[1];
+    const preview = document.getElementById('imgPreview');
+    preview.src = reader.result; preview.style.display='block';
+    document.getElementById('analyzeImgBtn').style.display='inline-flex';
+    document.getElementById('scanOutput').style.display='none';
+  };
+  reader.readAsDataURL(file);
+}
+
+async function analyzeImage(){
+  if(!uploadedImageBase64) return;
+  const out = document.getElementById('scanOutput');
+  out.style.display='block'; out.textContent='Analyzing image with Gemini Vision...';
+  document.getElementById('analyzeImgBtn').disabled=true;
+
+  try{
+    const text = await gemini([{
+      parts:[
+        { text:'Carefully analyze this image for signs of digital manipulation, AI generation, fake text, inconsistent fonts, or editing artifacts. Be specific about what you observe. Conclude clearly whether the image shows signs of manipulation or appears authentic, and explain why. This is indicative only — not forensic-grade proof.' },
+        { inline_data:{ mime_type: uploadedImageMime, data: uploadedImageBase64 } }
+      ]
+    }]);
+    out.textContent = text;
+  }catch(e){
+    out.textContent = 'Analysis failed: ' + e.message + '. Please check your API key is correctly set.';
+  }finally{
+    document.getElementById('analyzeImgBtn').disabled=false;
+  }
+}
+
+// ── CASE LIBRARY ──────────────────────────────────────────────────────────────
+let libLang = 'en';
+function setLibLang(lang){
+  libLang = lang;
+  document.getElementById('langEnBtn').style.borderColor = lang==='en'?'var(--cyan)':'var(--line)';
+  document.getElementById('langUrBtn').style.borderColor = lang==='ur'?'var(--cyan)':'var(--line)';
+  renderLibrary();
+}
+function searchCase(){
+  const q = document.getElementById('caseSearchInput').value.trim();
+  if(!q){ alert('Please type what you are looking for.'); return; }
+  window.open('https://www.google.com/search?q='+encodeURIComponent(q+' NCCIA OR FIA PECA cybercrime Pakistan'),'_blank');
+}
+document.getElementById('caseSearchInput').addEventListener('keydown',e=>{ if(e.key==='Enter') searchCase(); });
+
+function renderLibrary(){
+  const isUr = libLang==='ur';
+  document.getElementById('caseGrid').innerHTML = caseLibrary.map((c,idx)=>`
+    <div class="case-card" id="case-${idx}" onclick="this.classList.toggle('open')">
+      <div><span class="badge cat">${categories.find(cat=>cat.id===c.cat).label}</span><span class="badge law">${c.peca}</span></div>
+      <h4>${c.title}</h4>
+      <div class="meta-line">${c.location} · ${c.date}</div>
+      <p class="summary">${isUr?c.summary_ur:c.summary}</p>
+      <p style="font-size:13px; color:var(--ink-soft); margin-top:8px;"><b>Status:</b> ${isUr?c.status_ur:c.status}</p>
+      <div class="expand-hint"><span>▾</span> ${isUr?'Poori story parhein':'Read full story'}</div>
+      <div class="case-full-details">
+        <p>${isUr?c.fullStory_ur:c.fullStory}</p>
+        <p><b style="color:var(--cyan-hover);">Outcome:</b> ${isUr?c.outcome_ur:c.outcome}</p>
+        <a href="${c.sourceUrl}" target="_blank" onclick="event.stopPropagation()" style="color:var(--cyan); font-size:13px; font-weight:600; display:inline-block; margin-top:8px;">🔗 ${isUr?'Original source:':'Read original:'} ${c.sourceName}</a>
+      </div>
+    </div>`).join('');
+}
+renderLibrary();
+
+// ── EVIDENCE TIMELINE ─────────────────────────────────────────────────────────
+let evidenceItems=[];
+function addEvidence(){
+  const date=document.getElementById('evDate').value, type=document.getElementById('evType').value, desc=document.getElementById('evDesc').value.trim();
+  if(!date||!desc){ alert('Please fill in both date and description.'); return; }
+  evidenceItems.push({date,type,desc});
+  evidenceItems.sort((a,b)=>new Date(a.date)-new Date(b.date));
+  document.getElementById('evDesc').value='';
+  renderTimeline();
+}
+function removeEvidence(idx){ evidenceItems.splice(idx,1); renderTimeline(); }
+function renderTimeline(){
+  const box=document.getElementById('timelineBox');
+  if(!evidenceItems.length){ box.innerHTML='<p class="empty">No evidence added yet.</p>'; return; }
+  box.innerHTML=evidenceItems.map((e,i)=>`
+    <div class="tl-item"><span class="date">${new Date(e.date).toLocaleDateString('en-GB')}</span><span class="type">${e.type}</span>
+    <p>${e.desc}</p><span class="del" onclick="removeEvidence(${i})">Remove</span></div>`).join('');
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+resetDetective();
 </script>
 </body>
 </html>

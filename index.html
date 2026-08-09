@@ -176,7 +176,7 @@
         <button onclick="closeAdmin()" style="background:none; border:none; color:var(--ink-soft); font-size:22px; cursor:pointer;">✕</button>
       </div>
       <p style="font-size:13px; color:var(--ink-soft); margin:0 0 16px;">Paste your Gemini API key below. It will be saved permanently in this browser. Users will not see this panel.</p>
-      <input type="password" id="adminKeyField" placeholder="AQ..." style="width:100%; background:#040609; border:1.5px solid rgba(250,217,97,0.3); border-radius:8px; padding:13px 14px; color:var(--ink); font-family:'IBM Plex Mono'; font-size:13px; margin-bottom:14px;">
+      <input type="password" id="adminKeyField" placeholder="AIza..." style="width:100%; background:#040609; border:1.5px solid rgba(250,217,97,0.3); border-radius:8px; padding:13px 14px; color:var(--ink); font-family:'IBM Plex Mono'; font-size:13px; margin-bottom:14px;">
       <div style="display:flex; gap:10px;">
         <button onclick="saveAdminKey()" style="flex:1; background:linear-gradient(135deg,#FAD961,#F76B1C); color:#000; border:none; padding:13px; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer;">Save Key</button>
         <button onclick="clearAdminKey()" style="background:rgba(255,59,63,0.1); border:1px solid rgba(255,59,63,0.3); color:var(--risk); padding:13px 16px; border-radius:8px; font-size:13px; cursor:pointer;">Clear</button>
@@ -387,15 +387,15 @@ function closeAdmin(){
 }
 function saveAdminKey(){
   const key = document.getElementById('adminKeyField').value.trim();
-  if(!key || !key.startsWith('AIza')){
-    document.getElementById('adminStatus').textContent = '✗ Invalid key — must start with AIza';
+  if(!key || key.length < 20){
+    document.getElementById('adminStatus').textContent = '✗ Invalid key — too short';
     document.getElementById('adminStatus').style.color = 'var(--risk)';
     return;
   }
   localStorage.setItem('titan_gemini_key', key);
   document.getElementById('adminKeyField').value = '';
   document.getElementById('adminKeyField').placeholder = '✓ Key saved successfully';
-  document.getElementById('adminStatus').textContent = '✓ Key saved! AI features are now active for all users of this browser.';
+  document.getElementById('adminStatus').textContent = '✓ Key saved! AI features are now active.';
   document.getElementById('adminStatus').style.color = '#00FF88';
   setTimeout(closeAdmin, 1500);
 }
@@ -409,8 +409,8 @@ function clearAdminKey(){
 // ── GEMINI API KEY ────────────────────────────────────────────────────────────
 function getGeminiKey(){
   const key = localStorage.getItem('titan_gemini_key');
-  if(!key || !key.startsWith('AQ')){
-    alert('AI features are not configured yet.\n\nPress Ctrl + Shift + A to open the admin panel and set up your API key.');
+  if(!key || key.length < 20){
+    alert('AI features are not configured yet.\n\nScroll to the bottom of the page and click the ⚙ icon to set up your API key.');
     return null;
   }
   return key;

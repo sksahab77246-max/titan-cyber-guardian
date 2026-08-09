@@ -186,6 +186,7 @@
   </div>
 
   <!-- TAB 1: AI DETECTIVE -->
+  <section class="tab active" id="report">
     <div class="card">
       <h3>TITAN AI Detective & Legal Assistant</h3>
       <p class="hint">Not just a chatbot — a step-by-step cyber investigation assistant. Describe what happened in English or Roman Urdu. TITAN will ask follow-up questions, map to PECA sections, score scam tactics, and build your complaint draft.</p>
@@ -654,6 +655,10 @@ function showTab(tabId, btn){
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
   document.getElementById(tabId).classList.add('active');
   if(btn) btn.classList.add('active');
+  else {
+    const buttons = document.querySelectorAll('nav button');
+    buttons.forEach(b => { if(b.getAttribute('onclick') && b.getAttribute('onclick').includes(tabId)) b.classList.add('active'); });
+  }
 }
 function showSubtab(id, btn){
   ['imgCheck','voiceCheck','videoCheck'].forEach(s => document.getElementById(s).style.display = s===id ? 'block' : 'none');

@@ -472,7 +472,7 @@ function openAdmin(){
   const panel = document.getElementById('adminPanel');
   panel.style.display = 'flex';
   const saved = localStorage.getItem('titan_gemini_key');
-  if(saved && saved.startsWith('AIza')){
+  if(saved && saved.startsWith('cf')){
     document.getElementById('adminStatus').textContent = '✓ Key is currently active';
     document.getElementById('adminStatus').style.color = '#00FF88';
     document.getElementById('adminKeyField').placeholder = 'Key already saved — paste new one to replace';
@@ -503,7 +503,7 @@ function clearAdminKey(){
   localStorage.removeItem('titan_gemini_key');
   document.getElementById('adminStatus').textContent = 'Key cleared.';
   document.getElementById('adminStatus').style.color = 'var(--ink-soft)';
-  document.getElementById('adminKeyField').placeholder = 'AIza...';
+  document.getElementById('adminKeyField').placeholder = 'cf...';
 }
 
 // ── GEMINI API KEY ────────────────────────────────────────────────────────────
